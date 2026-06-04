@@ -13,6 +13,7 @@
   --talent-rgb: 139,79,244;
   --talent-dim: rgba(139,79,244,0.15);
   --talent-border: rgba(139,79,244,0.28);
+  --body-bg: #0f1215;
   --d950: #080b10;
   --d900: #0d1117;
   --d850: #141b24;
@@ -43,7 +44,7 @@
 *:focus{outline:none}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
 html{scroll-behavior:smooth}
-body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-height:100vh;font-size:14px;line-height:1.5;position:relative}
+body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50);min-height:100vh;font-size:14px;line-height:1.5;position:relative}
 
 /* ── BACKGROUND ELLIPSE ── */
 #appEllipse{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -115,10 +116,8 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 /* ── VACANCY CARDS SECTION ── */
 .vacancy-section{margin-bottom:14px}
 .vcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
-.vcard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px 18px;cursor:pointer;transition:border-color var(--tb),transform var(--tf);position:relative;overflow:hidden}
-.vcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--talent),#61adf1);opacity:0;transition:opacity var(--tf)}
-.vcard:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
-.vcard:hover::before{opacity:1}
+.vcard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:16px 18px;cursor:pointer;transition:border-color var(--tb),transform var(--tf),background var(--tf);position:relative;overflow:hidden}
+.vcard:hover{border-color:var(--card-border-hover);transform:translateY(-1px);background:var(--d800)}
 .vcard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
 .ticket-tag{font-size:11px;font-weight:700;color:var(--talent);letter-spacing:.02em}
 .vacancy-role{font-size:14px;font-weight:700;color:var(--d50);margin-top:2px;letter-spacing:-.01em}
@@ -128,7 +127,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .pipe-num{font-size:16px;font-weight:800;letter-spacing:-.03em;color:var(--d50);line-height:1}
 .pipe-num.zero{color:var(--d600)}
 .pipe-bar{width:100%;height:4px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
-.pipe-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--talent),#61adf1);width:0%;transition:width 1s cubic-bezier(.16,1,.3,1)}
+.pipe-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--talent),#61adf1);width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.16,1,.3,1)}
 .pipe-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--d500);text-align:center;line-height:1.2}
 .vcard-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--card-border)}
 .ttc-days{font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px}
@@ -158,15 +157,15 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .coverage-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .cov-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:22px 24px;display:flex;align-items:center;gap:22px;cursor:pointer;transition:border-color var(--tb),transform var(--tf);position:relative;overflow:hidden}
 .cov-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
-.cov-number{font-size:46px;font-weight:800;letter-spacing:-.06em;line-height:1;background:var(--ai);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0}
-.cov-number.talent-num{background:linear-gradient(135deg,var(--talent),#61adf1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.cov-number.warn-num{background:none;-webkit-text-fill-color:var(--warn);color:var(--warn)}
+.cov-number{font-size:46px;font-weight:800;letter-spacing:-.06em;line-height:1;color:var(--talent);flex-shrink:0}
+.cov-number.talent-num{color:var(--talent)}
+.cov-number.warn-num{color:var(--warn)}
 .cov-right{flex:1;min-width:0}
 .cov-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:5px}
 .cov-desc{font-size:13px;color:var(--d300);line-height:1.45}
 .cov-bar-wrap{display:flex;align-items:center;gap:10px;margin-top:10px}
 .cov-bar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
-.cov-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--talent),#61adf1);width:0%;transition:width 1.6s cubic-bezier(.16,1,.3,1) .3s}
+.cov-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--talent),#61adf1);width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1) .3s}
 .cov-bar-fill.warn-fill{background:var(--warn)}
 .cov-bar-label{font-size:11px;font-weight:700;color:var(--teal);flex-shrink:0}
 .cov-bar-label.warn-label{color:var(--warn)}
@@ -228,6 +227,12 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--d700);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--d600)}
+
+@media (prefers-reduced-motion: reduce) {
+  .pipe-fill, .cov-bar-fill { transition: none; }
+  .modal { transition: none; }
+  .vcard, .stat-card, .cov-card { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -291,16 +296,16 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
   <div class="topbar-right">
     <!-- Recruiter filter dropdown -->
     <div style="position:relative" id="recDropWrap">
-      <button class="recruiter-filter" id="recruiterFilterBtn" onclick="toggleRecDropdown(event)">
+      <button class="recruiter-filter" id="recruiterFilterBtn">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 14c0-2.76 2.24-5 5-5s5 2.24 5 5"/><path d="M13 8l1.5 1.5L17 7"/></svg>
         <span id="recFilterLabel">All Recruiters</span>
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:10px;height:10px;margin-left:2px" id="recChevron"><path d="M4 6l4 4 4-4"/></svg>
       </button>
       <div id="recDropMenu" style="display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--d850);border:1px solid var(--card-border-hover);border-radius:10px;padding:4px;min-width:160px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4)">
-        <button class="rec-opt active" data-rec="all"      onclick="setRecruiter('all',this)">All Recruiters</button>
-        <button class="rec-opt"        data-rec="Sara A."  onclick="setRecruiter('Sara A.',this)">Sara A.</button>
-        <button class="rec-opt"        data-rec="Khaled M." onclick="setRecruiter('Khaled M.',this)">Khaled M.</button>
-        <button class="rec-opt"        data-rec="Nada R."  onclick="setRecruiter('Nada R.',this)">Nada R.</button>
+        <button class="rec-opt active" data-rec="all"      >All Recruiters</button>
+        <button class="rec-opt"        data-rec="Sara A."  >Sara A.</button>
+        <button class="rec-opt"        data-rec="Khaled M.">Khaled M.</button>
+        <button class="rec-opt"        data-rec="Nada R."  >Nada R.</button>
       </div>
     </div>
     <button class="date-chip">
@@ -326,7 +331,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
     <!-- 6 Funnel KPI cards in 3×2 -->
     <div class="funnel-grid">
       <!-- Calls Made -->
-      <div class="stat-card" onclick="openModal('callsMadeModal')">
+      <div class="stat-card" data-modal="callsMadeModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Calls Made</div>
@@ -337,7 +342,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
       <!-- Tech Interviews Set -->
-      <div class="stat-card" onclick="openModal('techInterviewsModal')">
+      <div class="stat-card" data-modal="techInterviewsModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Tech Interviews Set</div>
@@ -348,7 +353,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
       <!-- Profiles Sent -->
-      <div class="stat-card" onclick="openModal('profilesSentModal')">
+      <div class="stat-card" data-modal="profilesSentModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Profiles Sent to Client</div>
@@ -359,7 +364,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
       <!-- Client Interviews Set -->
-      <div class="stat-card" onclick="openModal('clientInterviewsModal')">
+      <div class="stat-card" data-modal="clientInterviewsModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Client Interviews Set</div>
@@ -370,7 +375,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
       <!-- HR Interviews Set -->
-      <div class="stat-card" onclick="openModal('hrInterviewsModal')">
+      <div class="stat-card" data-modal="hrInterviewsModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">HR Interviews Set</div>
@@ -381,7 +386,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
       <!-- Time to Close -->
-      <div class="stat-card" onclick="openModal('ttcModal')">
+      <div class="stat-card" data-modal="ttcModal">
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Avg Time to Close</div>
@@ -399,7 +404,6 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
     <div class="section-header">
       <div class="section-title-group">
         <div>
-          <div class="section-eyebrow">Primary view</div>
           <div class="section-title">Vacancy Funnel Breakdown</div>
         </div>
         <span class="section-badge">Per Ticket</span>
@@ -412,12 +416,12 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
     <!-- Filter + Sort bar -->
     <div class="vcard-filter-bar">
-      <button class="vf-pill active" data-vf="all"     onclick="vcardFilter('all',this)">All</button>
-      <button class="vf-pill"        data-vf="open"    onclick="vcardFilter('open',this)">Open</button>
-      <button class="vf-pill"        data-vf="closed"  onclick="vcardFilter('closed',this)">Closed</button>
-      <button class="vf-pill"        data-vf="stalled" onclick="vcardFilter('stalled',this)">Stalled</button>
-      <button class="vf-pill"        data-vf="bottleneck" onclick="vcardFilter('bottleneck',this)">Has bottleneck</button>
-      <button class="vf-sort" id="vcSortBtn" onclick="vcardSort()">
+      <button class="vf-pill active" data-vf="all"     >All</button>
+      <button class="vf-pill"        data-vf="open"    >Open</button>
+      <button class="vf-pill"        data-vf="closed"  >Closed</button>
+      <button class="vf-pill"        data-vf="stalled" >Stalled</button>
+      <button class="vf-pill"        data-vf="bottleneck">Has bottleneck</button>
+      <button class="vf-sort" id="vcSortBtn">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M4 8h8M6 12h4"/></svg>
         <span id="vcSortLabel">Ticket</span>
       </button>
@@ -428,7 +432,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
   <!-- BOTTOM COVERAGE ROW: Funnel Conversion + Time-to-Close Health -->
   <div class="coverage-row">
-    <div class="cov-card" onclick="openModal('funnelConversionModal')">
+    <div class="cov-card" data-modal="funnelConversionModal">
       <div class="cov-number talent-num">37%</div>
       <div class="cov-right">
         <div class="cov-label">Funnel Conversion Rate</div>
@@ -439,7 +443,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         </div>
       </div>
     </div>
-    <div class="cov-card" onclick="openModal('ttcHealthModal')">
+    <div class="cov-card" data-modal="ttcHealthModal">
       <div class="cov-number warn-num">23d</div>
       <div class="cov-right">
         <div class="cov-label">Median Time to Close</div>
@@ -461,9 +465,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 <!-- ===== DETAIL MODALS ===== -->
 
 <!-- Calls Made -->
-<div class="modal-backdrop" id="callsMadeModal" onclick="backdropClose(event,'callsMadeModal')">
+<div class="modal-backdrop" id="callsMadeModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Calls Made</span></div><button class="modal-close" onclick="closeModal('callsMadeModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Calls Made</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">347</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+14% vs prev</div></div><div class="m-stat"><div class="m-stat-value">11.6</div><div class="m-stat-label">daily average</div></div><div class="m-stat"><div class="m-stat-value">18</div><div class="m-stat-label">peak (Tuesday)</div></div><div class="m-stat"><div class="m-stat-value">7</div><div class="m-stat-label">lowest (Friday)</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">By Recruiter</div><div class="bk-row"><span class="bk-label">Sara A.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:82%"></div></div><span class="bk-val">130</span><span class="bk-pct">37%</span></div><div class="bk-row"><span class="bk-label">Khaled M.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">148</span><span class="bk-pct">43%</span></div><div class="bk-row"><span class="bk-label">Nada R.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:44%"></div></div><span class="bk-val">69</span><span class="bk-pct">20%</span></div></div><div><div class="modal-section-title">By Vacancy</div><div class="bk-row"><span class="bk-label">#13821 PM</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">42</span><span class="bk-pct">12%</span></div><div class="bk-row"><span class="bk-label">#13956 PM</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:95%"></div></div><span class="bk-val">40</span><span class="bk-pct">12%</span></div><div class="bk-row"><span class="bk-label">#13854 FE</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:91%"></div></div><span class="bk-val">38</span><span class="bk-pct">11%</span></div><div class="bk-row"><span class="bk-label">Other (5)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:60%"></div></div><span class="bk-val">227</span><span class="bk-pct">65%</span></div></div></div></div>
@@ -473,9 +477,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Tech Interviews -->
-<div class="modal-backdrop" id="techInterviewsModal" onclick="backdropClose(event,'techInterviewsModal')">
+<div class="modal-backdrop" id="techInterviewsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Tech Interviews Set</span></div><button class="modal-close" onclick="closeModal('techInterviewsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Tech Interviews Set</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">84</div><div class="m-stat-label">total set</div><div class="m-stat-delta up">+6% vs prev</div></div><div class="m-stat"><div class="m-stat-value">24%</div><div class="m-stat-label">call-to-tech rate</div></div><div class="m-stat"><div class="m-stat-value">78</div><div class="m-stat-label">attended</div></div><div class="m-stat"><div class="m-stat-value">93%</div><div class="m-stat-label">show rate</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">By Recruiter</div><div class="bk-row"><span class="bk-label">Sara A.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:79%"></div></div><span class="bk-val">30</span><span class="bk-pct">36%</span></div><div class="bk-row"><span class="bk-label">Khaled M.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">38</span><span class="bk-pct">45%</span></div><div class="bk-row"><span class="bk-label">Nada R.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42%"></div></div><span class="bk-val">16</span><span class="bk-pct">19%</span></div></div><div><div class="modal-section-title">Conversion by Stage</div><div class="bk-row"><span class="bk-label">Calls → Tech Interview</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:48%"></div></div><span class="bk-val">24%</span></div><div class="bk-row"><span class="bk-label">Tech → Profile Sent</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">52%</span></div><div class="bk-row"><span class="bk-label">Profile → Client Interview</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:64%"></div></div><span class="bk-val">32%</span></div></div></div></div>
@@ -485,9 +489,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Profiles Sent -->
-<div class="modal-backdrop" id="profilesSentModal" onclick="backdropClose(event,'profilesSentModal')">
+<div class="modal-backdrop" id="profilesSentModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Profiles Sent to Client</span></div><button class="modal-close" onclick="closeModal('profilesSentModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Profiles Sent to Client</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">profiles sent</div><div class="m-stat-delta up">+22% vs prev</div></div><div class="m-stat"><div class="m-stat-value">67%</div><div class="m-stat-label">tech-to-profile rate</div></div><div class="m-stat"><div class="m-stat-value">41</div><div class="m-stat-label">progressed to client iv</div></div><div class="m-stat"><div class="m-stat-value">32%</div><div class="m-stat-label">profile-to-client rate</div></div></div></div>
       <div class="modal-section"><div class="modal-section-title">By Vacancy</div><div class="bk-row"><span class="bk-label">#13956 Product Manager</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">19</span><span class="bk-pct">15%</span></div><div class="bk-row"><span class="bk-label">#13821 Project Manager</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:95%"></div></div><span class="bk-val">18</span><span class="bk-pct">14%</span></div><div class="bk-row"><span class="bk-label">#13854 Frontend Engineer</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:79%"></div></div><span class="bk-val">15</span><span class="bk-pct">12%</span></div><div class="bk-row"><span class="bk-label">#13867 QA Tester</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:74%"></div></div><span class="bk-val">14</span><span class="bk-pct">11%</span></div><div class="bk-row"><span class="bk-label">Other (3 vacancies)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:32%"></div></div><span class="bk-val">62</span><span class="bk-pct">48%</span></div></div>
@@ -497,9 +501,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Client Interviews -->
-<div class="modal-backdrop" id="clientInterviewsModal" onclick="backdropClose(event,'clientInterviewsModal')">
+<div class="modal-backdrop" id="clientInterviewsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Client Interviews Set</span></div><button class="modal-close" onclick="closeModal('clientInterviewsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Client Interviews Set</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">41</div><div class="m-stat-label">client interviews</div></div><div class="m-stat"><div class="m-stat-value">32%</div><div class="m-stat-label">profile-to-ci rate</div></div><div class="m-stat"><div class="m-stat-value">38</div><div class="m-stat-label">attended</div></div><div class="m-stat"><div class="m-stat-value">93%</div><div class="m-stat-label">show rate</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">By Recruiter</div><div class="bk-row"><span class="bk-label">Sara A.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:76%"></div></div><span class="bk-val">16</span><span class="bk-pct">39%</span></div><div class="bk-row"><span class="bk-label">Khaled M.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">21</span><span class="bk-pct">51%</span></div><div class="bk-row"><span class="bk-label">Nada R.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:19%"></div></div><span class="bk-val">4</span><span class="bk-pct">10%</span></div></div><div><div class="modal-section-title">Blocked Vacancies</div><div class="bk-row"><span class="bk-label" style="color:var(--warn)">#13891 Data Analyst</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:0%;background:var(--warn)"></div></div><span class="bk-val" style="color:var(--warn)">0</span><span class="bk-pct">blocked</span></div><div class="bk-row"><span class="bk-label" style="color:var(--warn)">#13940 DevOps</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:0%;background:var(--warn)"></div></div><span class="bk-val" style="color:var(--warn)">0</span><span class="bk-pct">early</span></div></div></div></div>
@@ -509,9 +513,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- HR Interviews -->
-<div class="modal-backdrop" id="hrInterviewsModal" onclick="backdropClose(event,'hrInterviewsModal')">
+<div class="modal-backdrop" id="hrInterviewsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">HR Interviews Set</span></div><button class="modal-close" onclick="closeModal('hrInterviewsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">HR Interviews Set</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">29</div><div class="m-stat-label">HR interviews</div><div class="m-stat-delta down">-8% vs prev</div></div><div class="m-stat"><div class="m-stat-value">71%</div><div class="m-stat-label">ci-to-hr rate</div></div><div class="m-stat"><div class="m-stat-value">27</div><div class="m-stat-label">attended</div></div><div class="m-stat"><div class="m-stat-value">93%</div><div class="m-stat-label">show rate</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">By Recruiter</div><div class="bk-row"><span class="bk-label">Sara A.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:69%"></div></div><span class="bk-val">10</span><span class="bk-pct">34%</span></div><div class="bk-row"><span class="bk-label">Khaled M.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">15</span><span class="bk-pct">52%</span></div><div class="bk-row"><span class="bk-label">Nada R.</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:28%"></div></div><span class="bk-val">4</span><span class="bk-pct">14%</span></div></div><div><div class="modal-section-title">Outcome Breakdown</div><div class="bk-row"><span class="bk-label">Offer extended</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">16</span><span class="bk-pct">55%</span></div><div class="bk-row"><span class="bk-label">Still in process</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:38%"></div></div><span class="bk-val">11</span><span class="bk-pct">38%</span></div><div class="bk-row"><span class="bk-label">Not progressed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:7%;background:var(--err)"></div></div><span class="bk-val">2</span><span class="bk-pct">7%</span></div></div></div></div>
@@ -521,9 +525,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Time to Close -->
-<div class="modal-backdrop" id="ttcModal" onclick="backdropClose(event,'ttcModal')">
+<div class="modal-backdrop" id="ttcModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Time to Close (Personnel Cycle)</span></div><button class="modal-close" onclick="closeModal('ttcModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Time to Close (Personnel Cycle)</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">24d</div><div class="m-stat-label">avg (closed vacancies)</div><div class="m-stat-delta up">3d faster</div></div><div class="m-stat"><div class="m-stat-value">23d</div><div class="m-stat-label">median</div></div><div class="m-stat"><div class="m-stat-value">12d</div><div class="m-stat-label">fastest (#13922)</div></div><div class="m-stat"><div class="m-stat-value">36d</div><div class="m-stat-label">slowest (#13956)</div></div></div></div>
       <div class="modal-section"><div class="modal-section-title">Closed Vacancies — Cycle Breakdown</div>
@@ -543,9 +547,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Vacancy Detail (drilldown) -->
-<div class="modal-backdrop" id="vacancyDetailModal" onclick="backdropClose(event,'vacancyDetailModal')">
+<div class="modal-backdrop" id="vacancyDetailModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Vacancy drilldown</span><span class="modal-title">#13821 — Project Manager</span></div><button class="modal-close" onclick="closeModal('vacancyDetailModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">#13821 — Project Manager</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value">42</div><div class="m-stat-label">calls made</div></div><div class="m-stat"><div class="m-stat-value">11</div><div class="m-stat-label">tech interviews</div></div><div class="m-stat"><div class="m-stat-value">18</div><div class="m-stat-label">profiles sent</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">18d</div><div class="m-stat-label">time to close</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">Funnel Stages</div><div class="bk-row"><span class="bk-label">Calls made</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">42</span><span class="bk-pct">100%</span></div><div class="bk-row"><span class="bk-label">Tech interviews set</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:26%"></div></div><span class="bk-val">11</span><span class="bk-pct">26%</span></div><div class="bk-row"><span class="bk-label">Profiles sent</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:43%"></div></div><span class="bk-val">18</span><span class="bk-pct">43%</span></div><div class="bk-row"><span class="bk-label">Client interviews</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:14%"></div></div><span class="bk-val">6</span><span class="bk-pct">14%</span></div><div class="bk-row"><span class="bk-label">HR interviews</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:10%"></div></div><span class="bk-val">4</span><span class="bk-pct">10%</span></div></div><div><div class="modal-section-title">Timeline</div><div class="bk-row"><span class="bk-label">Vacancy opened</span><span class="bk-val" style="font-size:12px;font-weight:500">Apr 3, 2025</span></div><div class="bk-row"><span class="bk-label">Candidate marked hired</span><span class="bk-val" style="font-size:12px;font-weight:500;color:var(--ok)">Apr 21, 2025</span></div><div class="bk-row"><span class="bk-label">Recruiter</span><span class="bk-val" style="font-size:12px;font-weight:500">Sara A.</span></div><div class="bk-row"><span class="bk-label">Status</span><span class="status-chip closed">Closed</span></div></div></div></div>
@@ -555,11 +559,11 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Funnel Conversion -->
-<div class="modal-backdrop" id="funnelConversionModal" onclick="backdropClose(event,'funnelConversionModal')">
+<div class="modal-backdrop" id="funnelConversionModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Funnel Conversion Rate</span></div><button class="modal-close" onclick="closeModal('funnelConversionModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Funnel Conversion Rate</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
-      <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value" style="background:linear-gradient(135deg,var(--talent),#61adf1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">37%</div><div class="m-stat-label">overall conversion</div></div><div class="m-stat"><div class="m-stat-value">8</div><div class="m-stat-label">vacancies this period</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">4</div><div class="m-stat-label">closed</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--warn)">4</div><div class="m-stat-label">open / stalled</div></div></div></div>
+      <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value" style="color:var(--talent)">37%</div><div class="m-stat-label">overall conversion</div></div><div class="m-stat"><div class="m-stat-value">8</div><div class="m-stat-label">vacancies this period</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">4</div><div class="m-stat-label">closed</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--warn)">4</div><div class="m-stat-label">open / stalled</div></div></div></div>
       <div class="modal-section"><div class="modal-section-title">Stage Conversion Rates</div><div class="bk-row"><span class="bk-label">Calls → Tech Interview</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:48%"></div></div><span class="bk-val">24%</span><span class="bk-pct" style="color:var(--warn)">↓</span></div><div class="bk-row"><span class="bk-label">Tech Interview → Profile Sent</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">52%</span><span class="bk-pct" style="color:var(--ok)">✓</span></div><div class="bk-row"><span class="bk-label">Profile Sent → Client Interview</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:64%"></div></div><span class="bk-val">32%</span><span class="bk-pct" style="color:var(--warn)">↓</span></div><div class="bk-row"><span class="bk-label">Client Interview → HR</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">71%</span><span class="bk-pct" style="color:var(--ok)">✓</span></div><div class="bk-row"><span class="bk-label">HR Interview → Hire</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:55%"></div></div><span class="bk-val">55%</span></div></div>
       <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>Two bottlenecks: Calls-to-Tech (24%) and Profile-to-Client (32%).</strong> Improving call screening quality could push the Calls-to-Tech rate to 30%+. Reviewing profile relevance for client briefs could close the 13-point gap to the 45% conversion target.</div></div>
     </div>
@@ -567,9 +571,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- TTC Health -->
-<div class="modal-backdrop" id="ttcHealthModal" onclick="backdropClose(event,'ttcHealthModal')">
+<div class="modal-backdrop" id="ttcHealthModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Detail view</span><span class="modal-title">Time-to-Close Health</span></div><button class="modal-close" onclick="closeModal('ttcHealthModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Time-to-Close Health</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value" style="color:var(--warn)">23d</div><div class="m-stat-label">median TTC</div></div><div class="m-stat"><div class="m-stat-value">20d</div><div class="m-stat-label">target</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--err)">3</div><div class="m-stat-label">over threshold</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">2</div><div class="m-stat-label">under target</div></div></div></div>
       <div class="modal-section"><div class="modal-section-title">Open Vacancies — Days Elapsed</div>
@@ -595,15 +599,49 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
-function backdropClose(e,id){if(e.target===e.currentTarget)closeModal(id)}
+
+// Expose on window for dynamically-rendered card HTML
+window.openModal = openModal;
+window.closeModal = closeModal;
+
+// Modal backdrops: close on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(backdrop=>{
+  backdrop.addEventListener('click', e=>{
+    if(e.target===e.currentTarget) closeModal(backdrop.id);
+  });
+});
+
+// Modal close buttons
+document.querySelectorAll('.modal-close').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const modal = btn.closest('.modal-backdrop');
+    if(modal) closeModal(modal.id);
+  });
+});
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const o=document.querySelector('.modal-backdrop.open');if(o)closeModal(o.id)}});
-document.querySelectorAll('.period-pill').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.period-pill').forEach(x=>x.classList.remove('active'));b.classList.add('active')})});
 
-/* ── RECRUITER FILTER ── */
+// Period pills
+document.querySelectorAll('.period-pill').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.period-pill').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+
+// Stat cards
+document.querySelectorAll('.stat-card[data-modal]').forEach(card=>{
+  card.addEventListener('click', ()=>openModal(card.dataset.modal));
+});
+
+// Cov cards
+document.querySelectorAll('.cov-card[data-modal]').forEach(card=>{
+  card.addEventListener('click', ()=>openModal(card.dataset.modal));
+});
+
+// Recruiter filter
 let activeRecruiter = 'all';
 
-// Per-recruiter totals derived from VACANCIES data
 const REC_DATA = {
   'all':       { calls:347, tech:84, profiles:128, client:41, hr:29, ttc:24, ttcNote:'3d faster' },
   'Sara A.':   { calls:130, tech:30, profiles:41,  client:16, hr:10, ttc:18, ttcNote:'on target' },
@@ -611,13 +649,17 @@ const REC_DATA = {
   'Nada R.':   { calls:69,  tech:16, profiles:31,  client:4,  hr:4,  ttc:null, ttcNote:'open'    },
 };
 
-function toggleRecDropdown(e){
+document.getElementById('recruiterFilterBtn').addEventListener('click', e=>{
   e.stopPropagation();
   const menu=document.getElementById('recDropMenu');
   const isOpen=menu.style.display==='block';
   menu.style.display=isOpen?'none':'block';
   document.getElementById('recChevron').style.transform=isOpen?'':'rotate(180deg)';
-}
+});
+
+document.querySelectorAll('.rec-opt').forEach(btn=>{
+  btn.addEventListener('click', ()=>setRecruiter(btn.dataset.rec, btn));
+});
 
 function setRecruiter(rec, btn){
   activeRecruiter=rec;
@@ -630,7 +672,6 @@ function setRecruiter(rec, btn){
   document.getElementById('recFilterLabel').textContent=rec==='all'?'All Recruiters':rec;
   filterBtn.classList.toggle('active-filter',rec!=='all');
 
-  // Update KPI stat cards
   const d=REC_DATA[rec]||REC_DATA['all'];
   document.getElementById('kpi-calls').textContent=d.calls;
   document.getElementById('kpi-tech').textContent=d.tech;
@@ -642,16 +683,14 @@ function setRecruiter(rec, btn){
     document.getElementById('kpi-ttc-delta').innerHTML=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>${d.ttcNote} <span class="stat-delta-label">vs prev period</span>`;
     document.getElementById('kpi-ttc-delta').className='stat-delta up';
   } else {
-    document.getElementById('kpi-ttc').innerHTML='—';
+    document.getElementById('kpi-ttc').innerHTML='\u2014';
     document.getElementById('kpi-ttc-delta').innerHTML='<span class="stat-delta-label">no closed vacancies</span>';
     document.getElementById('kpi-ttc-delta').className='stat-delta neutral';
   }
 
-  // Re-render cards filtered by recruiter
   renderVcards();
 }
 
-// Close dropdown on outside click
 document.addEventListener('click',()=>{
   const menu=document.getElementById('recDropMenu');
   if(menu)menu.style.display='none';
@@ -659,11 +698,7 @@ document.addEventListener('click',()=>{
   if(chev)chev.style.transform='';
 });
 
-
-
-
-
-/* ── VACANCY CARDS ── */
+// Vacancy cards
 const VSTAGES=[{k:'calls',l:'Calls'},{k:'tech',l:'Tech iv.'},{k:'profiles',l:'Profiles'},{k:'client',l:'Client iv.'},{k:'hr',l:'HR iv.'}];
 const VACANCIES=[
   {id:'#13821',role:'Project Manager',     rec:'Sara A.',   opened:'Apr 3', status:'closed',ttc:18,ttcCls:'fast',  calls:42,tech:11,profiles:18,client:6, hr:4},
@@ -678,7 +713,7 @@ const VACANCIES=[
 const DAYS_OPEN={'#13854':25,'#13891':'20+','#13905':16,'#13940':8};
 let vcFilter='all', vcSortIdx=0;
 const vcSortModes=['ticket','calls','ttc'];
-const vcSortLabels={'ticket':'Ticket','calls':'Calls ↓','ttc':'Fastest close'};
+const vcSortLabels={ticket:'Ticket',calls:'Calls ↓',ttc:'Fastest close'};
 
 function isBottleneck(v){
   if(v.status==='closed')return false;
@@ -686,18 +721,20 @@ function isBottleneck(v){
   return conv<0.2||(v.profiles>5&&v.client===0);
 }
 
-function vcardFilter(f,btn){
-  vcFilter=f;
-  document.querySelectorAll('.vf-pill').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  renderVcards();
-}
+document.querySelectorAll('.vf-pill').forEach(pill=>{
+  pill.addEventListener('click', ()=>{
+    vcFilter=pill.dataset.vf;
+    document.querySelectorAll('.vf-pill').forEach(p=>p.classList.remove('active'));
+    pill.classList.add('active');
+    renderVcards();
+  });
+});
 
-function vcardSort(){
+document.getElementById('vcSortBtn').addEventListener('click', ()=>{
   vcSortIdx=(vcSortIdx+1)%vcSortModes.length;
   document.getElementById('vcSortLabel').textContent=vcSortLabels[vcSortModes[vcSortIdx]];
   renderVcards();
-}
+});
 
 function renderVcards(){
   const grid=document.getElementById('vcardGrid');
@@ -722,7 +759,7 @@ function renderVcards(){
     if(v.ttc!==null){
       ttcHTML=`<span class="ttc-days ${v.ttcCls}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 1.5"/></svg>${v.ttc}d to close</span>`;
     } else {
-      const d=DAYS_OPEN[v.id]||'—';
+      const d=DAYS_OPEN[v.id]||'--';
       ttcHTML=`<span class="ttc-days open">${d}d open</span>`;
     }
 
@@ -736,10 +773,10 @@ function renderVcards(){
 
     const pipeHTML=VSTAGES.map((s,i)=>{
       const val=vals[i];
-      const pct=Math.round(val/mx*100);
+      const scale=(val/mx).toFixed(4);
       return `<div class="pipe-stage">
         <span class="pipe-num${val===0?' zero':''}">${val}</span>
-        <div class="pipe-bar"><div class="pipe-fill" data-w="${pct}"></div></div>
+        <div class="pipe-bar"><div class="pipe-fill" data-scale="${scale}"></div></div>
         <span class="pipe-lbl">${s.l}</span>
       </div>`;
     }).join('');
@@ -763,15 +800,15 @@ function renderVcards(){
 
   requestAnimationFrame(()=>{
     document.querySelectorAll('#vcardGrid .pipe-fill').forEach(el=>{
-      el.style.width=el.dataset.w+'%';
+      el.style.transform='scaleX('+el.dataset.scale+')';
     });
   });
 }
 
 window.addEventListener('load',()=>{
   setTimeout(()=>{
-    const cf=document.getElementById('convFill');if(cf)cf.style.width='37%';
-    const tf=document.getElementById('ttcFill');if(tf)tf.style.width='58%';
+    const cf=document.getElementById('convFill');if(cf)cf.style.transform='scaleX(0.37)';
+    const tf=document.getElementById('ttcFill');if(tf)tf.style.transform='scaleX(0.58)';
   },400);
   renderVcards();
 });

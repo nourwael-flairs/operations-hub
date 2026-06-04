@@ -36,16 +36,17 @@
   --card-bg: #141b24;
   --card-border: rgba(255,255,255,0.07);
   --card-border-hover: rgba(255,255,255,0.14);
+  --body-bg: #0f1215;
   --tf: 150ms;
   --tb: 200ms;
 }
 *:focus{outline:none}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
 html{scroll-behavior:smooth}
-body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-height:100vh;font-size:14px;line-height:1.5;position:relative}
+body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50);min-height:100vh;font-size:14px;line-height:1.5;position:relative}
 #appEllipse{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-#appEllipse::before{content:'';position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);width:1300px;height:1050px;background:radial-gradient(ellipse at center,rgba(0,102,255,0.24) 0%,rgba(97,173,241,0.15) 28%,rgba(111,223,226,0.09) 52%,transparent 70%)}
-#appEllipse::after{content:'';position:absolute;bottom:-8%;right:-4%;width:750px;height:650px;background:radial-gradient(ellipse at center,rgba(111,223,226,0.11) 0%,rgba(139,79,244,0.08) 38%,transparent 66%)}
+#appEllipse::before{content:'';position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);width:1300px;height:1050px;background:radial-gradient(ellipse at center,rgba(var(--qa-accent-rgb),0.18) 0%,rgba(97,173,241,0.10) 28%,rgba(111,223,226,0.06) 52%,transparent 70%)}
+#appEllipse::after{content:'';position:absolute;bottom:-8%;right:-4%;width:750px;height:650px;background:radial-gradient(ellipse at center,rgba(111,223,226,0.08) 0%,rgba(var(--qa-accent-rgb),0.10) 38%,transparent 66%)}
 .topbar,.main,.modal-backdrop{position:relative;z-index:1}
 .svg-defs{position:absolute;width:0;height:0;overflow:hidden}
 
@@ -68,9 +69,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
 /* ── LIVE PULSE ── */
 .live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--ok);letter-spacing:.05em;text-transform:uppercase}
-/* .live-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(23,178,106,0.4);animation:livePulse 2s ease-out infinite} */
-@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(23,178,106,0.4)}70%{box-shadow:0 0 0 6px rgba(23,178,106,0)}100%{box-shadow:0 0 0 0 rgba(23,178,106,0)}}
-@media (prefers-reduced-motion:reduce){.live-dot::before{animation:none}}
+.live-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ok);flex-shrink:0}
 
 /* ── MAIN ── */
 .main{padding:28px 28px 56px;max-width:1440px;margin:0 auto}
@@ -94,7 +93,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .funnel-arrow{display:flex;align-items:center;justify-content:center;padding:0 10px}
 .funnel-arrow svg{width:14px;height:14px;color:var(--d700);flex-shrink:0}
 .fm-value{font-size:34px;font-weight:800;letter-spacing:-.045em;color:var(--d50);line-height:1}
-.fm-value.live-num{background:var(--ai);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fm-value.live-num{color:var(--teal)}
 .fm-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
 .fm-sub{font-size:11px;color:var(--d600);margin-top:2px}
 .fm-rate{font-size:12px;font-weight:700;color:var(--ok);margin-top:3px}
@@ -103,11 +102,11 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 /* Progress bar under funnel */
 .funnel-bar-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:0;margin-top:10px}
 .funnel-bar-seg{position:relative;height:3px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
-.funnel-bar-fill{height:100%;border-radius:99px;width:0%;transition:width 1.6s cubic-bezier(.16,1,.3,1)}
+.funnel-bar-fill{height:100%;border-radius:99px;width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1)}
 .funnel-bar-fill.ok{background:var(--ok)}
 .funnel-bar-fill.warn{background:var(--warn)}
 .funnel-bar-fill.err{background:var(--err)}
-.funnel-bar-fill.base{background:var(--ai)}
+.funnel-bar-fill.base{background:var(--brand)}
 .funnel-bar-gap{width:34px}
 
 /* Funnel conversion legend */
@@ -128,13 +127,12 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
 /* ── CALLS SECTION ── */
 .calls-section{margin-bottom:14px; padding-top:14px;}
-.calls-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.calls-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .call-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color var(--tb),transform var(--tf);position:relative;overflow:hidden}
 .call-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
 
 /* Live calls card — special treatment */
 .call-card.live{border-color:rgba(23,178,106,0.25);background:linear-gradient(135deg,rgba(23,178,106,0.06) 0%,var(--card-bg) 60%)}
-.call-card.live::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ok),rgba(23,178,106,0.3))}
 .call-card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .call-card-value{font-size:30px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
 .call-card-value.live-val{color:var(--ok)}
@@ -147,8 +145,8 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .refresh-label{font-size:10px;color:var(--d600);font-weight:500;margin-top:6px}
 
 /* ── INSIGHT BANNER ── */
-.insight-banner{display:flex;align-items:flex-start;gap:12px;background:rgba(0,102,255,.07);border:1px solid rgba(97,173,241,.18);border-radius:10px;padding:13px 15px;margin-top:14px}
-.insight-aimark{width:30px;height:30px;border-radius:50%;background:var(--ai);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.insight-banner{display:flex;align-items:flex-start;gap:12px;background:rgba(var(--qa-accent-rgb),.07);border:1px solid rgba(var(--qa-accent-rgb),.2);border-radius:10px;padding:13px 15px;margin-top:14px}
+.insight-aimark{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--qa-accent),#61adf1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .insight-text{font-size:12px;color:var(--d400);line-height:1.55}
 .insight-text strong{color:var(--teal);font-weight:700}
 
@@ -156,7 +154,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .footer-note{margin-top:36px;padding-top:20px;border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between}
 .footer-left{font-size:11px;color:var(--d600)}
 .footer-right{font-size:11px;color:var(--d600);display:flex;align-items:center;gap:7px}
-.footer-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
+.footer-dot{width:6px;height:6px;border-radius:50%;background:var(--qa-accent);display:inline-block}
 
 /* ── MODALS ── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(8,11,16,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s ease}
@@ -188,7 +186,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .bk-row:last-child{border-bottom:none}
 .bk-label{flex:1;font-size:13px;color:var(--d300)}
 .bk-bar-wrap{flex:2;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
-.bk-bar{height:100%;border-radius:99px;background:var(--ai)}
+.bk-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--qa-accent),#61adf1)}
 .bk-val{font-size:13px;font-weight:700;color:var(--d100);min-width:52px;text-align:right}
 .bk-pct{font-size:11px;color:var(--d500);min-width:36px;text-align:right}
 
@@ -197,6 +195,12 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--d700);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--d600)}
+
+@media (prefers-reduced-motion: reduce) {
+  .funnel-bar-fill { transition: none; }
+  .modal { transition: none; }
+  .call-card, .outcomes-panel { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -276,10 +280,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
 <main class="main">
 
-  <!-- ROW 1: Minutes + Daily Outcomes -->
-  <div class="hero-row">
-
-    <!-- Daily Outcomes -->
+  <!-- Daily Outcomes -->
     <div class="outcomes-panel">
       <div class="outcomes-panel-head">
         <span class="outcomes-title">Daily Outcomes</span>
@@ -349,7 +350,6 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
         <div class="conv-note-icon">i</div>
         <div class="conv-note-text">Conversations counted automatically when call duration exceeds <code>60s</code>. Threshold is post-launch tunable — no BDR input required.</div>
       </div>
-    </div>
   </div>
 
   <!-- ROW 2: Calls Section (5 metrics) -->
@@ -361,7 +361,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
     <div class="calls-grid">
 
       <!-- Live calls -->
-      <div class="call-card live" onclick="openModal('liveCallsModal')">
+      <div class="call-card live" data-modal-open="liveCallsModal">
         <div class="call-card-label">
           <span class="live-dot" style="font-size:10px"></span>
           Live Calls
@@ -372,7 +372,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
       </div>
 
       <!-- Yesterday per agent -->
-      <div class="call-card" onclick="openModal('yesterdayModal')">
+      <div class="call-card" data-modal-open="yesterdayModal" style="grid-column:span 2">
         <div class="call-card-label">Yesterday / Agent</div>
         <div class="call-card-value">38</div>
         <div class="call-card-sub">calls per BDR</div>
@@ -383,7 +383,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
       </div>
 
       <!-- Total MTD per agent -->
-      <div class="call-card" onclick="openModal('totalCallsModal')">
+      <div class="call-card" data-modal-open="totalCallsModal">
         <div class="call-card-label">Total MTD / Agent</div>
         <div class="call-card-value">412</div>
         <div class="call-card-sub">cumulative this month</div>
@@ -394,7 +394,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
       </div>
 
       <!-- Daily avg this month -->
-      <div class="call-card" onclick="openModal('dailyAvgModal')">
+      <div class="call-card" data-modal-open="dailyAvgModal">
         <div class="call-card-label">Daily Avg / Agent</div>
         <div class="call-card-value">37<span style="font-size:18px;font-weight:600;color:var(--d400)">.6</span></div>
         <div class="call-card-sub">calls ÷ working days elapsed</div>
@@ -405,7 +405,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
       </div>
 
       <!-- Avg call duration -->
-      <div class="call-card" onclick="openModal('durationModal')">
+      <div class="call-card" data-modal-open="durationModal">
         <div class="call-card-label">Avg Duration / Agent</div>
         <div class="call-card-value">3<span style="font-size:18px;font-weight:600;color:var(--d400)">m 24s</span></div>
         <div class="call-card-sub">mean across period</div>
@@ -433,9 +433,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 <!-- ===== MODALS ===== -->
 
 <!-- Live Calls Detail -->
-<div class="modal-backdrop" id="liveCallsModal" onclick="backdropClose(event,'liveCallsModal')">
+<div class="modal-backdrop" id="liveCallsModal" data-modal-backdrop="liveCallsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Real-time</span><span class="modal-title">Live Calls</span></div><button class="modal-close" onclick="closeModal('liveCallsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Real-time</span><span class="modal-title">Live Calls</span></div><button class="modal-close" data-modal-close="liveCallsModal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)" id="modalLive">7</div><div class="m-stat-label">calls in progress</div></div>
@@ -456,9 +456,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Yesterday per agent -->
-<div class="modal-backdrop" id="yesterdayModal" onclick="backdropClose(event,'yesterdayModal')">
+<div class="modal-backdrop" id="yesterdayModal" data-modal-backdrop="yesterdayModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Previous business day</span><span class="modal-title">Yesterday's Calls per Agent</span></div><button class="modal-close" onclick="closeModal('yesterdayModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Yesterday's Calls per Agent</span></div><button class="modal-close" data-modal-close="yesterdayModal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value">38</div><div class="m-stat-label">team avg</div><div class="m-stat-delta up">+12% vs prev</div></div>
@@ -480,9 +480,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Total MTD per agent -->
-<div class="modal-backdrop" id="totalCallsModal" onclick="backdropClose(event,'totalCallsModal')">
+<div class="modal-backdrop" id="totalCallsModal" data-modal-backdrop="totalCallsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Month to date</span><span class="modal-title">Total Calls per Agent</span></div><button class="modal-close" onclick="closeModal('totalCallsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Total Calls per Agent</span></div><button class="modal-close" data-modal-close="totalCallsModal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value">412</div><div class="m-stat-label">avg per agent</div><div class="m-stat-delta up">+9% vs last month</div></div>
@@ -504,9 +504,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Daily avg per agent -->
-<div class="modal-backdrop" id="dailyAvgModal" onclick="backdropClose(event,'dailyAvgModal')">
+<div class="modal-backdrop" id="dailyAvgModal" data-modal-backdrop="dailyAvgModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Month to date</span><span class="modal-title">Daily Average per Agent</span></div><button class="modal-close" onclick="closeModal('dailyAvgModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Daily Average per Agent</span></div><button class="modal-close" data-modal-close="dailyAvgModal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-3">
         <div class="m-stat"><div class="m-stat-value">37.6</div><div class="m-stat-label">daily avg / agent</div></div>
@@ -524,9 +524,9 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </div>
 
 <!-- Avg call duration -->
-<div class="modal-backdrop" id="durationModal" onclick="backdropClose(event,'durationModal')">
+<div class="modal-backdrop" id="durationModal" data-modal-backdrop="durationModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Month to date</span><span class="modal-title">Avg Call Duration per Agent</span></div><button class="modal-close" onclick="closeModal('durationModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Avg Call Duration per Agent</span></div><button class="modal-close" data-modal-close="durationModal"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value">3m 24s</div><div class="m-stat-label">team avg</div><div class="m-stat-delta down">+14s over target</div></div>
@@ -550,7 +550,18 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 <script>
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
-function backdropClose(e,id){if(e.target===e.currentTarget)closeModal(id)}
+
+/* Delegated modal listeners — replaces onclick string attrs */
+document.addEventListener('click', e => {
+  const opener = e.target.closest('[data-modal-open]');
+  if(opener){ openModal(opener.dataset.modalOpen); return; }
+
+  const closer = e.target.closest('[data-modal-close]');
+  if(closer){ closeModal(closer.dataset.modalClose); return; }
+
+  const backdrop = e.target.closest('[data-modal-backdrop]');
+  if(backdrop && e.target === backdrop){ closeModal(backdrop.dataset.modalBackdrop); return; }
+});
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){const o=document.querySelector('.modal-backdrop.open');if(o)closeModal(o.id)}});
 document.querySelectorAll('.period-pill').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.period-pill').forEach(x=>x.classList.remove('active'));b.classList.add('active')})});
@@ -608,7 +619,7 @@ window.addEventListener('load', () => {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.add(color);
-    setTimeout(() => { el.style.width = Math.min(pct, 100).toFixed(1) + '%'; }, 400);
+    setTimeout(() => { el.style.transform = 'scaleX(' + (Math.min(pct, 100) / 100).toFixed(3) + ')'; }, 400);
   });
 
   /* Render conversion legend 
