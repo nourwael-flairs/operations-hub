@@ -91,40 +91,8 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .section-cta svg{width:13px;height:13px}
 
 /* ── HERO ROW ── */
-.hero-row{display:grid;grid-template-columns:360px 1fr;gap:14px;margin-bottom:14px}
+.hero-row{margin-bottom:14px}
 
-/* ── MINUTES CARD ── */
-.minutes-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:20px;transition:border-color var(--tb)}
-.minutes-card:hover{border-color:var(--card-border-hover)}
-.minutes-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai)}
-.minutes-card::after{content:'';position:absolute;top:-60px;left:-40px;width:280px;height:280px;background:radial-gradient(ellipse,rgba(139,79,244,0.07) 0%,transparent 70%);pointer-events:none}
-.minutes-header{display:flex;align-items:center;justify-content:space-between}
-.minutes-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
-.minutes-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:20px;background:var(--talent-dim);color:var(--talent);border:1px solid var(--talent-border)}
-.ring-section{display:flex;align-items:center;gap:22px}
-.ring-wrap{position:relative;flex-shrink:0;width:104px;height:104px}
-.ring-wrap svg{transform:rotate(-90deg);width:104px;height:104px}
-.ring-bg{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:9}
-.ring-fill{fill:none;stroke-width:9;stroke-linecap:round;stroke:url(#ringGradTalent);stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1)}
-.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
-.ring-pct{font-size:24px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
-.ring-pct-label{font-size:10px;font-weight:600;color:var(--d500);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
-.ring-stats{flex:1;display:flex;flex-direction:column;gap:12px}
-.ring-stat{display:flex;flex-direction:column;gap:2px}
-.ring-stat-value{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
-.ring-stat-sub{font-size:11px;font-weight:500;color:var(--d500)}
-.ring-divider{height:1px;background:var(--card-border)}
-.progress-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px}
-.progress-meta-left{font-size:12px;font-weight:500;color:var(--d300)}
-.progress-meta-right{font-size:11px;color:var(--d500)}
-.progress-track{height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
-.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#8b4ff4,#61adf1);width:0%;transition:width 1.6s cubic-bezier(.16,1,.3,1)}
-.progress-milestones{display:flex;justify-content:space-between;margin-top:7px}
-.milestone{font-size:10px;color:var(--d600);font-weight:500}
-.milestone.hit{color:var(--teal)}
-.add-credits-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,rgba(139,79,244,.15) 0%,rgba(111,223,226,.08) 100%);border:1px solid rgba(139,79,244,.28);border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700;color:var(--talent);cursor:pointer;font-family:'Urbanist',sans-serif;letter-spacing:.01em;transition:background var(--tf),border-color var(--tf),color var(--tf);width:100%}
-.add-credits-btn:hover{background:linear-gradient(135deg,rgba(139,79,244,.25) 0%,rgba(111,223,226,.15) 100%);border-color:rgba(139,79,244,.5);color:var(--d50)}
-.add-credits-btn svg{width:15px;height:15px;flex-shrink:0}
 
 /* ── FUNNEL OVERVIEW STATS (2×3 grid) ── */
 .funnel-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:14px}
@@ -214,7 +182,7 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 .modal-backdrop.open{opacity:1;pointer-events:all}
 .modal{background:var(--d850);border:1px solid var(--card-border-hover);border-radius:20px;width:100%;max-width:760px;max-height:88vh;overflow-y:auto;position:relative;transform:translateY(14px) scale(.975);transition:transform .28s cubic-bezier(.16,1,.3,1)}
 .modal-backdrop.open .modal{transform:translateY(0) scale(1)}
-.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--talent),#61adf1,var(--teal));border-radius:20px 20px 0 0}
+/* .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--talent),#61adf1,var(--teal));border-radius:20px 20px 0 0} */
 .modal-header{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 24px 0;gap:16px}
 .modal-title-group{display:flex;flex-direction:column;gap:4px}
 .modal-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--d500)}
@@ -255,43 +223,6 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 
 .empty-state{padding:24px;text-align:center;color:var(--d600);font-size:12px}
 
-/* ── CREDITS MODAL ── */
-.credits-modal{max-width:480px}
-.credits-form{display:flex;flex-direction:column;gap:18px}
-.form-field{display:flex;flex-direction:column;gap:7px}
-.form-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
-.form-input{background:var(--d800);border:1px solid var(--card-border);border-radius:9px;padding:11px 14px;font-size:15px;font-weight:700;color:var(--d50);font-family:'Urbanist',sans-serif;letter-spacing:-.01em;transition:border-color var(--tf);width:100%}
-.form-input:focus{border-color:var(--talent);outline:none}
-.form-input::placeholder{color:var(--d600);font-weight:500}
-.preset-amounts{display:flex;gap:8px;flex-wrap:wrap}
-.preset-btn{padding:7px 14px;border-radius:7px;background:var(--d800);border:1px solid var(--card-border);font-size:12px;font-weight:700;color:var(--d400);cursor:pointer;font-family:'Urbanist',sans-serif;transition:border-color var(--tf),color var(--tf),background var(--tf)}
-.preset-btn:hover{border-color:var(--talent);color:var(--d100)}
-.preset-btn.selected{background:var(--talent-dim);border-color:var(--talent);color:var(--d50)}
-.credits-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
-.cs-item{display:flex;flex-direction:column;gap:3px}
-.cs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
-.cs-value{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--d50)}
-.cs-value.accent{color:var(--teal)}
-.cs-value.price{color:var(--ok)}
-.formula-note{display:flex;align-items:flex-start;gap:9px;background:rgba(139,79,244,0.06);border:1px solid rgba(139,79,244,0.14);border-radius:8px;padding:10px 12px;margin-top:2px}
-.formula-note-icon{width:16px;height:16px;border-radius:50%;background:rgba(139,79,244,0.15);border:1px solid rgba(139,79,244,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px;font-weight:800;color:var(--talent);line-height:1}
-.formula-note-text{font-size:11px;color:var(--d500);line-height:1.55}
-.formula-note-text code{font-family:'Urbanist',monospace;font-weight:700;color:var(--d300);background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:11px}
-.form-actions{display:flex;gap:10px;margin-top:4px}
-.btn-cancel{flex:1;padding:12px;border-radius:9px;background:transparent;border:1px solid var(--card-border);font-size:14px;font-weight:700;color:var(--d400);cursor:pointer;font-family:'Urbanist',sans-serif;transition:border-color var(--tf),color var(--tf)}
-.btn-cancel:hover{border-color:var(--card-border-hover);color:var(--d100)}
-.btn-confirm{flex:2;padding:12px;border-radius:9px;background:linear-gradient(90deg,var(--talent),#61adf1);border:none;font-size:14px;font-weight:700;color:#fff;cursor:pointer;font-family:'Urbanist',sans-serif;letter-spacing:.01em;transition:opacity var(--tf),transform var(--tf)}
-.btn-confirm:hover{opacity:.88;transform:translateY(-1px)}
-.confirm-modal{max-width:440px}
-.confirm-body{padding:16px 24px 24px;display:flex;flex-direction:column;gap:20px}
-.confirm-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px}
-.confirm-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
-.confirm-row-label{color:var(--d400)}
-.confirm-row-val{font-weight:700;color:var(--d100)}
-.confirm-row-val.accent{color:var(--teal)}
-.confirm-divider{height:1px;background:var(--card-border);margin:0}
-.confirm-note{font-size:12px;color:var(--d500);line-height:1.55;text-align:center;padding:0 8px}
-
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -305,10 +236,6 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 <!-- Hidden SVG defs -->
 <svg class="svg-defs" width="0" height="0" style="position:absolute">
   <defs>
-    <linearGradient id="ringGradTalent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#8b4ff4"/>
-      <stop offset="100%" stop-color="#61adf1"/>
-    </linearGradient>
     <symbol id="aimy-logo-small" viewBox="0 0 18 20">
       <path d="M11.6944 4.30651C12.421 3.98311 12.9002 3.64422 13.013 3.33792C13.0625 3.20343 13.013 2.89716 13.013 2.89716C13.013 2.89716 13.2142 3.57126 13.6811 3.80924C14.0687 4.00676 15.0074 3.91183 15.2013 4.01191C15.3673 4.06527 14.8077 6.8165 14.3905 6.84948C14.1827 6.86591 13.9299 4.56506 13.3771 4.41728C12.82 4.26836 12.1091 4.45728 11.6944 4.30651Z" fill="url(#als0)"/>
       <path d="M15.1323 7.15345C15.7385 7.66835 16.2515 7.95349 16.5764 7.92246C16.719 7.90883 16.9737 7.73156 16.9737 7.73156C16.9737 7.73156 16.7336 8.04908 16.7213 8.57303C16.7112 9.0079 17.6397 10.1791 17.6334 10.3972C17.6572 10.57 14.7024 10.5563 14.4919 10.1945C14.3871 10.0143 15.6115 9.1353 15.5052 8.57303C15.3982 8.00637 15.176 7.59253 15.1323 7.15345Z" fill="url(#als1)"/>
@@ -394,56 +321,8 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
 </header>
 
 <main class="main">
-  <!-- HERO ROW: Committed Minutes + 6 Funnel KPIs (3×2) -->
+  <!-- HERO ROW: Funnel KPIs (3×2) -->
   <div class="hero-row">
-    <!-- Committed Minutes (kept exactly) -->
-    <div class="minutes-card">
-      <div class="minutes-header">
-        <span class="minutes-label">Committed Minutes</span>
-        <span class="minutes-badge">Monthly Quota</span>
-      </div>
-      <div class="ring-section">
-        <div class="ring-wrap">
-          <svg viewBox="0 0 104 104">
-            <circle class="ring-bg" cx="52" cy="52" r="42"/>
-            <circle class="ring-fill" id="ringCircle" cx="52" cy="52" r="42"/>
-          </svg>
-          <div class="ring-center">
-            <div class="ring-pct">72%</div>
-            <div class="ring-pct-label">used</div>
-          </div>
-        </div>
-        <div class="ring-stats">
-          <div class="ring-stat">
-            <div class="ring-stat-value">2,886</div>
-            <div class="ring-stat-sub">minutes used</div>
-          </div>
-          <div class="ring-divider"></div>
-          <div class="ring-stat">
-            <div class="ring-stat-value" style="color:var(--d500)">4,000</div>
-            <div class="ring-stat-sub">total committed</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="progress-meta">
-          <span class="progress-meta-left">1,114 min remaining</span>
-          <span class="progress-meta-right">22 days left in period</span>
-        </div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-milestones">
-          <span class="milestone hit">25%</span>
-          <span class="milestone hit">50%</span>
-          <span class="milestone hit">75%</span>
-          <span class="milestone">100%</span>
-        </div>
-      </div>
-      <button class="add-credits-btn" onclick="openModal('addCreditsModal')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg>
-        Add Minutes Credit
-      </button>
-    </div>
-
     <!-- 6 Funnel KPI cards in 3×2 -->
     <div class="funnel-grid">
       <!-- Calls Made -->
@@ -709,95 +588,10 @@ body{font-family:'Urbanist',sans-serif;background:#171a1c;color:var(--d50);min-h
   </div>
 </div>
 
-<!-- ===== ADD CREDITS MODAL ===== -->
-<div class="modal-backdrop" id="addCreditsModal" onclick="backdropClose(event,'addCreditsModal')">
-  <div class="modal credits-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Minutes quota</span><span class="modal-title">Add Minutes Credit</span></div><button class="modal-close" onclick="closeModal('addCreditsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
-    <div class="modal-body">
-      <div class="credits-form">
-        <div class="form-field">
-          <label class="form-label">Minutes to add</label>
-          <input class="form-input" id="creditsInput" type="number" placeholder="e.g. 1000" min="100" step="100" oninput="updateCreditsSummary()">
-          <div class="preset-amounts">
-            <button class="preset-btn" onclick="setPreset(500,this)">+500</button>
-            <button class="preset-btn" onclick="setPreset(1000,this)">+1,000</button>
-            <button class="preset-btn" onclick="setPreset(2000,this)">+2,000</button>
-            <button class="preset-btn" onclick="setPreset(5000,this)">+5,000</button>
-          </div>
-        </div>
-        <div class="credits-summary">
-          <div class="cs-item"><span class="cs-label">Current quota</span><span class="cs-value">4,000 min</span></div>
-          <div class="cs-item"><span class="cs-label">Adding</span><span class="cs-value accent" id="csAdding">— min</span></div>
-          <div class="cs-item"><span class="cs-label">New quota</span><span class="cs-value" id="csNew">4,000 min</span></div>
-          <div class="cs-item"><span class="cs-label">Estimated cost</span><span class="cs-value price" id="csCost">—</span></div>
-        </div>
-        <div class="formula-note">
-          <div class="formula-note-icon">i</div>
-          <div class="formula-note-text">Cost is calculated as <code>minutes × $0.20</code> — so adding 1,000 minutes costs <code>1,000 × $0.20 = $200.00</code>. The rate applies to the added block only; your existing quota is not re-charged.</div>
-        </div>
-        <div class="form-actions">
-          <button class="btn-cancel" onclick="closeModal('addCreditsModal')">Cancel</button>
-          <button class="btn-confirm" onclick="proceedToConfirm()">Review &amp; Confirm</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ===== CONFIRM CREDITS ===== -->
-<div class="modal-backdrop" id="confirmCreditsModal" onclick="backdropClose(event,'confirmCreditsModal')">
-  <div class="modal confirm-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Confirm action</span><span class="modal-title">Confirm Credit Addition</span></div><button class="modal-close" onclick="closeModal('confirmCreditsModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
-    <div class="confirm-body">
-      <div class="confirm-summary">
-        <div class="confirm-row"><span class="confirm-row-label">Current committed minutes</span><span class="confirm-row-val">4,000 min</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Adding</span><span class="confirm-row-val accent" id="confAdding">— min</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">New committed quota</span><span class="confirm-row-val" id="confNew">4,000 min</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Charge for this addition</span><span class="confirm-row-val" id="confCost" style="color:var(--ok)">—</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">Immediately · Apr 2025</span></div>
-      </div>
-      <p class="confirm-note">This will update your committed minutes quota for the current period. The change takes effect immediately and will be reflected across your operations reporting.</p>
-      <div class="form-actions">
-        <button class="btn-cancel" onclick="backToAdd()">Back</button>
-        <button class="btn-confirm" onclick="confirmCredits()">Confirm &amp; Apply</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ===== SUCCESS MODAL ===== -->
-<div class="modal-backdrop" id="successModal" onclick="backdropClose(event,'successModal')">
-  <div class="modal confirm-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Credits updated</span><span class="modal-title">Credits Added</span></div><button class="modal-close" onclick="closeModal('successModal')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
-    <div class="confirm-body">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px 0">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--ok-bg);border:1px solid rgba(23,178,106,.25);display:flex;align-items:center;justify-content:center">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--d50);letter-spacing:-.02em;margin-bottom:6px" id="successMsg">Credits applied</div>
-          <div style="font-size:13px;color:var(--d400);line-height:1.5">Your committed minutes quota has been updated and is now active.</div>
-        </div>
-      </div>
-      <div class="confirm-summary">
-        <div class="confirm-row"><span class="confirm-row-label">New committed quota</span><span class="confirm-row-val accent" id="successQuota">—</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Minutes remaining</span><span class="confirm-row-val" id="successRemaining">—</span></div>
-      </div>
-      <div class="form-actions" style="margin-top:8px">
-        <button class="btn-confirm" onclick="closeModal('successModal')">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
-const BASE_QUOTA=4000,USED_MINUTES=2886;
-let pendingAmount=0;
 
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
@@ -865,51 +659,9 @@ document.addEventListener('click',()=>{
   if(chev)chev.style.transform='';
 });
 
-function setPreset(val,btn){
-  document.getElementById('creditsInput').value=val;
-  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected');
-  updateCreditsSummary();
-}
 
-function updateCreditsSummary(){
-  const val=parseInt(document.getElementById('creditsInput').value)||0;
-  const nq=BASE_QUOTA+val;
-  const cost=(val*0.20).toFixed(2);
-  document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min':'— min';
-  document.getElementById('csNew').textContent=nq.toLocaleString()+' min';
-  document.getElementById('csCost').textContent=val>0?'$'+parseFloat(cost).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
-  document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.toggle('selected',parseInt(b.textContent.replace(/\D/g,''))===val)});
-}
 
-function proceedToConfirm(){
-  const val=parseInt(document.getElementById('creditsInput').value)||0;
-  if(val<100){document.getElementById('creditsInput').focus();return}
-  pendingAmount=val;
-  const nq=BASE_QUOTA+val;
-  const cost=parseFloat((val*0.20).toFixed(2)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  document.getElementById('confAdding').textContent='+'+val.toLocaleString()+' min';
-  document.getElementById('confNew').textContent=nq.toLocaleString()+' min';
-  document.getElementById('confCost').textContent='$'+cost;
-  closeModal('addCreditsModal');
-  openModal('confirmCreditsModal');
-}
 
-function backToAdd(){closeModal('confirmCreditsModal');openModal('addCreditsModal')}
-
-function confirmCredits(){
-  const nq=BASE_QUOTA+pendingAmount;
-  const nr=nq-USED_MINUTES;
-  document.getElementById('successMsg').textContent='+'+pendingAmount.toLocaleString()+' min credits added';
-  document.getElementById('successQuota').textContent=nq.toLocaleString()+' min';
-  document.getElementById('successRemaining').textContent=nr.toLocaleString()+' min remaining';
-  closeModal('confirmCreditsModal');
-  openModal('successModal');
-  document.getElementById('creditsInput').value='';
-  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('csAdding').textContent='— min';
-  document.getElementById('csNew').textContent=BASE_QUOTA.toLocaleString()+' min';
-}
 
 /* ── VACANCY CARDS ── */
 const VSTAGES=[{k:'calls',l:'Calls'},{k:'tech',l:'Tech iv.'},{k:'profiles',l:'Profiles'},{k:'client',l:'Client iv.'},{k:'hr',l:'HR iv.'}];
@@ -1017,15 +769,6 @@ function renderVcards(){
 }
 
 window.addEventListener('load',()=>{
-  const ring=document.getElementById('ringCircle');
-  if(ring){
-    const c=2*Math.PI*42;
-    ring.style.strokeDasharray=c;
-    ring.style.strokeDashoffset=c;
-    setTimeout(()=>{ring.style.strokeDashoffset=c*(1-0.722)},200);
-  }
-  const pf=document.getElementById('progressFill');
-  if(pf){pf.style.width='0%';setTimeout(()=>{pf.style.width='72.2%'},350)}
   setTimeout(()=>{
     const cf=document.getElementById('convFill');if(cf)cf.style.width='37%';
     const tf=document.getElementById('ttcFill');if(tf)tf.style.width='58%';
