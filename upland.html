@@ -38,17 +38,6 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .client-chip{display:inline-flex;align-items:center;gap:7px;background:var(--d800);border:1px solid var(--card-border);border-radius:7px;padding:4px 10px 4px 7px;font-size:12px;font-weight:700;color:var(--d200);letter-spacing:.01em}
 .client-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block;flex-shrink:0}
 
-/* ── CONTEXT SWITCHER ── */
-.ctx-switcher{display:flex;align-items:center;background:var(--d800);border:1px solid var(--card-border);border-radius:9px;padding:3px;gap:2px}
-.ctx-btn{display:flex;align-items:center;gap:6px;padding:5px 13px;border-radius:6px;font-size:12px;font-weight:700;color:var(--d500);cursor:pointer;border:none;background:transparent;font-family:'Urbanist',sans-serif;transition:color var(--tf),background var(--tf);letter-spacing:.01em;white-space:nowrap}
-.ctx-btn:hover{color:var(--d200)}
-.ctx-btn .ctx-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;transition:background var(--tf)}
-.ctx-btn.active{background:var(--d700);color:var(--d50)}
-.ctx-btn.zd-btn.active .ctx-dot{background:#61adf1}
-.ctx-btn.fd-btn.active .ctx-dot{background:#ff9a7a}
-.ctx-btn.zd-btn .ctx-dot{background:var(--d600)}
-.ctx-btn.fd-btn .ctx-dot{background:var(--d600)}
-.ctx-source-label{font-size:11px;font-weight:600;color:var(--d500);letter-spacing:.02em;margin-left:4px;transition:color .2s}
 
 .topbar-right{display:flex;align-items:center;gap:10px}
 .period-pills{display:flex;align-items:center;gap:2px;background:var(--d800);border:1px solid var(--card-border);border-radius:8px;padding:3px}
@@ -272,17 +261,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
     <span class="page-label">Operations Hub</span>
     <!-- <div class="topbar-divider"></div> -->
     <!-- <div class="client-chip"><span class="client-dot"></span>Upland</div> -->
-    <div class="topbar-divider"></div>
-    <!-- Context Switcher -->
-    <div class="ctx-switcher" role="group" aria-label="Data source">
-      <button class="ctx-btn zd-btn active" id="ctxZd">
-        <span class="ctx-dot"></span>Zendesk
-      </button>
-      <button class="ctx-btn fd-btn" id="ctxFd">
-        <span class="ctx-dot"></span>Freshdesk
-      </button>
-    </div>
-    <span class="ctx-source-label" id="ctxLabel">Showing Zendesk data</span>
+
   </div>
   <div class="topbar-right">
     <button class="date-chip">
@@ -913,184 +892,10 @@ const DATA = {
     mImpCopy:'7,292', mImpCopyDelta:'+24% vs prev', mImpIgnore:'3,895', mImpTotal:'11,187', mImpRate:'65.2%',
     mAdopGen:'80%', mAdopAcct:'73%', mAdopTech:'55%', mAdopBilling:'47%',
     mInsightImplicit:'<strong>Billing adoption at 47% is the lowest segment.</strong> Agents are frequently discarding AiMY output for billing queries.'
-  },
-  fd: {
-    source: 'Freshdesk',
-    totalTickets: '1,781', deltaTotal: '+11%',
-    openTickets: '250',   deltaOpen: '+6%',
-    totalChats: '7,153',  deltaChats: '+15%',
-    avgChats: '9<span class="stat-unit">.1</span>', deltaAvgChats: '+0.8',
-    chatsPerReply: '2.4',
-    solvedNum: '1,531', solvedRate: '86.0%', solvedDesc: '86.0% resolution rate \u2014 AiMY involved in full resolution lifecycle.', solvedLabel: '86.0% \u2014 target 90%', solvedBarS: '0.860',
-    openNum: '250', openDesc: 'Active tickets AiMY is involved in. 14.0% of total \u2014 up 6% from last period.', openLabel: '14.0% open rate', openBarS: '0.140',
-    chatsSolved: '6,112', chatsOpen: '1,041',
-    avgChatsDepth: '4<span class="depth-unit">.0</span>',
-    avgAgent: '30<span class="depth-unit">.8</span>',
-    explicitOk: '1,048', explicitErr: '143', explicitRate: '87.9%', explicitOkS: '0.879', explicitErrS: '0.121',
-    implicitCopy: '3,912', implicitIgnore: '3,241', implicitRate: '54.7%', implicitCopyS: '0.547', implicitIgnoreS: '0.453',
-    mTotalTickets:'1,781', mTotalDelta:'+11% vs prev', mSolved:'1,531', mOpen:'250', mResRate:'86.0%',
-    mValBilling:'534', mValTech:'392', mValAcct:'338', mValGen:'517',
-    mSlaIn:'1,565', mSlaAppr:'143', mSlaBreach:'73',
-    mInsightTotalTickets:'<strong>+11% ticket growth vs. last period.</strong> Freshdesk resolution rate (86.0%) trails the Zendesk source by 1.2 points \u2014 Freshdesk routing may need review.',
-    mOpenVal:'250', mOpenDelta:'+6% vs prev', mOpenPct:'14.0%', mOpenAge:'7h 10m', mOpenChats:'1,041',
-    mPriHighVal:'65', mPriMedVal:'125', mPriLowVal:'60', mSlaOk:'95', mSlaWarn:'98', mSlaErr:'57',
-    mInsightOpen:'<strong>57 tickets are escalated or on hold \u2014 22.8% of Freshdesk open volume.</strong> "Pending Customer Reply" avg wait 4h 40m. Higher hold rate than Zendesk suggests routing delays.',
-    mTotalChats:'7,153', mTotalChatsDelta:'+15% vs prev', mChatsSolved:'6,112', mChatsOpen:'1,041', mChatsAvg:'4.0',
-    mDist1:'534', mDist2:'801', mDist3:'446', mSplitSolved:'6,112', mSplitOpen:'1,041',
-    mInsightChats:'<strong>25% of Freshdesk tickets require 6+ chat exchanges.</strong> Avg chats per ticket (4.0) is higher than Zendesk (3.7) \u2014 AiMY knowledge may be less tuned for Freshdesk query types.',
-    mAvgAll:'9.1', mAvgSolved:'2.4', mAvgOpen:'4.2', mAvgAgent2:'30.8',
-    mCatBilling:'5.9', mCatTech:'4.8', mCatAcct:'3.6', mCatGen:'2.4',
-    mDay0:'Mon 4.9', mDay1:'Tue 4.1', mDay2:'Wed 3.6', mDay3:'Thu 3.8', mDay4:'Fri 4.2', mDay5:'Sat 4.6', mDay6:'Sun 5.1',
-    mInsightAvg:'<strong>Billing tickets average 5.9 chats on Freshdesk \u2014 48% above overall mean.</strong> Higher than the Zendesk equivalent (5.2), suggesting billing scripts need Freshdesk-specific tuning.',
-    mSolvedVal:'1,531', mSolvedRate:'86.0% rate', mSolvedChats:'6,112', mSolvedTime:'51m',
-    mInsightSolved:'<strong>Resolution rate at 86.0% \u2014 4.0 points below the 90% target.</strong> Freshdesk resolution lags Zendesk by 1.2 points. Tech Support avg at 10h 20m.',
-    mCSolvedChats:'6,112', mCSolvedPct:'85.5% of all chats', mCSolvedAvg:'3.9', mCSolvedTickets:'1,531',
-    mInsightCSolved:'<strong>85.5% of all Freshdesk chats occurred in tickets that ultimately resolved</strong> \u2014 slightly below the Zendesk rate of 87.2%.',
-    mCOpenChats:'1,041', mCOpenAvg:'4.2', mCOpenTickets:'250',
-    mInsightCOpen:'<strong>52 open Freshdesk tickets already have 6+ chats.</strong> Avg chats per open ticket (4.2) is higher than Zendesk (3.7) \u2014 these are more complex queries.',
-    mAgentAvg:'30.8', mAgentActive:'232', mAgentChats:'7,153',
-    mEngHigh:'56', mEngMed:'113', mEngLow:'63',
-    mInsightAgent:'<strong>27% of Freshdesk agents have low AiMY engagement.</strong> Per-agent breakdowns are available in AiMY QA \u2192 Agent Scorecards.',
-    mExpOk:'1,048', mExpErr:'143', mExpTotal:'1,191', mExpRate:'87.9%',
-    mFail1:'54', mFail2:'37', mFail3:'29', mFail4:'23',
-    mInsightExplicit:'<strong>87.9% explicit success rate on Freshdesk \u2014 above the 85% target.</strong> Slightly below Zendesk (88.6%). "Incorrect answer" remains the top thumbs-down driver.',
-    mImpCopy:'3,912', mImpCopyDelta:'+18% vs prev', mImpIgnore:'3,241', mImpTotal:'7,153', mImpRate:'54.7%',
-    mAdopGen:'72%', mAdopAcct:'65%', mAdopTech:'48%', mAdopBilling:'38%',
-    mInsightImplicit:'<strong>Freshdesk adoption at 54.7% \u2014 significantly lower than Zendesk (65.2%).</strong> Billing adoption at 38% is the critical gap. Freshdesk agents may need more AiMY onboarding.'
   }
 };
 
-let currentSource = 'zd';
-
-// ── [4] Context switcher ──
-document.getElementById('ctxZd').addEventListener('click', () => switchSource('zd'));
-document.getElementById('ctxFd').addEventListener('click', () => switchSource('fd'));
-
-function switchSource(src) {
-  if (src === currentSource) return;
-  currentSource = src;
-  const d = DATA[src];
-
-  // Active state on buttons
-  document.getElementById('ctxZd').classList.toggle('active', src === 'zd');
-  document.getElementById('ctxFd').classList.toggle('active', src === 'fd');
-  const label = document.getElementById('ctxLabel');
-  if (label) label.textContent = 'Showing ' + d.source + ' data';
-
-  // Fade out
-  document.querySelectorAll('.data-val').forEach(el => el.classList.add('fading'));
-
-  setTimeout(() => {
-    // Stat cards
-    document.getElementById('valTotalTickets').textContent = d.totalTickets;
-    document.getElementById('deltaTotalTickets').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>' + d.deltaTotal + ' <span class="stat-delta-label">vs prev period</span>';
-    document.getElementById('valOpenTickets').textContent = d.openTickets;
-    document.getElementById('deltaOpenTickets').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 4v8M4 8l4 4 4-4"/></svg>' + d.deltaOpen + ' <span class="stat-delta-label">vs prev period</span>';
-    document.getElementById('valTotalChats').textContent = d.totalChats;
-    document.getElementById('deltaTotalChats').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>' + d.deltaChats + ' <span class="stat-delta-label">vs prev period</span>';
-    document.getElementById('valChatsInSolved').textContent = d.chatsSolved;
-    document.getElementById('valChatsInOpen').textContent = d.chatsOpen;
-    document.getElementById('valAvgChats').innerHTML = d.avgChats;
-    document.getElementById('valChatsPerReply').textContent = d.chatsPerReply;
-    // Coverage
-    document.getElementById('valSolvedNum').textContent = d.solvedNum;
-    document.getElementById('descSolved').textContent = d.solvedDesc;
-    document.getElementById('labelSolved').textContent = d.solvedLabel;
-    document.getElementById('valOpenNum').textContent = d.openNum;
-    document.getElementById('descOpen').textContent = d.openDesc;
-    document.getElementById('labelOpen').textContent = d.openLabel;
-    // Depth
-    document.getElementById('valChatsSolved').textContent = d.chatsSolved;
-    document.getElementById('valChatsOpen').textContent = d.chatsOpen;
-    document.getElementById('valAvgAgent').innerHTML = d.avgAgent;
-    // Signals
-    document.getElementById('valExplicitOk').textContent = d.explicitOk;
-    document.getElementById('valExplicitErr').textContent = d.explicitErr;
-    document.getElementById('valExplicitRate').textContent = d.explicitRate;
-    document.getElementById('valImplicitCopy').textContent = d.implicitCopy;
-    document.getElementById('valImplicitIgnore').textContent = d.implicitIgnore;
-    document.getElementById('valImplicitRate').textContent = d.implicitRate;
-    // Output quality section
-    const setIfExists = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-    setIfExists('outExpTotal', d.mExpTotal);
-    setIfExists('outExpUniverse', d.totalChats);
-    setIfExists('outExpOkPct', (Math.round(d.explicitOkS*1000)/10) + '%');
-    setIfExists('outExpOkCount', d.explicitOk);
-    setIfExists('outExpErrPct', (Math.round(d.explicitErrS*1000)/10) + '%');
-    setIfExists('outExpErrCount', d.explicitErr);
-    setIfExists('outImpTotal', d.totalChats);
-    setIfExists('outImpOkPct', d.implicitRate);
-    setIfExists('outImpOkCount', d.implicitCopy);
-    setIfExists('outImpErrPct', (Math.round(d.implicitIgnoreS*1000)/10) + '%');
-    setIfExists('outImpErrCount', d.implicitIgnore);
-    // Output quality bar animations
-    setTimeout(() => {
-      document.getElementById('outExpOkBar').style.transform = 'scaleX(' + d.explicitOkS + ')';
-      document.getElementById('outExpErrBar').style.transform = 'scaleX(' + d.explicitErrS + ')';
-      document.getElementById('outImpOkBar').style.transform = 'scaleX(' + d.implicitCopyS + ')';
-      document.getElementById('outImpErrBar').style.transform = 'scaleX(' + d.implicitIgnoreS + ')';
-    }, 220);
-
-    // [2] Bars via scaleX
-    document.getElementById('solvedFill').style.transform = 'scaleX(' + d.solvedBarS + ')';
-    document.getElementById('openFill').style.transform = 'scaleX(' + d.openBarS + ')';
-    document.getElementById('explicitOkBar').style.transform = 'scaleX(' + d.explicitOkS + ')';
-    document.getElementById('explicitErrBar').style.transform = 'scaleX(' + d.explicitErrS + ')';
-    document.getElementById('implicitCopyBar').style.transform = 'scaleX(' + d.implicitCopyS + ')';
-    document.getElementById('implicitIgnoreBar').style.transform = 'scaleX(' + d.implicitIgnoreS + ')';
-
-    // Modal eyebrows
-    const eye = d.source;
-    ['mEyeTotalTickets','mEyeOpenTickets','mEyeTotalChats','mEyeAvgChats','mEyeAvgAgent','mEyeChatsSolved','mEyeChatsOpen'].forEach(id => {
-      const el = document.getElementById(id); if(el) el.textContent = eye + ' \u00b7 AIMYIMP-4875';
-    });
-    document.getElementById('mEyeSolved').textContent = eye + ' \u00b7 Ticket Pipeline';
-    document.getElementById('mEyeExplicit').textContent = eye + ' \u00b7 AIMYIMP-4872';
-    document.getElementById('mEyeImplicit').textContent = eye + ' \u00b7 AIMYIMP-4869';
-
-    // Modal data
-    const setTxt = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-    const setHTML = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
-    setTxt('mTotalTickets', d.mTotalTickets); setTxt('mTotalDelta', d.mTotalDelta);
-    setTxt('mSolved', d.mSolved); setTxt('mOpen', d.mOpen); setTxt('mResRate', d.mResRate);
-    setTxt('mValBilling', d.mValBilling); setTxt('mValTech', d.mValTech); setTxt('mValAcct', d.mValAcct); setTxt('mValGen', d.mValGen);
-    setTxt('mSlaIn', d.mSlaIn); setTxt('mSlaAppr', d.mSlaAppr); setTxt('mSlaBreach', d.mSlaBreach);
-    setHTML('mInsightTotalTickets', d.mInsightTotalTickets);
-    setTxt('mOpenVal', d.mOpenVal); setTxt('mOpenDelta', d.mOpenDelta); setTxt('mOpenPct', d.mOpenPct);
-    setTxt('mOpenAge', d.mOpenAge); setTxt('mOpenChats', d.mOpenChats);
-    setTxt('mPriHighVal', d.mPriHighVal); setTxt('mPriMedVal', d.mPriMedVal); setTxt('mPriLowVal', d.mPriLowVal);
-    setTxt('mSlaOk', d.mSlaOk); setTxt('mSlaWarn', d.mSlaWarn); setTxt('mSlaErr', d.mSlaErr);
-    setHTML('mInsightOpen', d.mInsightOpen);
-    setTxt('mTotalChats', d.mTotalChats); setTxt('mTotalChatsDelta', d.mTotalChatsDelta);
-    setTxt('mChatsSolved', d.mChatsSolved); setTxt('mChatsOpen', d.mChatsOpen); setTxt('mChatsAvg', d.mChatsAvg);
-    setTxt('mDist1', d.mDist1); setTxt('mDist2', d.mDist2); setTxt('mDist3', d.mDist3);
-    setTxt('mSplitSolved', d.mSplitSolved); setTxt('mSplitOpen', d.mSplitOpen);
-    setHTML('mInsightChats', d.mInsightChats);
-    setTxt('mAvgAll', d.mAvgAll); setTxt('mAvgSolved', d.mAvgSolved); setTxt('mAvgOpen', d.mAvgOpen); setTxt('mAvgAgent', d.mAvgAgent2);
-    setTxt('mCatBilling', d.mCatBilling); setTxt('mCatTech', d.mCatTech); setTxt('mCatAcct', d.mCatAcct); setTxt('mCatGen', d.mCatGen);
-    ['mDay0','mDay1','mDay2','mDay3','mDay4','mDay5','mDay6'].forEach((id,i) => setTxt(id, d['mDay'+i]));
-    setHTML('mInsightAvg', d.mInsightAvg);
-    setTxt('mSolvedVal', d.mSolvedVal); setTxt('mSolvedRate', d.mSolvedRate); setTxt('mSolvedChats', d.mSolvedChats); setTxt('mSolvedTime', d.mSolvedTime);
-    setHTML('mInsightSolved', d.mInsightSolved);
-    setTxt('mCSolvedChats', d.mCSolvedChats); setTxt('mCSolvedPct', d.mCSolvedPct); setTxt('mCSolvedAvg', d.mCSolvedAvg); setTxt('mCSolvedTickets', d.mCSolvedTickets);
-    setHTML('mInsightCSolved', d.mInsightCSolved);
-    setTxt('mCOpenChats', d.mCOpenChats); setTxt('mCOpenAvg', d.mCOpenAvg); setTxt('mCOpenTickets', d.mCOpenTickets);
-    setHTML('mInsightCOpen', d.mInsightCOpen);
-    setTxt('mAgentAvg', d.mAgentAvg); setTxt('mAgentActive', d.mAgentActive); setTxt('mAgentChats', d.mAgentChats);
-    setTxt('mEngHigh', d.mEngHigh); setTxt('mEngMed', d.mEngMed); setTxt('mEngLow', d.mEngLow);
-    setHTML('mInsightAgent', d.mInsightAgent);
-    setTxt('mExpOk', d.mExpOk); setTxt('mExpErr', d.mExpErr); setTxt('mExpTotal', d.mExpTotal); setTxt('mExpRate', d.mExpRate);
-    setTxt('mFail1', d.mFail1); setTxt('mFail2', d.mFail2); setTxt('mFail3', d.mFail3); setTxt('mFail4', d.mFail4);
-    setHTML('mInsightExplicit', d.mInsightExplicit);
-    setTxt('mImpCopy', d.mImpCopy); setTxt('mImpCopyDelta', d.mImpCopyDelta); setTxt('mImpIgnore', d.mImpIgnore);
-    setTxt('mImpTotal', d.mImpTotal); setTxt('mImpRate', d.mImpRate);
-    setTxt('mAdopGen', d.mAdopGen); setTxt('mAdopAcct', d.mAdopAcct); setTxt('mAdopTech', d.mAdopTech); setTxt('mAdopBilling', d.mAdopBilling);
-    setHTML('mInsightImplicit', d.mInsightImplicit);
-
-    // Fade in
-    document.querySelectorAll('.data-val').forEach(el => el.classList.remove('fading'));
-  }, 180);
-}
+const currentSource = 'zd';
 
 // ── [4] MODALS ──
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
