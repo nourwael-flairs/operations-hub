@@ -151,6 +151,27 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .data-val{transition:opacity .18s cubic-bezier(0.32,0.72,0,1),transform .18s cubic-bezier(0.32,0.72,0,1)}
 .data-val.fading{opacity:0;transform:translateY(4px)}
 
+/* ── TOTAL OUTPUT SECTION ── */
+.output-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.output-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:22px 24px;cursor:pointer;transition:border-color var(--tb),transform var(--tf)}
+.output-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
+.output-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.output-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
+.output-card-badge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:20px}
+.output-card-badge.explicit-badge{background:rgba(51,105,255,0.1);color:#61adf1;border:1px solid rgba(51,105,255,0.2)}
+.output-card-badge.implicit-badge{background:rgba(111,223,226,0.1);color:var(--teal);border:1px solid rgba(111,223,226,0.2)}
+.output-total-row{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}
+.output-total-num{font-size:36px;font-weight:800;letter-spacing:-.05em;color:var(--d50);line-height:1}
+.output-total-label{font-size:12px;font-weight:600;color:var(--d500)}
+.output-segments{display:flex;flex-direction:column;gap:10px}
+.output-seg-row{display:flex;align-items:center;gap:10px}
+.output-seg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.output-seg-label{flex:1;font-size:12px;color:var(--d400)}
+.output-seg-bar-wrap{width:100px;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;flex-shrink:0}
+.output-seg-bar{height:100%;border-radius:99px;width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.16,1,.3,1) .6s}
+.output-seg-pct{font-size:13px;font-weight:700;min-width:42px;text-align:right}
+.output-seg-count{font-size:11px;color:var(--d500);min-width:50px;text-align:right}
+
 /* ── FOOTER ── */
 .footer-note{margin-top:36px;padding-top:20px;border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between}
 .footer-left{font-size:11px;color:var(--d600)}
@@ -289,6 +310,41 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
     <!-- <div class="section-rule"></div> -->
   </div>
 
+  <!-- ── Total Universe card ── -->
+  <div class="stat-card" data-modal="totalUniverseModal" style="margin-bottom:14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:18px 22px">
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div>
+        <div class="stat-label" style="margin-bottom:6px">All Tickets — Platform Total</div>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <div class="stat-value data-val" id="valUniverseTotal" style="font-size:28px">4,841</div>
+          <span style="font-size:12px;font-weight:600;color:var(--d500)">tickets across platform</span>
+        </div>
+      </div>
+      <div style="width:1px;height:36px;background:var(--card-border);flex-shrink:0"></div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500);margin-bottom:4px">AiMY Involved</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--teal)" class="data-val" id="valUniverseAimy">3,031</div>
+          <span style="font-size:11px;font-weight:700;color:var(--teal)" class="data-val" id="valUniverseAimyPct">62.6%</span>
+        </div>
+      </div>
+      <div style="width:1px;height:36px;background:var(--card-border);flex-shrink:0"></div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500);margin-bottom:4px">AiMY Not Involved</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--d400)" class="data-val" id="valUniverseExcluded">1,810</div>
+          <span style="font-size:11px;font-weight:700;color:var(--d500)" class="data-val" id="valUniverseExcludedPct">37.4%</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+      <div style="font-size:10px;font-weight:600;color:var(--d600);white-space:nowrap">AiMY coverage</div>
+      <div style="width:140px;height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden">
+        <div class="cov-bar-fill" id="universeCovFill" style="background:linear-gradient(90deg,#0066ff,#6fdfe2)"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="stats-grid">
     <div class="stat-card" data-modal="totalTicketsModal">
       <div class="stat-card-inner">
@@ -328,18 +384,32 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         </div>
         <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h14M3 10h8M3 14h5"/><rect x="2" y="3" width="16" height="14" rx="1.5"/></svg></div>
       </div>
+      <div style="display:flex;gap:0;margin-top:14px;padding-top:12px;border-top:1px solid var(--card-border)">
+        <div style="flex:1;padding-right:12px;border-right:1px solid var(--card-border)">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ok);margin-bottom:3px">Solved</div>
+          <div style="font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--d50)" class="data-val" id="valChatsInSolved">9,750</div>
+        </div>
+        <div style="flex:1;padding-left:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--warn);margin-bottom:3px">Open</div>
+          <div style="font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--d50)" class="data-val" id="valChatsInOpen">1,437</div>
+        </div>
+      </div>
     </div>
     <div class="stat-card" data-modal="avgChatsModal">
       <div class="stat-card-inner">
         <div>
-          <div class="stat-label">Avg Chats / Ticket</div>
-          <div class="stat-value data-val" id="valAvgChats">3<span class="stat-unit">.7</span></div>
-          <div class="stat-delta neutral data-val" id="deltaAvgChats">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 8h12"/></svg>
-            +0.1 <span class="stat-delta-label">vs prev period</span>
+          <div class="stat-label">Public Replies / Agent</div>
+          <div class="stat-value data-val" id="valAvgChats">8<span class="stat-unit">.4</span></div>
+          <div class="stat-delta up data-val" id="deltaAvgChats">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>
+            +0.6 <span class="stat-delta-label">vs prev period</span>
           </div>
         </div>
         <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="10" r="3"/><circle cx="14" cy="7" r="2"/><path d="M10 10h4M13 7v6"/></svg></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--card-border)">
+        <div style="font-size:10px;font-weight:600;color:var(--d500);flex:1">Chats per public reply</div>
+        <div style="font-size:14px;font-weight:800;letter-spacing:-.02em;color:var(--d100)" class="data-val" id="valChatsPerReply">2.1</div>
       </div>
     </div>
   </div>
@@ -470,6 +540,77 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
     </div>
   </div>
 
+  <!-- ── SECTION: AiMY Total Output Quality ── -->
+  <div class="section-header" style="margin-top:28px">
+    <span class="section-label">AiMY Total Output Quality</span>
+    <!-- <div class="section-rule"></div> -->
+  </div>
+
+  <div class="output-grid">
+    <!-- Explicit Useful vs Non-useful -->
+    <div class="output-card" data-modal="explicitModal">
+      <div class="output-card-head">
+        <span class="output-card-title">Explicit Responses</span>
+        <span class="output-card-badge explicit-badge">Thumbs Rating</span>
+      </div>
+      <div class="output-total-row">
+        <div class="output-total-num data-val" id="outExpTotal">2,024</div>
+        <div class="output-total-label">rated out of <span class="data-val" id="outExpUniverse">11,187</span> total outputs</div>
+      </div>
+      <div class="output-segments">
+        <div class="output-seg-row">
+          <div class="output-seg-dot" style="background:var(--ok)"></div>
+          <span class="output-seg-label">Useful (thumbs up)</span>
+          <div class="output-seg-bar-wrap"><div class="output-seg-bar" id="outExpOkBar" style="background:linear-gradient(90deg,var(--ok),#6fdfe2)"></div></div>
+          <span class="output-seg-pct data-val" id="outExpOkPct" style="color:var(--ok)">88.6%</span>
+          <span class="output-seg-count data-val" id="outExpOkCount">1,793</span>
+        </div>
+        <div class="output-seg-row">
+          <div class="output-seg-dot" style="background:var(--err)"></div>
+          <span class="output-seg-label">Non-useful (thumbs down)</span>
+          <div class="output-seg-bar-wrap"><div class="output-seg-bar" id="outExpErrBar" style="background:var(--err)"></div></div>
+          <span class="output-seg-pct data-val" id="outExpErrPct" style="color:var(--err)">11.4%</span>
+          <span class="output-seg-count data-val" id="outExpErrCount">231</span>
+        </div>
+        <div class="output-seg-row" style="opacity:.6">
+          <div class="output-seg-dot" style="background:var(--d600)"></div>
+          <span class="output-seg-label">Not rated</span>
+          <div class="output-seg-bar-wrap"><div class="output-seg-bar" id="outExpUnratedBar" style="background:var(--d600)"></div></div>
+          <span class="output-seg-pct data-val" id="outExpUnratedPct" style="color:var(--d500)">81.9%</span>
+          <span class="output-seg-count data-val" id="outExpUnratedCount">9,163</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Implicit Useful vs Non-useful -->
+    <div class="output-card" data-modal="implicitModal">
+      <div class="output-card-head">
+        <span class="output-card-title">Implicit Responses</span>
+        <span class="output-card-badge implicit-badge">Copy / Ignore</span>
+      </div>
+      <div class="output-total-row">
+        <div class="output-total-num data-val" id="outImpTotal">11,187</div>
+        <div class="output-total-label">total outputs evaluated</div>
+      </div>
+      <div class="output-segments">
+        <div class="output-seg-row">
+          <div class="output-seg-dot" style="background:var(--teal)"></div>
+          <span class="output-seg-label">Useful (copied / acted on)</span>
+          <div class="output-seg-bar-wrap"><div class="output-seg-bar" id="outImpOkBar" style="background:linear-gradient(90deg,#0066ff,#6fdfe2)"></div></div>
+          <span class="output-seg-pct data-val" id="outImpOkPct" style="color:var(--teal)">65.2%</span>
+          <span class="output-seg-count data-val" id="outImpOkCount">7,292</span>
+        </div>
+        <div class="output-seg-row">
+          <div class="output-seg-dot" style="background:var(--warn)"></div>
+          <span class="output-seg-label">Non-useful (ignored)</span>
+          <div class="output-seg-bar-wrap"><div class="output-seg-bar" id="outImpErrBar" style="background:var(--warn)"></div></div>
+          <span class="output-seg-pct data-val" id="outImpErrPct" style="color:var(--warn)">34.8%</span>
+          <span class="output-seg-count data-val" id="outImpErrCount">3,895</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer-note">
     <span class="footer-left" id="footerLeft">Data refreshed every 15 minutes · Last updated 11:42 AM · Source: Zendesk</span>
     <span class="footer-right"><span class="footer-dot"></span>AiMY Operations Hub · Upland · Jun 2026</span>
@@ -477,6 +618,26 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 </main>
 
 <!-- ══ MODALS ══ -->
+
+<!-- Total Universe -->
+<div class="modal-backdrop" id="totalUniverseModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeUniverse">Platform Total · All Sources</span><span class="modal-title">All Tickets — Platform Universe</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-body">
+      <div class="modal-section"><div class="modal-grid-4">
+        <div class="m-stat"><div class="m-stat-value" id="mUnivTotal">4,841</div><div class="m-stat-label">platform total</div></div>
+        <div class="m-stat"><div class="m-stat-value" style="color:var(--teal)" id="mUnivAimy">3,031</div><div class="m-stat-label">AiMY involved</div><div class="m-stat-delta up">62.6% coverage</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mUnivExcl">1,810</div><div class="m-stat-label">AiMY not involved</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mUnivCovPct">62.6%</div><div class="m-stat-label">AiMY coverage rate</div></div>
+      </div></div>
+      <div class="modal-section"><div class="modal-section-title">Coverage by Channel</div>
+        <div class="bk-row"><span class="bk-label">Zendesk</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:73%"></div></div><span class="bk-val">3,031</span><span class="bk-pct">73% cov.</span></div>
+        <div class="bk-row"><span class="bk-label">Freshdesk</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:52%;background:var(--warn)"></div></div><span class="bk-val">1,810</span><span class="bk-pct">52% cov.</span></div>
+      </div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>1,810 tickets were handled without AiMY involvement — 37.4% of total volume.</strong> Expanding AiMY coverage to Freshdesk's unassisted tickets represents the highest-impact growth lever this period.</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- Total Tickets -->
 <div class="modal-backdrop" id="totalTicketsModal">
@@ -524,13 +685,13 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           <div class="bk-row"><span class="bk-label">Medium</span><div class="bk-bar-wrap"><div class="bk-bar" id="mPriMed" style="width:50%;background:var(--warn)"></div></div><span class="bk-val" id="mPriMedVal">194</span><span class="bk-pct">50%</span></div>
           <div class="bk-row"><span class="bk-label">Low</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:24%"></div></div><span class="bk-val" id="mPriLowVal">93</span><span class="bk-pct">24%</span></div>
         </div>
-        <div><div class="modal-section-title">SLA Status</div>
-          <div class="sla-row"><span class="sla-name">Within SLA</span><span class="sla-time" id="mSlaOk">307</span><span class="sla-badge ok">79%</span></div>
-          <div class="sla-row"><span class="sla-name">Approaching SLA</span><span class="sla-time" id="mSlaWarn">58</span><span class="sla-badge" style="background:var(--warn-bg);color:var(--warn)">15%</span></div>
-          <div class="sla-row"><span class="sla-name">Breached SLA</span><span class="sla-time" id="mSlaErr">23</span><span class="sla-badge err">6%</span></div>
+        <div><div class="modal-section-title">Internal Status</div>
+          <div class="sla-row"><span class="sla-name">Waiting on Agent</span><span class="sla-time" id="mSlaOk">187</span><span class="sla-badge ok">48%</span></div>
+          <div class="sla-row"><span class="sla-name">Pending Customer Reply</span><span class="sla-time" id="mSlaWarn">124</span><span class="sla-badge" style="background:var(--warn-bg);color:var(--warn)">32%</span></div>
+          <div class="sla-row"><span class="sla-name">Escalated / On Hold</span><span class="sla-time" id="mSlaErr">77</span><span class="sla-badge err">20%</span></div>
         </div>
       </div></div>
-      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightOpen"><strong>23 tickets have breached SLA</strong> — all in the High priority segment. Immediate triage recommended for tickets aged beyond 8 hours.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightOpen"><strong>77 tickets are escalated or on hold — 20% of open volume.</strong> Tickets in "Pending Customer Reply" average 4h without a follow-up nudge. Consider automating a customer reminder at the 3h mark.</div></div>
     </div>
   </div>
 </div>
@@ -565,13 +726,13 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Avg Chats per Ticket -->
 <div class="modal-backdrop" id="avgChatsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeAvgChats">Zendesk · AIMYIMP-4875</span><span class="modal-title">Avg Chats per Ticket</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeAvgChats">Zendesk · AIMYIMP-4875</span><span class="modal-title">Public Replies & Chat Depth</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
-        <div class="m-stat"><div class="m-stat-value" id="mAvgAll">3.7</div><div class="m-stat-label">avg / ticket (all)</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mAvgSolved">3.7</div><div class="m-stat-label">avg in solved</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mAvgOpen">3.7</div><div class="m-stat-label">avg in open</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mAvgAgent">15.3</div><div class="m-stat-label">avg / agent</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mAvgAll">8.4</div><div class="m-stat-label">public replies / agent</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mAvgSolved">2.1</div><div class="m-stat-label">chats per public reply</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mAvgOpen">3.7</div><div class="m-stat-label">avg chats / ticket</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mAvgAgent">15.3</div><div class="m-stat-label">avg chats / agent</div></div>
       </div></div>
       <div class="modal-section"><div class="modal-grid-2">
         <div><div class="modal-section-title">By Category</div>
@@ -599,7 +760,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--teal)" id="mSolvedVal">2,643</div><div class="m-stat-label">solved tickets</div><div class="m-stat-delta up" id="mSolvedRate">87.2% rate</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mSolvedChats">9,750</div><div class="m-stat-label">chats in solved</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mSolvedTime">5h 04m</div><div class="m-stat-label">avg resolution time</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mSolvedTime">42m</div><div class="m-stat-label">avg response time</div></div>
         <div class="m-stat"><div class="m-stat-value">90%</div><div class="m-stat-label">target rate</div></div>
       </div></div>
       <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightSolved"><strong>Resolution rate at 87.2% — 2.8 points below the 90% target.</strong> Technical Support is the lagging category at 9h 10m average resolution time.</div></div>
@@ -668,6 +829,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         <div class="m-stat"><div class="m-stat-value" id="mExpTotal">2,024</div><div class="m-stat-label">total rated</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mExpRate">88.6%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">target 85%</div></div>
       </div></div>
+      <div class="modal-section"><div class="modal-section-title">Explicit Signal Types</div>
+        <div class="bk-row"><span class="bk-label" style="display:flex;align-items:center;gap:7px"><span style="font-size:11px">👍</span> Thumbs up</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:88.6%"></div></div><span class="bk-val" id="mExpOkBar">1,793</span><span class="bk-pct">88.6%</span></div>
+        <div class="bk-row"><span class="bk-label" style="display:flex;align-items:center;gap:7px"><span style="font-size:11px">👎</span> Thumbs down</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:11.4%;background:var(--err)"></div></div><span class="bk-val" id="mExpErrBar">231</span><span class="bk-pct">11.4%</span></div>
+        <div class="bk-row" style="opacity:.55"><span class="bk-label" style="display:flex;align-items:center;gap:7px"><span style="font-size:11px">💬</span> Add comment to ticket</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:0%;background:var(--d600)"></div></div><span class="bk-val">—</span><span class="bk-pct" style="color:var(--warn);font-size:10px">missing</span></div>
+      </div>
       <div class="modal-section"><div class="modal-section-title">Failure Reasons (Thumbs Down)</div>
         <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Incorrect answer</span><span class="reason-count" id="mFail1">88</span><span class="reason-pct">38%</span></div>
         <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Incomplete response</span><span class="reason-count" id="mFail2">60</span><span class="reason-pct">26%</span></div>
@@ -709,7 +875,8 @@ const DATA = {
     totalTickets: '3,031', deltaTotal: '+16%',
     openTickets: '388',   deltaOpen: '+11%',
     totalChats: '11,187', deltaChats: '+20%',
-    avgChats: '3<span class="stat-unit">.7</span>', deltaAvgChats: '+0.1',
+    avgChats: '8<span class="stat-unit">.4</span>', deltaAvgChats: '+0.6',
+    chatsPerReply: '2.1',
     solvedNum: '2,643', solvedRate: '87.2%', solvedDesc: '87.2% resolution rate \u2014 AiMY involved in full resolution lifecycle.', solvedLabel: '87.2% \u2014 target 90%', solvedBarS: '0.872',
     openNum: '388', openDesc: 'Active tickets AiMY is involved in. 12.8% of total \u2014 up 11% from last period.', openLabel: '12.8% open rate', openBarS: '0.128',
     chatsSolved: '9,750', chatsOpen: '1,437',
@@ -719,19 +886,19 @@ const DATA = {
     implicitCopy: '7,292', implicitIgnore: '3,895', implicitRate: '65.2%', implicitCopyS: '0.652', implicitIgnoreS: '0.348',
     mTotalTickets:'3,031', mTotalDelta:'+16% vs prev', mSolved:'2,643', mOpen:'388', mResRate:'87.2%',
     mValBilling:'909', mValTech:'727', mValAcct:'576', mValGen:'819',
-    mSlaIn:'2,670', mSlaAppr:'240', mSlaBreach:'121',
+    mSlaIn:'187', mSlaAppr:'124', mSlaBreach:'77',
     mInsightTotalTickets:'<strong>+16% ticket growth vs. last period.</strong> Billing and General Enquiry together account for 57% \u2014 expanding AiMY\u2019s knowledge base here could reduce chat depth.',
     mOpenVal:'388', mOpenDelta:'+11% vs prev', mOpenPct:'12.8%', mOpenAge:'6h 20m', mOpenChats:'1,437',
-    mPriHighVal:'101', mPriMedVal:'194', mPriLowVal:'93', mSlaOk:'307', mSlaWarn:'58', mSlaErr:'23',
-    mInsightOpen:'<strong>23 tickets have breached SLA</strong> \u2014 all High priority. Triage recommended for tickets aged beyond 8 hours.',
+    mPriHighVal:'101', mPriMedVal:'194', mPriLowVal:'93', mSlaOk:'187', mSlaWarn:'124', mSlaErr:'77',
+    mInsightOpen:'<strong>77 tickets are escalated or on hold \u2014 20% of open volume.</strong> Tickets in "Pending Customer Reply" average 4h without follow-up. Consider automating a customer reminder at the 3h mark.',
     mTotalChats:'11,187', mTotalChatsDelta:'+20% vs prev', mChatsSolved:'9,750', mChatsOpen:'1,437', mChatsAvg:'3.7',
     mDist1:'910', mDist2:'1,363', mDist3:'758', mSplitSolved:'9,750', mSplitOpen:'1,437',
     mInsightChats:'<strong>25% of tickets require 6+ chat exchanges.</strong> Reviewing common 6+ chat topics could reveal high-impact training opportunities.',
-    mAvgAll:'3.7', mAvgSolved:'3.7', mAvgOpen:'3.7', mAvgAgent2:'15.3',
+    mAvgAll:'8.4', mAvgSolved:'2.1', mAvgOpen:'3.7', mAvgAgent2:'15.3',
     mCatBilling:'5.2', mCatTech:'4.3', mCatAcct:'3.2', mCatGen:'2.0',
     mDay0:'Mon 4.4', mDay1:'Tue 3.8', mDay2:'Wed 3.3', mDay3:'Thu 3.4', mDay4:'Fri 3.7', mDay5:'Sat 4.1', mDay6:'Sun 4.6',
     mInsightAvg:'<strong>Billing tickets average 5.2 chats \u2014 41% above overall mean.</strong> Expanding AiMY\u2019s billing resolution scripts could reduce chat depth.',
-    mSolvedVal:'2,643', mSolvedRate:'87.2% rate', mSolvedChats:'9,750', mSolvedTime:'5h 04m',
+    mSolvedVal:'2,643', mSolvedRate:'87.2% rate', mSolvedChats:'9,750', mSolvedTime:'42m',
     mInsightSolved:'<strong>Resolution rate at 87.2% \u2014 2.8 points below the 90% target.</strong> Technical Support is the lagging category at 9h 10m avg.',
     mCSolvedChats:'9,750', mCSolvedPct:'87.2% of all chats', mCSolvedAvg:'3.7', mCSolvedTickets:'2,643',
     mInsightCSolved:'<strong>87.2% of all chats occurred in tickets that ultimately resolved</strong> \u2014 a strong signal of AiMY driving conversations toward closure.',
@@ -752,7 +919,8 @@ const DATA = {
     totalTickets: '1,781', deltaTotal: '+11%',
     openTickets: '250',   deltaOpen: '+6%',
     totalChats: '7,153',  deltaChats: '+15%',
-    avgChats: '4<span class="stat-unit">.0</span>', deltaAvgChats: '+0.3',
+    avgChats: '9<span class="stat-unit">.1</span>', deltaAvgChats: '+0.8',
+    chatsPerReply: '2.4',
     solvedNum: '1,531', solvedRate: '86.0%', solvedDesc: '86.0% resolution rate \u2014 AiMY involved in full resolution lifecycle.', solvedLabel: '86.0% \u2014 target 90%', solvedBarS: '0.860',
     openNum: '250', openDesc: 'Active tickets AiMY is involved in. 14.0% of total \u2014 up 6% from last period.', openLabel: '14.0% open rate', openBarS: '0.140',
     chatsSolved: '6,112', chatsOpen: '1,041',
@@ -765,16 +933,16 @@ const DATA = {
     mSlaIn:'1,565', mSlaAppr:'143', mSlaBreach:'73',
     mInsightTotalTickets:'<strong>+11% ticket growth vs. last period.</strong> Freshdesk resolution rate (86.0%) trails the Zendesk source by 1.2 points \u2014 Freshdesk routing may need review.',
     mOpenVal:'250', mOpenDelta:'+6% vs prev', mOpenPct:'14.0%', mOpenAge:'7h 10m', mOpenChats:'1,041',
-    mPriHighVal:'65', mPriMedVal:'125', mPriLowVal:'60', mSlaOk:'195', mSlaWarn:'38', mSlaErr:'17',
-    mInsightOpen:'<strong>17 tickets have breached SLA on Freshdesk</strong> \u2014 all High priority. 14.0% open rate is above the Zendesk average of 12.8%.',
+    mPriHighVal:'65', mPriMedVal:'125', mPriLowVal:'60', mSlaOk:'95', mSlaWarn:'98', mSlaErr:'57',
+    mInsightOpen:'<strong>57 tickets are escalated or on hold \u2014 22.8% of Freshdesk open volume.</strong> "Pending Customer Reply" avg wait 4h 40m. Higher hold rate than Zendesk suggests routing delays.',
     mTotalChats:'7,153', mTotalChatsDelta:'+15% vs prev', mChatsSolved:'6,112', mChatsOpen:'1,041', mChatsAvg:'4.0',
     mDist1:'534', mDist2:'801', mDist3:'446', mSplitSolved:'6,112', mSplitOpen:'1,041',
     mInsightChats:'<strong>25% of Freshdesk tickets require 6+ chat exchanges.</strong> Avg chats per ticket (4.0) is higher than Zendesk (3.7) \u2014 AiMY knowledge may be less tuned for Freshdesk query types.',
-    mAvgAll:'4.0', mAvgSolved:'3.9', mAvgOpen:'4.2', mAvgAgent2:'30.8',
+    mAvgAll:'9.1', mAvgSolved:'2.4', mAvgOpen:'4.2', mAvgAgent2:'30.8',
     mCatBilling:'5.9', mCatTech:'4.8', mCatAcct:'3.6', mCatGen:'2.4',
     mDay0:'Mon 4.9', mDay1:'Tue 4.1', mDay2:'Wed 3.6', mDay3:'Thu 3.8', mDay4:'Fri 4.2', mDay5:'Sat 4.6', mDay6:'Sun 5.1',
     mInsightAvg:'<strong>Billing tickets average 5.9 chats on Freshdesk \u2014 48% above overall mean.</strong> Higher than the Zendesk equivalent (5.2), suggesting billing scripts need Freshdesk-specific tuning.',
-    mSolvedVal:'1,531', mSolvedRate:'86.0% rate', mSolvedChats:'6,112', mSolvedTime:'5h 42m',
+    mSolvedVal:'1,531', mSolvedRate:'86.0% rate', mSolvedChats:'6,112', mSolvedTime:'51m',
     mInsightSolved:'<strong>Resolution rate at 86.0% \u2014 4.0 points below the 90% target.</strong> Freshdesk resolution lags Zendesk by 1.2 points. Tech Support avg at 10h 20m.',
     mCSolvedChats:'6,112', mCSolvedPct:'85.5% of all chats', mCSolvedAvg:'3.9', mCSolvedTickets:'1,531',
     mInsightCSolved:'<strong>85.5% of all Freshdesk chats occurred in tickets that ultimately resolved</strong> \u2014 slightly below the Zendesk rate of 87.2%.',
@@ -820,8 +988,10 @@ function switchSource(src) {
     document.getElementById('deltaOpenTickets').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 4v8M4 8l4 4 4-4"/></svg>' + d.deltaOpen + ' <span class="stat-delta-label">vs prev period</span>';
     document.getElementById('valTotalChats').textContent = d.totalChats;
     document.getElementById('deltaTotalChats').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>' + d.deltaChats + ' <span class="stat-delta-label">vs prev period</span>';
+    document.getElementById('valChatsInSolved').textContent = d.chatsSolved;
+    document.getElementById('valChatsInOpen').textContent = d.chatsOpen;
     document.getElementById('valAvgChats').innerHTML = d.avgChats;
-    document.getElementById('deltaAvgChats').innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 8h12"/></svg>' + d.deltaAvgChats + ' <span class="stat-delta-label">vs prev period</span>';
+    document.getElementById('valChatsPerReply').textContent = d.chatsPerReply;
     // Coverage
     document.getElementById('valSolvedNum').textContent = d.solvedNum;
     document.getElementById('descSolved').textContent = d.solvedDesc;
@@ -840,6 +1010,26 @@ function switchSource(src) {
     document.getElementById('valImplicitCopy').textContent = d.implicitCopy;
     document.getElementById('valImplicitIgnore').textContent = d.implicitIgnore;
     document.getElementById('valImplicitRate').textContent = d.implicitRate;
+    // Output quality section
+    const setIfExists = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+    setIfExists('outExpTotal', d.mExpTotal);
+    setIfExists('outExpUniverse', d.totalChats);
+    setIfExists('outExpOkPct', (Math.round(d.explicitOkS*1000)/10) + '%');
+    setIfExists('outExpOkCount', d.explicitOk);
+    setIfExists('outExpErrPct', (Math.round(d.explicitErrS*1000)/10) + '%');
+    setIfExists('outExpErrCount', d.explicitErr);
+    setIfExists('outImpTotal', d.totalChats);
+    setIfExists('outImpOkPct', d.implicitRate);
+    setIfExists('outImpOkCount', d.implicitCopy);
+    setIfExists('outImpErrPct', (Math.round(d.implicitIgnoreS*1000)/10) + '%');
+    setIfExists('outImpErrCount', d.implicitIgnore);
+    // Output quality bar animations
+    setTimeout(() => {
+      document.getElementById('outExpOkBar').style.transform = 'scaleX(' + d.explicitOkS + ')';
+      document.getElementById('outExpErrBar').style.transform = 'scaleX(' + d.explicitErrS + ')';
+      document.getElementById('outImpOkBar').style.transform = 'scaleX(' + d.implicitCopyS + ')';
+      document.getElementById('outImpErrBar').style.transform = 'scaleX(' + d.implicitIgnoreS + ')';
+    }, 220);
 
     // [2] Bars via scaleX
     document.getElementById('solvedFill').style.transform = 'scaleX(' + d.solvedBarS + ')';
@@ -946,12 +1136,19 @@ window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('solvedFill').style.transform = 'scaleX(' + d.solvedBarS + ')';
     document.getElementById('openFill').style.transform = 'scaleX(' + d.openBarS + ')';
+    document.getElementById('universeCovFill').style.transform = 'scaleX(0.626)';
   }, 300);
   setTimeout(() => {
     document.getElementById('explicitOkBar').style.transform = 'scaleX(' + d.explicitOkS + ')';
     document.getElementById('explicitErrBar').style.transform = 'scaleX(' + d.explicitErrS + ')';
     document.getElementById('implicitCopyBar').style.transform = 'scaleX(' + d.implicitCopyS + ')';
     document.getElementById('implicitIgnoreBar').style.transform = 'scaleX(' + d.implicitIgnoreS + ')';
+    // Output quality bars
+    document.getElementById('outExpOkBar').style.transform = 'scaleX(' + d.explicitOkS + ')';
+    document.getElementById('outExpErrBar').style.transform = 'scaleX(' + d.explicitErrS + ')';
+    document.getElementById('outExpUnratedBar').style.transform = 'scaleX(0.819)';
+    document.getElementById('outImpOkBar').style.transform = 'scaleX(' + d.implicitCopyS + ')';
+    document.getElementById('outImpErrBar').style.transform = 'scaleX(' + d.implicitIgnoreS + ')';
   }, 500);
 });
 </script>
