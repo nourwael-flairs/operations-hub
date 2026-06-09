@@ -217,11 +217,8 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .cs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500);white-space:nowrap}
 .cs-value{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--d50);white-space:nowrap}
 .cs-value.accent{color:var(--teal)}
-.cs-value.price{color:var(--ok)}
-.formula-note{display:flex;align-items:flex-start;gap:9px;background:rgba(0,102,255,0.06);border:1px solid rgba(97,173,241,0.14);border-radius:8px;padding:10px 12px;margin-top:2px}
-.formula-note-icon{width:16px;height:16px;border-radius:50%;background:rgba(97,173,241,0.15);border:1px solid rgba(97,173,241,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px;font-weight:800;color:var(--ai-mid, #61adf1);line-height:1}
-.formula-note-text{font-size:11px;color:var(--d500);line-height:1.55}
-.formula-note-text code{font-family:'Urbanist',monospace;font-weight:700;color:var(--d300);background:rgba(255,255,255,0.06);padding:1px 5px;border-radius:4px;font-size:11px}
+
+
 .form-actions{display:flex;gap:10px;margin-top:4px}
 .btn-cancel{flex:1;padding:12px;border-radius:9px;background:transparent;border:1px solid var(--card-border);font-size:14px;font-weight:700;color:var(--d400);cursor:pointer;font-family:'Urbanist',sans-serif;transition:border-color var(--tf),color var(--tf)}
 .btn-cancel:hover{border-color:var(--card-border-hover);color:var(--d100)}
@@ -553,17 +550,10 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
             <button class="preset-btn" data-amount="5000">+5,000</button>
           </div>
         </div>
-        <div class="credits-summary" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+        <div class="credits-summary" style="grid-template-columns:repeat(3,minmax(0,1fr))">
           <div class="cs-item"><span class="cs-label">Current quota</span><span class="cs-value">4,000 min</span></div>
           <div class="cs-item"><span class="cs-label">Adding</span><span class="cs-value accent" id="csAdding">— min</span></div>
           <div class="cs-item"><span class="cs-label">New quota</span><span class="cs-value" id="csNew">4,000 min</span></div>
-          <div class="cs-item"><span class="cs-label">Estimated cost</span><span class="cs-value price" id="csCost">—</span></div>
-        </div>
-        <div class="formula-note">
-          <div class="formula-note-icon">i</div>
-          <div class="formula-note-text">
-            Cost is calculated as <code>minutes × $0.20</code> — so adding 1,000 minutes costs <code>1,000 × $0.20 = $200.00</code>. The rate applies to the added block only; your existing quota is not re-charged.
-          </div>
         </div>
         <div class="form-actions">
           <button class="btn-cancel">Cancel</button>
@@ -585,8 +575,6 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         <div class="confirm-row"><span class="confirm-row-label">Adding</span><span class="confirm-row-val accent" id="confAdding">— min</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">New committed quota</span><span class="confirm-row-val" id="confNew">4,000 min</span></div>
-        <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Charge for this addition</span><span class="confirm-row-val" id="confCost" style="color:var(--ok)">—</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">Immediately · Apr 2025</span></div>
       </div>
@@ -682,10 +670,8 @@ document.querySelectorAll('.period-pill').forEach(b=>{
 function updateCreditsSummary(){
   const val=parseInt(document.getElementById('creditsInput').value)||0;
   const nq=BASE_QUOTA+val;
-  const cost=(val*0.20).toFixed(2);
   document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min':'— min';
   document.getElementById('csNew').textContent=nq.toLocaleString()+' min';
-  document.getElementById('csCost').textContent=val>0?'$'+parseFloat(cost).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
   document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.toggle('selected',parseInt(b.dataset.amount)===val)});
 }
 
@@ -694,10 +680,8 @@ function proceedToConfirm(){
   if(val<100){document.getElementById('creditsInput').focus();return}
   pendingAmount=val;
   const nq=BASE_QUOTA+val;
-  const cost=parseFloat((val*0.20).toFixed(2)).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
   document.getElementById('confAdding').textContent='+'+val.toLocaleString()+' min';
   document.getElementById('confNew').textContent=nq.toLocaleString()+' min';
-  document.getElementById('confCost').textContent='$'+cost;
   closeModal('addCreditsModal');
   openModal('confirmCreditsModal');
 }
@@ -716,7 +700,6 @@ function confirmCredits(){
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('csAdding').textContent='— min';
   document.getElementById('csNew').textContent=BASE_QUOTA.toLocaleString()+' min';
-  document.getElementById('csCost').textContent='—';
 }
 
 // [2] Init animations — scaleX + ring
