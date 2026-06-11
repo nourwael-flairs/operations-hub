@@ -85,6 +85,8 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .ring-stat{display:flex;flex-direction:column;gap:2px}
 .ring-stat-value{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
 .ring-stat-sub{font-size:11px;font-weight:500;color:var(--d500)}
+.ring-stat-value-row{display:flex;align-items:baseline;justify-content:space-between;width:100%}
+.addon-pill{font-size:15px;font-weight:700;color:var(--teal);background:rgba(111,223,226,0.13);border:1px solid rgba(111,223,226,0.35);border-radius:6px;padding:3px 9px;letter-spacing:-.01em;display:none;white-space:nowrap;line-height:1}
 .ring-divider{height:1px;background:var(--card-border)}
 .progress-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px}
 .progress-meta-left{font-size:12px;font-weight:500;color:var(--d300)}
@@ -334,8 +336,8 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
     <!-- Committed Minutes -->
     <div class="minutes-card">
       <div class="minutes-header">
-        <span class="minutes-label">Committed Minutes</span>
-        <span class="minutes-badge">Monthly Quota</span>
+        <span class="minutes-label">Minutes Balance</span>
+        <span class="minutes-badge">This Month</span>
       </div>
       <div class="ring-section">
         <div class="ring-wrap">
@@ -355,14 +357,17 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           </div>
           <div class="ring-divider"></div>
           <div class="ring-stat">
-            <div class="ring-stat-value" style="color:var(--d500)">4,000</div>
-            <div class="ring-stat-sub">total committed</div>
+            <div class="ring-stat-value-row">
+              <div class="ring-stat-value" style="color:var(--d500)">4,000</div>
+              <span class="addon-pill" id="addonPill"></span>
+            </div>
+            <div class="ring-stat-sub">plan minutes</div>
           </div>
         </div>
       </div>
       <div>
         <div class="progress-meta">
-          <span class="progress-meta-left">1,114 min remaining</span>
+          <span class="progress-meta-left" id="progressRemaining">1,114 remaining out of 4,000</span>
           <span class="progress-meta-right">22 days left in period</span>
         </div>
         <div class="progress-track">
@@ -377,7 +382,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
       </div>
       <button class="add-credits-btn" data-modal="addCreditsModal">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg>
-        Add Minutes Credit
+        Add Minutes
       </button>
     </div>
 
@@ -537,7 +542,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- ===== ADD CREDITS MODAL ===== -->
 <div class="modal-backdrop" id="addCreditsModal">
   <div class="modal credits-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Minutes quota</span><span class="modal-title">Add Minutes Credit</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Minutes balance</span><span class="modal-title">Add Minutes</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="credits-form">
         <div class="form-field">
@@ -551,9 +556,9 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           </div>
         </div>
         <div class="credits-summary" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-          <div class="cs-item"><span class="cs-label">Current quota</span><span class="cs-value">4,000 min</span></div>
-          <div class="cs-item"><span class="cs-label">Adding</span><span class="cs-value accent" id="csAdding">— min</span></div>
-          <div class="cs-item"><span class="cs-label">New quota</span><span class="cs-value" id="csNew">4,000 min</span></div>
+          <div class="cs-item"><span class="cs-label">Plan balance</span><span class="cs-value">4,000 min</span></div>
+          <div class="cs-item"><span class="cs-label">Add-on this month</span><span class="cs-value accent" id="csAdding">— min</span></div>
+          <div class="cs-item"><span class="cs-label">Total balance</span><span class="cs-value" id="csNew">4,000 min</span></div>
         </div>
         <div class="form-actions">
           <button class="btn-cancel">Cancel</button>
@@ -567,18 +572,18 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- ===== CONFIRM CREDITS MODAL ===== -->
 <div class="modal-backdrop" id="confirmCreditsModal">
   <div class="modal confirm-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Confirm action</span><span class="modal-title">Confirm Credit Addition</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Confirm action</span><span class="modal-title">Confirm Add-on</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="confirm-body">
       <div class="confirm-summary">
-        <div class="confirm-row"><span class="confirm-row-label">Current committed minutes</span><span class="confirm-row-val">4,000 min</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">Plan balance</span><span class="confirm-row-val">4,000 min</span></div>
         <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Adding</span><span class="confirm-row-val accent" id="confAdding">— min</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">Add-on (this month only)</span><span class="confirm-row-val accent" id="confAdding">— min</span></div>
         <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">New committed quota</span><span class="confirm-row-val" id="confNew">4,000 min</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">Total balance</span><span class="confirm-row-val" id="confNew">4,000 min</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">Immediately · Apr 2025</span></div>
       </div>
-      <p class="confirm-note">This will update your committed minutes quota for the current period. The change takes effect immediately and will be reflected across your operations reporting.</p>
+      <p class="confirm-note">This will add a one-time top-up to your balance for the current period. Your plan's permanent balance remains at 4,000 min — the add-on applies to April 2025 only.</p>
       <div class="form-actions">
         <button class="btn-cancel" id="btnBackToAdd">Back</button>
         <button class="btn-confirm" id="btnConfirm">Confirm &amp; Apply</button>
@@ -590,7 +595,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- ===== SUCCESS MODAL ===== -->
 <div class="modal-backdrop" id="successModal">
   <div class="modal confirm-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Credits updated</span><span class="modal-title">Credits Added</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Balance updated</span><span class="modal-title">Add-on Applied</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="confirm-body">
       <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px 0">
         <div style="width:56px;height:56px;border-radius:50%;background:var(--ok-bg);border:1px solid rgba(23,178,106,.25);display:flex;align-items:center;justify-content:center">
@@ -598,11 +603,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         </div>
         <div style="text-align:center">
           <div style="font-size:18px;font-weight:800;color:var(--d50);letter-spacing:-.02em;margin-bottom:6px" id="successMsg">Credits applied</div>
-          <div style="font-size:13px;color:var(--d400);line-height:1.5">Your committed minutes quota has been updated and is now active.</div>
+          <div style="font-size:13px;color:var(--d400);line-height:1.5">Your add-on has been applied to this month's balance and is now active.</div>
         </div>
       </div>
       <div class="confirm-summary">
-        <div class="confirm-row"><span class="confirm-row-label">New committed quota</span><span class="confirm-row-val accent" id="successQuota">—</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">New total balance</span><span class="confirm-row-val accent" id="successQuota">—</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">Minutes remaining</span><span class="confirm-row-val" id="successRemaining">—</span></div>
       </div>
@@ -615,7 +620,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 
 <script>
 const BASE_QUOTA=4000, USED_MINUTES=2886;
-let pendingAmount=0;
+let pendingAmount=0, totalAddon=0;
 
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
@@ -670,7 +675,7 @@ document.querySelectorAll('.period-pill').forEach(b=>{
 function updateCreditsSummary(){
   const val=parseInt(document.getElementById('creditsInput').value)||0;
   const nq=BASE_QUOTA+val;
-  document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min':'— min';
+  document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min (add-on)':'— min';
   document.getElementById('csNew').textContent=nq.toLocaleString()+' min';
   document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.toggle('selected',parseInt(b.dataset.amount)===val)});
 }
@@ -689,17 +694,24 @@ function proceedToConfirm(){
 function backToAdd(){closeModal('confirmCreditsModal');openModal('addCreditsModal')}
 
 function confirmCredits(){
-  const nq=BASE_QUOTA+pendingAmount;
+  totalAddon+=pendingAmount;
+  const nq=BASE_QUOTA+totalAddon;
   const nr=nq-USED_MINUTES;
-  document.getElementById('successMsg').textContent='+'+pendingAmount.toLocaleString()+' min credits added';
+  document.getElementById('successMsg').textContent='+'+pendingAmount.toLocaleString()+' min add-on applied';
   document.getElementById('successQuota').textContent=nq.toLocaleString()+' min';
   document.getElementById('successRemaining').textContent=nr.toLocaleString()+' min remaining';
+  // update card pill
+  const pill=document.getElementById('addonPill');
+  if(pill){pill.textContent='+'+totalAddon.toLocaleString();pill.style.display='inline'}
+  // update progress label
+  const rem=document.getElementById('progressRemaining');
+  if(rem)rem.textContent=nr.toLocaleString()+' remaining out of '+nq.toLocaleString();
   closeModal('confirmCreditsModal');
   openModal('successModal');
   document.getElementById('creditsInput').value='';
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('csAdding').textContent='— min';
-  document.getElementById('csNew').textContent=BASE_QUOTA.toLocaleString()+' min';
+  document.getElementById('csNew').textContent=(BASE_QUOTA+totalAddon).toLocaleString()+' min';
 }
 
 // [2] Init animations — scaleX + ring
