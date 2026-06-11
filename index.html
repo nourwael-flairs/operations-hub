@@ -346,7 +346,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
             <circle class="ring-fill" id="ringCircle" cx="52" cy="52" r="42"/>
           </svg>
           <div class="ring-center">
-            <div class="ring-pct">72%</div>
+            <div class="ring-pct" id="ringPct">72%</div>
             <div class="ring-pct-label">used</div>
           </div>
         </div>
@@ -556,9 +556,9 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           </div>
         </div>
         <div class="credits-summary" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-          <div class="cs-item"><span class="cs-label">Plan balance</span><span class="cs-value">4,000 min</span></div>
-          <div class="cs-item"><span class="cs-label">Add-on this month</span><span class="cs-value accent" id="csAdding">— min</span></div>
-          <div class="cs-item"><span class="cs-label">Total balance</span><span class="cs-value" id="csNew">4,000 min</span></div>
+          <div class="cs-item"><span class="cs-label">Remaining balance</span><span class="cs-value" id="csRemaining">1,114 min</span></div>
+          <div class="cs-item"><span class="cs-label">Add-on</span><span class="cs-value accent" id="csAdding">— min</span></div>
+          <div class="cs-item"><span class="cs-label">New remaining</span><span class="cs-value" id="csNew">1,114 min</span></div>
         </div>
         <div class="form-actions">
           <button class="btn-cancel">Cancel</button>
@@ -575,11 +575,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
     <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Confirm action</span><span class="modal-title">Confirm Add-on</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="confirm-body">
       <div class="confirm-summary">
-        <div class="confirm-row"><span class="confirm-row-label">Plan balance</span><span class="confirm-row-val">4,000 min</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">Remaining balance</span><span class="confirm-row-val" id="confRemaining">1,114 min</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">Add-on (this month only)</span><span class="confirm-row-val accent" id="confAdding">— min</span></div>
         <div class="confirm-divider"></div>
-        <div class="confirm-row"><span class="confirm-row-label">Total balance</span><span class="confirm-row-val" id="confNew">4,000 min</span></div>
+        <div class="confirm-row"><span class="confirm-row-label">New remaining</span><span class="confirm-row-val" id="confNew">1,114 min</span></div>
         <div class="confirm-divider"></div>
         <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">Immediately · Apr 2025</span></div>
       </div>
@@ -674,9 +674,11 @@ document.querySelectorAll('.period-pill').forEach(b=>{
 
 function updateCreditsSummary(){
   const val=parseInt(document.getElementById('creditsInput').value)||0;
-  const nq=BASE_QUOTA+val;
-  document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min (add-on)':'— min';
-  document.getElementById('csNew').textContent=nq.toLocaleString()+' min';
+  const currentRemaining=BASE_QUOTA+totalAddon-USED_MINUTES;
+  const newRemaining=currentRemaining+val;
+  document.getElementById('csRemaining').textContent=currentRemaining.toLocaleString()+' min';
+  document.getElementById('csAdding').textContent=val>0?'+'+val.toLocaleString()+' min':'— min';
+  document.getElementById('csNew').textContent=val>0?newRemaining.toLocaleString()+' min':currentRemaining.toLocaleString()+' min';
   document.querySelectorAll('.preset-btn').forEach(b=>{b.classList.toggle('selected',parseInt(b.dataset.amount)===val)});
 }
 
@@ -684,9 +686,11 @@ function proceedToConfirm(){
   const val=parseInt(document.getElementById('creditsInput').value)||0;
   if(val<100){document.getElementById('creditsInput').focus();return}
   pendingAmount=val;
-  const nq=BASE_QUOTA+val;
+  const currentRemaining=BASE_QUOTA+totalAddon-USED_MINUTES;
+  const newRemaining=currentRemaining+val;
+  document.getElementById('confRemaining').textContent=currentRemaining.toLocaleString()+' min';
   document.getElementById('confAdding').textContent='+'+val.toLocaleString()+' min';
-  document.getElementById('confNew').textContent=nq.toLocaleString()+' min';
+  document.getElementById('confNew').textContent=newRemaining.toLocaleString()+' min';
   closeModal('addCreditsModal');
   openModal('confirmCreditsModal');
 }
@@ -697,21 +701,47 @@ function confirmCredits(){
   totalAddon+=pendingAmount;
   const nq=BASE_QUOTA+totalAddon;
   const nr=nq-USED_MINUTES;
+  const ratio=USED_MINUTES/nq;
+  const pct=Math.round(ratio*100);
+
   document.getElementById('successMsg').textContent='+'+pendingAmount.toLocaleString()+' min add-on applied';
   document.getElementById('successQuota').textContent=nq.toLocaleString()+' min';
   document.getElementById('successRemaining').textContent=nr.toLocaleString()+' min remaining';
-  // update card pill
+
+  // card pill
   const pill=document.getElementById('addonPill');
   if(pill){pill.textContent='+'+totalAddon.toLocaleString();pill.style.display='inline'}
-  // update progress label
+
+  // progress label
   const rem=document.getElementById('progressRemaining');
   if(rem)rem.textContent=nr.toLocaleString()+' remaining out of '+nq.toLocaleString();
+
+  // ring — animate to new ratio
+  const ring=document.getElementById('ringCircle');
+  if(ring){
+    const c=2*Math.PI*42;
+    ring.style.strokeDashoffset=c*(1-ratio);
+  }
+  const ringPct=document.getElementById('ringPct');
+  if(ringPct)ringPct.textContent=pct+'%';
+
+  // progress bar — animate to new ratio
+  const pf=document.getElementById('progressFill');
+  if(pf)pf.style.transform='scaleX('+ratio+')';
+
+  // milestone hits — recalculate which are passed
+  const milestones=document.querySelectorAll('.milestone');
+  const thresholds=[0.25,0.5,0.75,1];
+  milestones.forEach((m,i)=>{m.classList.toggle('hit',ratio>=thresholds[i])});
+
   closeModal('confirmCreditsModal');
   openModal('successModal');
   document.getElementById('creditsInput').value='';
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('selected'));
+  const newRem=BASE_QUOTA+totalAddon-USED_MINUTES;
+  document.getElementById('csRemaining').textContent=newRem.toLocaleString()+' min';
   document.getElementById('csAdding').textContent='— min';
-  document.getElementById('csNew').textContent=(BASE_QUOTA+totalAddon).toLocaleString()+' min';
+  document.getElementById('csNew').textContent=newRem.toLocaleString()+' min';
 }
 
 // [2] Init animations — scaleX + ring
