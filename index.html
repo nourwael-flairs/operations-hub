@@ -68,7 +68,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .hero-row{display:grid;grid-template-columns:360px 1fr;gap:14px;margin-bottom:14px}
 .minutes-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:20px;transition:border-color var(--tb)}
 .minutes-card:hover{border-color:var(--card-border-hover)}
-.minutes-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai)}
+/* .minutes-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai)} */
 .minutes-card::after{content:'';position:absolute;top:-60px;left:-40px;width:280px;height:280px;background:radial-gradient(ellipse,rgba(0,102,255,0.07) 0%,transparent 70%);pointer-events:none}
 .minutes-header{display:flex;align-items:center;justify-content:space-between}
 .minutes-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
@@ -219,6 +219,66 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .cs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500);white-space:nowrap}
 .cs-value{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--d50);white-space:nowrap}
 .cs-value.accent{color:var(--teal)}
+
+/* ── Gateway modal ── */
+.gateway-modal{max-width:520px}
+.gateway-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:14px}
+.gateway-options{display:flex;flex-direction:column;gap:10px}
+.gateway-option{display:flex;align-items:flex-start;gap:16px;background:var(--d800);border:1px solid var(--card-border);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color var(--tf),background var(--tf);position:relative;overflow:hidden;text-align:left;width:100%;font-family:'Urbanist',sans-serif}
+.gateway-option:hover{border-color:var(--card-border-hover);background:var(--d750)}
+.gateway-option.selected{background:rgba(0,102,255,.08);border-color:rgba(0,102,255,.38)}
+.gateway-option:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:14px}
+.go-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.go-icon.addon{background:rgba(111,223,226,.12);border:1px solid rgba(111,223,226,.25);color:var(--teal)}
+.go-icon.plan{background:rgba(0,102,255,.12);border:1px solid rgba(0,102,255,.28);color:#61adf1}
+.go-icon svg{width:18px;height:18px}
+.go-content{flex:1;min-width:0}
+.go-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.go-tag.addon{color:var(--teal)}
+.go-tag.plan{color:#61adf1}
+.go-title{font-size:15px;font-weight:800;color:var(--d50);letter-spacing:-.02em;margin-bottom:5px;line-height:1.2}
+.go-desc{font-size:12px;color:var(--d400);line-height:1.55}
+.go-badge{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px}
+.go-badge.addon{background:rgba(111,223,226,.1);color:var(--teal);border:1px solid rgba(111,223,226,.2)}
+.go-badge.plan{background:rgba(0,102,255,.1);color:#61adf1;border:1px solid rgba(0,102,255,.2)}
+.go-badge svg{width:10px;height:10px}
+.go-arrow{width:20px;height:20px;color:var(--d600);flex-shrink:0;align-self:center;transition:color var(--tf),transform var(--tf)}
+.gateway-option:hover .go-arrow{color:var(--d300);transform:translateX(2px)}
+.gateway-context{background:rgba(0,102,255,.06);border:1px solid rgba(97,173,241,.14);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
+.gateway-context-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.gateway-context-icon svg{width:10px;height:10px;fill:white}
+.gateway-context-text{font-size:11px;color:var(--d400);line-height:1.6}
+.gateway-context-text strong{color:var(--teal);font-weight:700}
+
+/* ── Plan upgrade modal ── */
+.plan-modal{max-width:580px}
+.plan-form{display:flex;flex-direction:column;gap:18px}
+.plan-current-strip{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
+.pcs-value{font-size:17px;font-weight:800;letter-spacing:-.03em;color:var(--d50)}
+.pcs-divider{width:1px;height:30px;background:var(--card-border)}
+.plan-tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.plan-tier{background:var(--d800);border:1px solid var(--card-border);border-radius:12px;padding:14px;cursor:pointer;transition:border-color var(--tf),background var(--tf);position:relative;overflow:hidden;text-align:left;width:100%;font-family:'Urbanist',sans-serif}
+.plan-tier:hover{border-color:var(--card-border-hover)}
+.plan-tier.selected{background:rgba(0,102,255,.09);border-color:rgba(0,102,255,.4)}
+/* .plan-tier.selected::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai) */
+.pt-increment{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1;margin-bottom:2px}
+.pt-unit{font-size:10px;font-weight:600;color:var(--d500);margin-bottom:10px}
+.pt-total{font-size:11px;font-weight:500;color:var(--d600)}
+.plan-custom-row{display:flex;align-items:center;gap:10px}
+.plan-custom-row .form-input{flex:1}
+.plan-custom-label{font-size:11px;color:var(--d500);white-space:nowrap}
+.plan-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:16px;display:flex;flex-direction:column;gap:11px}
+.ps-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.ps-label{color:var(--d400)}
+.ps-val{font-weight:700;color:var(--d100)}
+.ps-val.accent{color:var(--teal)}
+.ps-divider{height:1px;background:var(--card-border)}
+.plan-callout{border-radius:10px;padding:11px 14px;background:rgba(23,178,106,.07);border:1px solid rgba(23,178,106,.18);font-size:11px;color:var(--d400);line-height:1.6;display:flex;align-items:flex-start;gap:9px}
+.plan-callout svg{width:14px;height:14px;color:var(--ok);flex-shrink:0;margin-top:1px}
+
+/* ── Confirm plan modal ── */
+.confirm-plan-modal{max-width:460px}
 
 
 .form-actions{display:flex;gap:10px;margin-top:4px}
@@ -380,7 +440,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           <span class="milestone">100%</span>
         </div>
       </div>
-      <button class="add-credits-btn" data-modal="addCreditsModal">
+      <button class="add-credits-btn" data-modal="addMinutesGateway">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg>
         Add Minutes
       </button>
@@ -540,9 +600,230 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 </div>
 
 <!-- ===== ADD CREDITS MODAL ===== -->
+<!-- ===== ADD MINUTES GATEWAY ===== -->
+<div class="modal-backdrop" id="addMinutesGateway">
+  <div class="modal gateway-modal">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-eyebrow">Minutes balance</span>
+        <span class="modal-title">Add Minutes</span>
+      </div>
+      <button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+    </div>
+    <div class="gateway-body">
+      <div class="gateway-options">
+
+        <!-- Option A: Add-on (temporary) -->
+        <button class="gateway-option" id="gwOptionAddon" onclick="openModal('addCreditsModal');closeModal('addMinutesGateway')">
+          <div class="go-icon addon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="7.5"/>
+              <path d="M10 7v6M7 10h6"/>
+            </svg>
+          </div>
+          <div class="go-content">
+            <div class="go-tag addon">One-time top-up</div>
+            <div class="go-title">Add-on Minutes</div>
+            <div class="go-desc">Extra minutes added on top of your plan for the current billing period only. Does not affect your recurring monthly quota.</div>
+            <div class="go-badge addon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M4.5 6l1.2 1.2L8 4.5"/></svg>
+              Applies this month · expires at period end
+            </div>
+          </div>
+          <svg class="go-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+        </button>
+
+        <!-- Option B: Plan upgrade (permanent) -->
+        <button class="gateway-option" id="gwOptionPlan" onclick="openModal('upgradePlanModal');closeModal('addMinutesGateway')">
+          <div class="go-icon plan">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3.5 13.5L10 4l6.5 9.5H3.5z"/>
+              <path d="M10 4v9"/>
+            </svg>
+          </div>
+          <div class="go-content">
+            <div class="go-tag plan">Permanent increase</div>
+            <div class="go-title">Upgrade Monthly Plan</div>
+            <div class="go-desc">Permanently increase your monthly quota. The new limit applies from the next billing cycle and renews automatically every month.</div>
+            <div class="go-badge plan">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2v8M3 6l3-4 3 4"/></svg>
+              Recurring · takes effect next cycle
+            </div>
+          </div>
+          <svg class="go-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+        </button>
+
+      </div>
+
+      <!-- AiMY context strip -->
+      <div class="gateway-context">
+        <div class="gateway-context-icon" aria-hidden="true">
+          <svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg>
+        </div>
+        <div class="gateway-context-text">
+          At your current pace you've used <strong>1,114 min</strong> of this month's balance. An add-on covers an immediate shortfall; upgrading your plan is better if you regularly hit the limit.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UPGRADE PLAN MODAL ===== -->
+<div class="modal-backdrop" id="upgradePlanModal">
+  <div class="modal plan-modal">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-eyebrow">Monthly plan</span>
+        <span class="modal-title">Upgrade Plan</span>
+      </div>
+      <button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="plan-form">
+
+        <!-- Current plan context -->
+        <div class="plan-current-strip">
+          <div>
+            <div class="pcs-label">Current plan</div>
+            <div class="pcs-value">4,000 min / mo</div>
+          </div>
+          <div class="pcs-divider"></div>
+          <div>
+            <div class="pcs-label">Used this month</div>
+            <div class="pcs-value">2,886 min</div>
+          </div>
+          <div class="pcs-divider"></div>
+          <div>
+            <div class="pcs-label">Remaining</div>
+            <div class="pcs-value" style="color:var(--warn)">1,114 min</div>
+          </div>
+        </div>
+
+        <!-- Tier selector -->
+        <div class="form-field">
+          <label class="form-label">Select new monthly quota</label>
+          <div class="plan-tier-grid" id="planTierGrid">
+            <button class="plan-tier" data-increment="2000" onclick="selectPlanTier(this)">
+              <div class="pt-increment">+2,000</div>
+              <div class="pt-unit">min / month</div>
+              <div class="pt-total">Total plan: 6,000 min</div>
+            </button>
+            <button class="plan-tier" data-increment="4000" onclick="selectPlanTier(this)">
+              <div class="pt-increment">+4,000</div>
+              <div class="pt-unit">min / month</div>
+              <div class="pt-total">Total plan: 8,000 min</div>
+            </button>
+            <button class="plan-tier" data-increment="8000" onclick="selectPlanTier(this)">
+              <div class="pt-increment">+8,000</div>
+              <div class="pt-unit">min / month</div>
+              <div class="pt-total">Total plan: 12,000 min</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom amount -->
+        <div class="form-field">
+          <label class="form-label">Or enter a custom increment</label>
+          <div class="plan-custom-row">
+            <input class="form-input" id="planCustomInput" type="number" placeholder="e.g. 3,000" min="500" step="500" oninput="onPlanCustomInput()">
+            <span class="plan-custom-label">min / mo</span>
+          </div>
+          <div id="planCustomHint" style="font-size:11px;color:var(--d600);margin-top:5px;min-height:16px"></div>
+        </div>
+
+        <!-- Summary -->
+        <div class="plan-summary" id="planSummary" style="display:none">
+          <div class="ps-row"><span class="ps-label">Current quota</span><span class="ps-val">4,000 min / mo</span></div>
+          <div class="ps-divider"></div>
+          <div class="ps-row"><span class="ps-label">Minutes added</span><span class="ps-val accent" id="psIncrement">—</span></div>
+          <div class="ps-divider"></div>
+          <div class="ps-row"><span class="ps-label">New total quota</span><span class="ps-val" id="psNewQuota">—</span></div>
+          <div class="ps-divider"></div>
+          <div class="ps-row"><span class="ps-label">Effective from</span><span class="ps-val">Next billing cycle · May 2025</span></div>
+        </div>
+
+        <!-- Callout -->
+        <div class="plan-callout">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 4v4m0-5.5h.01"/></svg>
+          <span>The upgraded quota is permanent and renews each month. You can still add one-time top-ups on top of this quota when needed.</span>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-cancel" id="btnPlanBack">Back</button>
+          <button class="btn-confirm" id="btnPlanProceed" disabled style="opacity:.45;cursor:not-allowed">Review &amp; Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM PLAN UPGRADE MODAL ===== -->
+<div class="modal-backdrop" id="confirmPlanModal">
+  <div class="modal confirm-modal confirm-plan-modal">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-eyebrow">Confirm action</span>
+        <span class="modal-title">Confirm Plan Upgrade</span>
+      </div>
+      <button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+    </div>
+    <div class="confirm-body">
+      <div class="confirm-summary">
+        <div class="confirm-row"><span class="confirm-row-label">Current plan</span><span class="confirm-row-val">4,000 min / mo</span></div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row"><span class="confirm-row-label">Minutes added</span><span class="confirm-row-val accent" id="cpIncrement">—</span></div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row"><span class="confirm-row-label">New total quota</span><span class="confirm-row-val" id="cpNewQuota">—</span></div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">Next billing cycle · May 2025</span></div>
+      </div>
+      <p class="confirm-note">Your current month's balance remains unchanged. The new quota activates at the start of your next billing cycle and renews automatically.</p>
+      <div class="form-actions">
+        <button class="btn-cancel" id="btnPlanConfirmBack">Back</button>
+        <button class="btn-confirm" id="btnPlanConfirm">Confirm Upgrade</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLAN UPGRADE SUCCESS MODAL ===== -->
+<div class="modal-backdrop" id="planSuccessModal">
+  <div class="modal confirm-modal">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-eyebrow">Plan updated</span>
+        <span class="modal-title">Upgrade Scheduled</span>
+      </div>
+      <button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+    </div>
+    <div class="confirm-body">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px 0">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,102,255,.12);border:1px solid rgba(97,173,241,.25);display:flex;align-items:center;justify-content:center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#61adf1" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l4 4L19 7"/></svg>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:18px;font-weight:800;color:var(--d50);letter-spacing:-.02em;margin-bottom:6px" id="planSuccessMsg">Plan upgrade scheduled</div>
+          <div style="font-size:13px;color:var(--d400);line-height:1.5">Your new monthly quota activates at the start of the next billing cycle.</div>
+        </div>
+      </div>
+      <div class="confirm-summary">
+        <div class="confirm-row"><span class="confirm-row-label">Minutes added to plan</span><span class="confirm-row-val accent" id="psSuccessIncrement">—</span></div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row"><span class="confirm-row-label">New total quota</span><span class="confirm-row-val" id="psSuccessQuota">—</span></div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row"><span class="confirm-row-label">Effective from</span><span class="confirm-row-val">May 2025</span></div>
+      </div>
+      <div class="form-actions" style="margin-top:8px">
+        <button class="btn-confirm" id="btnPlanDone">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADD CREDITS (ADDON) MODAL ===== -->
 <div class="modal-backdrop" id="addCreditsModal">
   <div class="modal credits-modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Minutes balance</span><span class="modal-title">Add Minutes</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow">Add-on · this month only</span><span class="modal-title">Add-on Minutes</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="credits-form">
         <div class="form-field">
@@ -561,7 +842,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           <div class="cs-item"><span class="cs-label">New remaining</span><span class="cs-value" id="csNew">1,114 min</span></div>
         </div>
         <div class="form-actions">
-          <button class="btn-cancel">Cancel</button>
+          <button class="btn-cancel" id="btnAddonBack">Back</button>
           <button class="btn-confirm" id="btnProceed">Review &amp; Confirm</button>
         </div>
       </div>
@@ -744,7 +1025,99 @@ function confirmCredits(){
   document.getElementById('csNew').textContent=newRem.toLocaleString()+' min';
 }
 
-// [2] Init animations — scaleX + ring
+// [plan] Back from addon modal → gateway
+const btnAddonBack=document.getElementById('btnAddonBack');
+if(btnAddonBack) btnAddonBack.addEventListener('click',()=>{closeModal('addCreditsModal');openModal('addMinutesGateway')});
+
+// ── Plan upgrade flow ──────────────────────────────────────────
+let pendingPlanIncrement=0;
+
+function selectPlanTier(btn){
+  document.querySelectorAll('.plan-tier').forEach(t=>t.classList.remove('selected'));
+  btn.classList.add('selected');
+  const ci=document.getElementById('planCustomInput');
+  if(ci){ci.value=''}
+  const hint=document.getElementById('planCustomHint');
+  if(hint)hint.textContent='';
+  const inc=parseInt(btn.dataset.increment)||0;
+  updatePlanSummary(inc);
+}
+
+function onPlanCustomInput(){
+  document.querySelectorAll('.plan-tier').forEach(t=>t.classList.remove('selected'));
+  const val=parseInt(document.getElementById('planCustomInput').value)||0;
+  const hint=document.getElementById('planCustomHint');
+  if(val>=500){
+    if(hint)hint.textContent='Total plan: '+(BASE_QUOTA+val).toLocaleString()+' min / mo';
+    updatePlanSummary(val);
+  } else {
+    if(hint)hint.textContent='';
+    hidePlanSummary();
+    updatePlanProceedBtn(false);
+  }
+}
+
+function updatePlanSummary(increment){
+  const total=BASE_QUOTA+increment;
+  const s=document.getElementById('planSummary');
+  if(s)s.style.display='';
+  const pi=document.getElementById('psIncrement');
+  if(pi)pi.textContent='+'+increment.toLocaleString()+' min / mo';
+  const pq=document.getElementById('psNewQuota');
+  if(pq)pq.textContent=total.toLocaleString()+' min / mo';
+  pendingPlanIncrement=increment;
+  updatePlanProceedBtn(true);
+}
+
+function hidePlanSummary(){
+  const s=document.getElementById('planSummary');
+  if(s)s.style.display='none';
+}
+
+function updatePlanProceedBtn(enabled){
+  const b=document.getElementById('btnPlanProceed');
+  if(!b)return;
+  b.disabled=!enabled;
+  b.style.opacity=enabled?'1':'0.45';
+  b.style.cursor=enabled?'pointer':'not-allowed';
+}
+
+const btnPlanProceed=document.getElementById('btnPlanProceed');
+if(btnPlanProceed) btnPlanProceed.addEventListener('click',()=>{
+  if(!pendingPlanIncrement)return;
+  const total=BASE_QUOTA+pendingPlanIncrement;
+  document.getElementById('cpIncrement').textContent='+'+pendingPlanIncrement.toLocaleString()+' min / mo';
+  document.getElementById('cpNewQuota').textContent=total.toLocaleString()+' min / mo';
+  closeModal('upgradePlanModal');
+  openModal('confirmPlanModal');
+});
+
+const btnPlanBack=document.getElementById('btnPlanBack');
+if(btnPlanBack) btnPlanBack.addEventListener('click',()=>{closeModal('upgradePlanModal');openModal('addMinutesGateway')});
+
+const btnPlanConfirmBack=document.getElementById('btnPlanConfirmBack');
+if(btnPlanConfirmBack) btnPlanConfirmBack.addEventListener('click',()=>{closeModal('confirmPlanModal');openModal('upgradePlanModal')});
+
+const btnPlanConfirm=document.getElementById('btnPlanConfirm');
+if(btnPlanConfirm) btnPlanConfirm.addEventListener('click',()=>{
+  const total=BASE_QUOTA+pendingPlanIncrement;
+  document.getElementById('planSuccessMsg').textContent='+'+pendingPlanIncrement.toLocaleString()+' min added to your plan';
+  document.getElementById('psSuccessIncrement').textContent='+'+pendingPlanIncrement.toLocaleString()+' min / mo';
+  document.getElementById('psSuccessQuota').textContent=total.toLocaleString()+' min / mo';
+  closeModal('confirmPlanModal');
+  openModal('planSuccessModal');
+  // reset
+  document.querySelectorAll('.plan-tier').forEach(t=>t.classList.remove('selected'));
+  const ci=document.getElementById('planCustomInput');
+  if(ci)ci.value='';
+  const hint=document.getElementById('planCustomHint');
+  if(hint)hint.textContent='';
+  hidePlanSummary();
+  updatePlanProceedBtn(false);
+});
+
+const btnPlanDone=document.getElementById('btnPlanDone');
+if(btnPlanDone) btnPlanDone.addEventListener('click',()=>closeModal('planSuccessModal'));
 window.addEventListener('load',()=>{
   const ring=document.getElementById('ringCircle');
   if(ring){
