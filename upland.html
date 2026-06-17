@@ -214,6 +214,15 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .day-tag.hi{background:rgba(0,102,255,.12);color:var(--teal);border-color:rgba(97,173,241,.2)}
 .day-tag.lo{background:var(--err-bg);color:var(--err);border-color:rgba(240,68,56,.2)}
 .day-tags{display:flex;gap:7px;flex-wrap:wrap}
+/* Product breakdown: expand toggle + in-place reveal */
+.prod-extra{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .28s cubic-bezier(.16,1,.3,1),opacity .28s cubic-bezier(.16,1,.3,1)}
+.prod-extra>div{overflow:hidden}
+.prod-extra.open{grid-template-rows:1fr;opacity:1}
+.expand-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 10px;background:rgba(255,255,255,.04);border:none;border-radius:7px;font-size:11px;font-weight:600;color:var(--d400);cursor:pointer;font-family:'Urbanist',sans-serif;transition:color var(--tf),background var(--tf)}
+.expand-toggle:hover{color:var(--d300);background:rgba(255,255,255,.06)}
+.expand-toggle svg{width:12px;height:12px;transition:transform var(--tf)}
+.expand-toggle.open svg{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.prod-extra,.expand-toggle svg{transition:none}}
 .sla-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--card-border)}
 .sla-row:last-child{border-bottom:none}
 .sla-name{flex:1;font-size:13px;color:var(--d300)}
@@ -374,7 +383,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         </div>
       </div>
     </div>
-    <div class="stat-card" data-modal="avgChatsModal">
+    <div class="stat-card" data-modal="publicRepliesModal">
       <div class="stat-card-inner">
         <div>
           <div class="stat-label">Public Replies / Agent</div>
@@ -443,7 +452,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
       <div class="depth-context">Ongoing — tickets still active</div>
       <span class="depth-tag open">⏳ Open tickets</span>
     </div>
-    <div class="depth-card" data-modal="avgChatsModal">
+    <div class="depth-card" data-modal="avgTicketModal">
       <div class="depth-label">Avg Chats / Ticket</div>
       <div class="depth-value data-val" id="valAvgChatsDepth">3<span class="depth-unit">.7</span></div>
       <div class="depth-context">Average across all statuses</div>
@@ -591,7 +600,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
   </div>
 
   <div class="footer-note">
-    <span class="footer-left" id="footerLeft">Data refreshed every 15 minutes · Last updated 11:42 AM · Source: Zendesk</span>
+    <span class="footer-left" id="footerLeft">Data refreshed every 15 minutes · Last updated 11:42 AM · All Sources</span>
     <span class="footer-right"><span class="footer-dot"></span>AiMY Operations Hub · Upland · Jun 2026</span>
   </div>
 </main>
@@ -601,7 +610,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Total Universe -->
 <div class="modal-backdrop" id="totalUniverseModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeUniverse">Platform Total · All Sources</span><span class="modal-title">All Tickets — Platform Universe</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">All Tickets — Platform Universe</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" id="mUnivTotal">4,841</div><div class="m-stat-label">platform total</div></div>
@@ -609,11 +618,14 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         <div class="m-stat"><div class="m-stat-value" id="mUnivExcl">1,810</div><div class="m-stat-label">AiMY not involved</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mUnivCovPct">62.6%</div><div class="m-stat-label">AiMY coverage rate</div></div>
       </div></div>
-      <div class="modal-section"><div class="modal-section-title">Coverage by Channel</div>
-        <div class="bk-row"><span class="bk-label">Zendesk</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:73%"></div></div><span class="bk-val">3,031</span><span class="bk-pct">73% cov.</span></div>
-        <div class="bk-row"><span class="bk-label">Freshdesk</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:52%;background:var(--warn)"></div></div><span class="bk-val">1,810</span><span class="bk-pct">52% cov.</span></div>
+      <div class="modal-section"><div class="modal-section-title">By Category</div>
+        <div class="bk-row"><span class="bk-label">Question</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">1,612</span><span class="bk-pct">33%</span></div>
+        <div class="bk-row"><span class="bk-label">Configuration Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:71%"></div></div><span class="bk-val">1,140</span><span class="bk-pct">24%</span></div>
+        <div class="bk-row"><span class="bk-label">Software Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:57%"></div></div><span class="bk-val">921</span><span class="bk-pct">19%</span></div>
+        <div class="bk-row"><span class="bk-label">Incident/Outage</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:39%"></div></div><span class="bk-val">624</span><span class="bk-pct">13%</span></div>
+        <div class="bk-row"><span class="bk-label">Other</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:34%"></div></div><span class="bk-val">544</span><span class="bk-pct">11%</span></div>
       </div>
-      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>1,810 tickets were handled without AiMY involvement — 37.4% of total volume.</strong> Expanding AiMY coverage to Freshdesk's unassisted tickets represents the highest-impact growth lever this period.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>Question and Configuration Issue account for 57% of ticket volume — 2,752 tickets.</strong> Expanding AiMY's self-serve answers for these two categories is the highest-impact deflection lever this period.</div></div>
     </div>
   </div>
 </div>
@@ -621,7 +633,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Total Tickets -->
 <div class="modal-backdrop" id="totalTicketsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeTotalTickets">Zendesk · AIMYIMP-4875</span><span class="modal-title">Total Tickets — AiMY Involved</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Total Tickets — AiMY Involved</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" id="mTotalTickets">3,031</div><div class="m-stat-label">total tickets</div><div class="m-stat-delta up" id="mTotalTicketsDelta">+16% vs prev</div></div>
@@ -650,7 +662,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Open Tickets -->
 <div class="modal-backdrop" id="openTicketsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeOpenTickets">Zendesk · AIMYIMP-4875</span><span class="modal-title">Open Tickets — Currently Active</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Open Tickets — Currently Active</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--warn)" id="mOpenVal">388</div><div class="m-stat-label">open tickets</div><div class="m-stat-delta down" id="mOpenDelta">+11% vs prev</div></div>
@@ -678,7 +690,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Total Chats -->
 <div class="modal-backdrop" id="totalChatsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeTotalChats">Zendesk · AIMYIMP-4875</span><span class="modal-title">Total Chats — All Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Total Chats — All Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" id="mTotalChats">11,187</div><div class="m-stat-label">total chats</div><div class="m-stat-delta up" id="mTotalChatsDelta">+20% vs prev</div></div>
@@ -702,31 +714,50 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
   </div>
 </div>
 
-<!-- Avg Chats per Ticket -->
-<div class="modal-backdrop" id="avgChatsModal">
+<!-- Public Replies -->
+<div class="modal-backdrop" id="publicRepliesModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeAvgChats">Zendesk · AIMYIMP-4875</span><span class="modal-title">Public Replies & Chat Depth</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Public Replies</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
-      <div class="modal-section"><div class="modal-grid-4">
+      <div class="modal-section"><div class="modal-grid-3">
         <div class="m-stat"><div class="m-stat-value" id="mAvgAll">8.4</div><div class="m-stat-label">public replies / agent</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mAvgSolved">2.1</div><div class="m-stat-label">chats per public reply</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mAvgOpen">3.7</div><div class="m-stat-label">avg chats / ticket</div></div>
-        <div class="m-stat"><div class="m-stat-value" id="mAvgAgent">15.3</div><div class="m-stat-label">avg chats / agent</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mAvgTotal">6,140</div><div class="m-stat-label">total public replies</div></div>
       </div></div>
-      <div class="modal-section"><div class="modal-grid-2">
-        <div><div class="modal-section-title">By Category</div>
-          <div class="bk-row"><span class="bk-label">Billing</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:70%;background:var(--warn)"></div></div><span class="bk-val" id="mCatBilling">5.2</span><span class="bk-pct">avg</span></div>
-          <div class="bk-row"><span class="bk-label">Tech Support</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:58%;background:var(--warn)"></div></div><span class="bk-val" id="mCatTech">4.3</span><span class="bk-pct">avg</span></div>
-          <div class="bk-row"><span class="bk-label">Account Mgmt</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:43%"></div></div><span class="bk-val" id="mCatAcct">3.2</span><span class="bk-pct">avg</span></div>
-          <div class="bk-row"><span class="bk-label">General Enquiry</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:26%"></div></div><span class="bk-val" id="mCatGen">2.0</span><span class="bk-pct">avg</span></div>
-        </div>
-        <div><div class="modal-section-title">By Day of Week</div>
-          <div class="day-tags">
-            <span class="day-tag lo" id="mDay0">Mon 4.4</span><span class="day-tag" id="mDay1">Tue 3.8</span><span class="day-tag hi" id="mDay2">Wed 3.3</span><span class="day-tag hi" id="mDay3">Thu 3.4</span><span class="day-tag" id="mDay4">Fri 3.7</span><span class="day-tag lo" id="mDay5">Sat 4.1</span><span class="day-tag lo" id="mDay6">Sun 4.6</span>
-          </div>
-        </div>
+      <div class="modal-section"><div class="modal-section-title">By Product</div>
+        <div class="prod-bars" data-prodset="replies"></div>
+        <button class="expand-toggle" type="button" data-prodtoggle="replies" aria-expanded="false"><span class="et-label">Show all 10 products</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg></button>
+      </div>
+      <div class="modal-section"><div class="modal-section-title">By Resolution Category</div>
+        <div class="bk-row"><span class="bk-label">Question</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">951</span><span class="bk-pct">36%</span></div>
+        <div class="bk-row"><span class="bk-label">Configuration Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:64%"></div></div><span class="bk-val">608</span><span class="bk-pct">23%</span></div>
+        <div class="bk-row"><span class="bk-label">Software Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:50%"></div></div><span class="bk-val">476</span><span class="bk-pct">18%</span></div>
+        <div class="bk-row"><span class="bk-label">Incident/Outage</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:36%"></div></div><span class="bk-val">343</span><span class="bk-pct">13%</span></div>
+        <div class="bk-row"><span class="bk-label">Other</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:28%"></div></div><span class="bk-val">265</span><span class="bk-pct">10%</span></div>
+      </div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightAvg"><strong>Product Alpha and Product Bravo generate 38% of all public reply volume.</strong> Targeting AiMY reply automation at these two products is the highest-leverage effort reduction this period.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Avg Chats per Ticket -->
+<div class="modal-backdrop" id="avgTicketModal">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Avg Chats per Ticket</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-body">
+      <div class="modal-section"><div class="modal-grid-3">
+        <div class="m-stat"><div class="m-stat-value" id="mTixAvg">3.7</div><div class="m-stat-label">avg chats / ticket</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mTixAgent">15.3</div><div class="m-stat-label">avg chats / agent</div></div>
+        <div class="m-stat"><div class="m-stat-value" id="mTixTotal">11,187</div><div class="m-stat-label">total chats</div></div>
       </div></div>
-      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightAvg"><strong>Billing tickets average 5.2 chats — 41% above overall mean.</strong> Expanding AiMY's billing resolution scripts could meaningfully reduce chat depth.</div></div>
+      <div class="modal-section"><div class="modal-section-title">Avg Chats by Resolution Category</div>
+        <div class="bk-row"><span class="bk-label">Incident/Outage</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">5.4</span><span class="bk-pct">avg</span></div>
+        <div class="bk-row"><span class="bk-label">Software Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:85%"></div></div><span class="bk-val">4.6</span><span class="bk-pct">avg</span></div>
+        <div class="bk-row"><span class="bk-label">Configuration Issue</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:72%"></div></div><span class="bk-val">3.9</span><span class="bk-pct">avg</span></div>
+        <div class="bk-row"><span class="bk-label">Other</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:57%"></div></div><span class="bk-val">3.1</span><span class="bk-pct">avg</span></div>
+        <div class="bk-row"><span class="bk-label">Question</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:52%"></div></div><span class="bk-val">2.8</span><span class="bk-pct">avg</span></div>
+      </div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>Incident/Outage tickets average 5.4 chats — 38% above the overall mean.</strong> Expanding AiMY's incident-triage scripts could meaningfully reduce chat depth.</div></div>
     </div>
   </div>
 </div>
@@ -734,7 +765,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Solved Tickets -->
 <div class="modal-backdrop" id="solvedTicketsModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeSolved">Zendesk · Ticket Pipeline</span><span class="modal-title">Solved Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Solved Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--teal)" id="mSolvedVal">2,643</div><div class="m-stat-label">solved tickets</div><div class="m-stat-delta up" id="mSolvedRate">87.2% rate</div></div>
@@ -750,7 +781,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Chats in Solved -->
 <div class="modal-backdrop" id="chatsSolvedModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeChatsSolved">Zendesk · AIMYIMP-4875</span><span class="modal-title">Chats in Solved Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Chats in Solved Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-3">
         <div class="m-stat"><div class="m-stat-value" id="mCSolvedChats">9,750</div><div class="m-stat-label">chats in solved</div><div class="m-stat-delta up" id="mCSolvedPct">87.2% of all chats</div></div>
@@ -765,7 +796,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Chats in Open -->
 <div class="modal-backdrop" id="chatsOpenModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeChatsOpen">Zendesk · AIMYIMP-4875</span><span class="modal-title">Chats in Open Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Chats in Open Tickets</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-3">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--warn)" id="mCOpenChats">1,437</div><div class="m-stat-label">chats in open</div></div>
@@ -780,19 +811,18 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Avg Chats per Agent -->
 <div class="modal-backdrop" id="avgAgentModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeAvgAgent">Zendesk · AIMYIMP-4875</span><span class="modal-title">Avg Chats per Agent</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Avg Chats per Agent</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-3">
         <div class="m-stat"><div class="m-stat-value" id="mAgentAvg">15.3</div><div class="m-stat-label">avg chats / agent</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mAgentActive">731</div><div class="m-stat-label">active agents</div></div>
         <div class="m-stat"><div class="m-stat-value" id="mAgentChats">11,187</div><div class="m-stat-label">total chats</div></div>
       </div></div>
-      <div class="modal-section"><div class="modal-section-title">Agent Engagement Distribution</div>
-        <div class="bk-row"><span class="bk-label">High (20+ chats)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:24%"></div></div><span class="bk-val" id="mEngHigh">175</span><span class="bk-pct">24%</span></div>
-        <div class="bk-row"><span class="bk-label">Medium (10–19)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:49%"></div></div><span class="bk-val" id="mEngMed">358</span><span class="bk-pct">49%</span></div>
-        <div class="bk-row"><span class="bk-label">Low (1–9)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:27%;background:var(--warn)"></div></div><span class="bk-val" id="mEngLow">198</span><span class="bk-pct">27%</span></div>
+      <div class="modal-section"><div class="modal-section-title">By Product</div>
+        <div class="prod-bars" data-prodset="chats"></div>
+        <button class="expand-toggle" type="button" data-prodtoggle="chats" aria-expanded="false"><span class="et-label">Show all 10 products</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg></button>
       </div>
-      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightAgent"><strong>27% of agents have low AiMY engagement.</strong> High-engagement agents resolve tickets 31% faster on average. Per-agent breakdowns are available in AiMY QA → Agent Scorecards.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text" id="mInsightAgent"><strong>The top 3 products generate 54% of all chat load.</strong> Per-product agent breakdowns are available in AiMY QA → Agent Scorecards.</div></div>
     </div>
   </div>
 </div>
@@ -800,7 +830,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Explicit Signals -->
 <div class="modal-backdrop" id="explicitModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeExplicit">Zendesk · AIMYIMP-4872</span><span class="modal-title">Explicit Signals — Thumbs Ratings</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Explicit Signals — Thumbs Ratings</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)" id="mExpOk">1,793</div><div class="m-stat-label">thumbs up</div></div>
@@ -827,7 +857,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 <!-- Implicit Signals -->
 <div class="modal-backdrop" id="implicitModal">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-eyebrow" id="mEyeImplicit">Zendesk · AIMYIMP-4869</span><span class="modal-title">Implicit Signals — Copy vs Ignore</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Implicit Signals — Copy vs Ignore</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value" style="color:var(--teal)" id="mImpCopy">7,292</div><div class="m-stat-label">content copied</div><div class="m-stat-delta up" id="mImpCopyDelta">+24% vs prev</div></div>
@@ -850,7 +880,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 // ── DATA SETS ──
 const DATA = {
   zd: {
-    source: 'Zendesk',
+    source: 'All Sources',
     totalTickets: '3,031', deltaTotal: '+16%',
     openTickets: '388',   deltaOpen: '+11%',
     totalChats: '11,187', deltaChats: '+20%',
@@ -897,6 +927,57 @@ const DATA = {
 
 const currentSource = 'zd';
 
+// PRODUCT BREAKDOWNS (placeholder names - swap when real list lands)
+const PRODUCTS = {
+  replies: { unit:'replies', items:[
+    {name:'Product Alpha', val:1310, pct:21}, {name:'Product Bravo', val:1050, pct:17},
+    {name:'Product Charlie', val:850, pct:14}, {name:'Product Delta', val:680, pct:11},
+    {name:'Product Echo', val:580, pct:9}, {name:'Product Foxtrot', val:480, pct:8},
+    {name:'Product Golf', val:400, pct:7}, {name:'Product Hotel', val:330, pct:5},
+    {name:'Product India', val:270, pct:4}, {name:'Product Juliet', val:190, pct:3}
+  ]},
+  chats: { unit:'chats', items:[
+    {name:'Product Alpha', val:2460, pct:22}, {name:'Product Bravo', val:1980, pct:18},
+    {name:'Product Charlie', val:1540, pct:14}, {name:'Product Delta', val:1230, pct:11},
+    {name:'Product Echo', val:990, pct:9}, {name:'Product Foxtrot', val:820, pct:7},
+    {name:'Product Golf', val:690, pct:6}, {name:'Product Hotel', val:560, pct:5},
+    {name:'Product India', val:487, pct:4}, {name:'Product Juliet', val:430, pct:4}
+  ]}
+};
+function _prodRow(it, max){
+  const w = Math.max(4, Math.round(it.val / max * 100));
+  return '<div class="bk-row"><span class="bk-label">' + it.name + '</span>'
+    + '<div class="bk-bar-wrap"><div class="bk-bar" style="width:' + w + '%"></div></div>'
+    + '<span class="bk-val">' + it.val.toLocaleString() + '</span>'
+    + '<span class="bk-pct">' + it.pct + '%</span></div>';
+}
+function renderProductBars(){
+  document.querySelectorAll('.prod-bars').forEach(c => {
+    const set = PRODUCTS[c.dataset.prodset];
+    if(!set) return;
+    const items = set.items.slice().sort((a,b) => b.val - a.val);
+    const max = items[0].val;
+    const top = items.slice(0,5).map(it => _prodRow(it, max)).join('');
+    const rest = items.slice(5).map(it => _prodRow(it, max)).join('');
+    c.innerHTML = '<div class="prod-visible">' + top + '</div>'
+      + (rest ? '<div class="prod-extra"><div>' + rest + '</div></div>' : '');
+  });
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('.expand-toggle');
+  if(!t) return;
+  const extra = t.parentElement.querySelector('.prod-extra');
+  if(!extra) return;
+  const open = extra.classList.toggle('open');
+  t.classList.toggle('open', open);
+  t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const lbl = t.querySelector('.et-label');
+  if(lbl){
+    const total = (PRODUCTS[t.dataset.prodtoggle] || {items:[]}).items.length;
+    lbl.textContent = open ? 'Show top 5' : ('Show all ' + total + ' products');
+  }
+});
+
 // ── [4] MODALS ──
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
@@ -938,6 +1019,7 @@ document.querySelectorAll('.period-pill').forEach(b => {
 // ── [2] INIT ANIMATIONS — scaleX ──
 window.addEventListener('load', () => {
   const d = DATA[currentSource];
+  renderProductBars();
   setTimeout(() => {
     document.getElementById('solvedFill').style.transform = 'scaleX(' + d.solvedBarS + ')';
     document.getElementById('openFill').style.transform = 'scaleX(' + d.openBarS + ')';
