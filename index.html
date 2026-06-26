@@ -217,6 +217,15 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .form-input{background:var(--d800);border:1px solid var(--card-border);border-radius:9px;padding:11px 14px;font-size:15px;font-weight:700;color:var(--d50);font-family:'Urbanist',sans-serif;letter-spacing:-.01em;transition:border-color var(--tf);width:100%}
 .form-input:focus{border-color:var(--brand);outline:none}
 .form-input::placeholder{color:var(--d600);font-weight:500}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:36px}
+.number-input-wrap{position:relative;display:flex;align-items:center}
+.number-input-wrap .form-input{padding-right:36px}
+.number-spin-btns{position:absolute;right:0;top:0;bottom:0;display:flex;flex-direction:column;width:32px;border-left:1px solid var(--card-border);border-radius:0 9px 9px 0;overflow:hidden}
+.number-spin-btn{flex:1;display:flex;align-items:center;justify-content:center;background:var(--d800);border:none;color:var(--d500);cursor:pointer;font-family:'Urbanist',sans-serif;transition:background var(--tf),color var(--tf);padding:0;line-height:1}
+.number-spin-btn:first-child{border-bottom:1px solid var(--card-border)}
+.number-spin-btn:hover{background:var(--d700);color:var(--brand)}
+.number-spin-btn svg{width:10px;height:10px;pointer-events:none}
 .preset-amounts{display:flex;gap:8px;flex-wrap:wrap}
 .preset-btn{padding:7px 14px;border-radius:7px;background:var(--d800);border:1px solid var(--card-border);font-size:12px;font-weight:700;color:var(--d400);cursor:pointer;font-family:'Urbanist',sans-serif;transition:border-color var(--tf),color var(--tf),background var(--tf)}
 .preset-btn:hover{border-color:var(--brand);color:var(--d100)}
@@ -273,7 +282,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .pt-unit{font-size:10px;font-weight:600;color:var(--d500);margin-bottom:10px}
 .pt-total{font-size:11px;font-weight:500;color:var(--d600)}
 .plan-custom-row{display:flex;align-items:center;gap:10px}
-.plan-custom-row .form-input{flex:1}
+.plan-custom-row .form-input{flex:1}.plan-custom-row .number-input-wrap{flex:1}
 .plan-custom-label{font-size:11px;color:var(--d500);white-space:nowrap}
 .plan-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:16px;display:flex;flex-direction:column;gap:11px}
 .ps-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
@@ -741,7 +750,13 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
         <div class="form-field">
           <label class="form-label">Or enter a custom increment</label>
           <div class="plan-custom-row">
-            <input class="form-input" id="planCustomInput" type="number" placeholder="e.g. 3,000" min="500" step="500" oninput="onPlanCustomInput()">
+            <div class="number-input-wrap">
+              <input class="form-input" id="planCustomInput" type="number" placeholder="e.g. 3,000" min="500" step="500" oninput="onPlanCustomInput()">
+              <div class="number-spin-btns">
+                <button type="button" class="number-spin-btn" onclick="stepNumberInput('planCustomInput',1)" tabindex="-1" aria-label="Increase"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,3 8,7"/></svg></button>
+                <button type="button" class="number-spin-btn" onclick="stepNumberInput('planCustomInput',-1)" tabindex="-1" aria-label="Decrease"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,3 5,7 8,3"/></svg></button>
+              </div>
+            </div>
             <span class="plan-custom-label">min / mo</span>
           </div>
           <div id="planCustomHint" style="font-size:11px;color:var(--d600);margin-top:5px;min-height:16px"></div>
@@ -844,7 +859,13 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
       <div class="credits-form">
         <div class="form-field">
           <label class="form-label">Minutes to add</label>
-          <input class="form-input" id="creditsInput" type="number" placeholder="e.g. 1000" min="100" step="100" oninput="updateCreditsSummary()">
+          <div class="number-input-wrap">
+            <input class="form-input" id="creditsInput" type="number" placeholder="e.g. 1000" min="100" step="100" oninput="updateCreditsSummary()">
+            <div class="number-spin-btns">
+              <button type="button" class="number-spin-btn" onclick="stepNumberInput('creditsInput',1)" tabindex="-1" aria-label="Increase"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,3 8,7"/></svg></button>
+              <button type="button" class="number-spin-btn" onclick="stepNumberInput('creditsInput',-1)" tabindex="-1" aria-label="Decrease"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,3 5,7 8,3"/></svg></button>
+            </div>
+          </div>
           <div class="preset-amounts">
             <button class="preset-btn" data-amount="500">+500</button>
             <button class="preset-btn" data-amount="1000">+1,000</button>
@@ -1057,6 +1078,18 @@ function selectPlanTier(btn){
   if(hint)hint.textContent='';
   const inc=parseInt(btn.dataset.increment)||0;
   updatePlanSummary(inc);
+}
+
+function stepNumberInput(id, direction){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const step=parseFloat(el.step)||1;
+  const min=el.min!==''?parseFloat(el.min):-Infinity;
+  const max=el.max!==''?parseFloat(el.max):Infinity;
+  const current=parseFloat(el.value)||0;
+  const next=Math.min(Math.max(current+step*direction,min),max);
+  el.value=next;
+  el.dispatchEvent(new Event('input',{bubbles:true}));
 }
 
 function onPlanCustomInput(){
