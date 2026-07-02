@@ -589,11 +589,25 @@
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--qa-accent), #61adf1);
+        background: linear-gradient(
+          135deg,
+          rgba(111, 223, 226, 0.24),
+          rgba(51, 105, 255, 0.13)
+        );
+        border: 1px solid rgba(111, 223, 226, 0.62);
+        box-shadow:
+          0 0 0 3px rgba(111, 223, 226, 0.06),
+          0 8px 20px rgba(0, 0, 0, 0.18);
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+      }
+      .insight-logo-icon {
+        width: 18px;
+        height: 18px;
+        display: block;
+        object-fit: contain;
       }
       .insight-text {
         font-size: 12px;
@@ -803,6 +817,272 @@
         color: var(--d600);
         margin-top: 4px;
       }
+      .failed-filter-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        gap: 10px;
+        margin: 0 0 14px;
+        flex-wrap: nowrap;
+      }
+      .failed-filter-row.smart-time-filter {
+        position: relative;
+        padding: 11px 12px;
+        background: rgba(20, 27, 36, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        overflow: visible;
+      }
+      .failed-filter-row.smart-time-filter::before {
+        display: none;
+      }
+      .failed-date-range {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+      .failed-date-field {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex-shrink: 0;
+      }
+      .failed-date-field label {
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--d500);
+      }
+      .failed-date-field input,
+      .failed-date-field select,
+      .time-select {
+        height: 34px;
+        background: rgba(28, 38, 48, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.085);
+        border-radius: 9px;
+        color: var(--d100);
+        font-family: "Urbanist", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 0 10px;
+        color-scheme: dark;
+        transition:
+          border-color var(--tf),
+          background var(--tf),
+          box-shadow var(--tf);
+      }
+      .failed-date-field input:hover,
+      .failed-date-field select:hover,
+      .time-select:hover {
+        border-color: rgba(111, 223, 226, 0.26);
+        background: rgba(35, 48, 64, 0.94);
+      }
+      .failed-date-field input:focus-visible,
+      .failed-date-field select:focus-visible,
+      .time-select:focus-visible {
+        outline: none;
+        border-color: rgba(111, 223, 226, 0.58);
+        box-shadow: 0 0 0 2px rgba(111, 223, 226, 0.12);
+      }
+      .smart-time-filter {
+        align-items: flex-end;
+      }
+      .wide-field select {
+        min-width: 250px;
+      }
+      .compact-time-field {
+        min-width: 118px;
+      }
+      .failed-date-field select {
+        appearance: none;
+        -webkit-appearance: none;
+        padding-right: 32px;
+        background-image:
+          linear-gradient(45deg, transparent 50%, var(--d300) 50%),
+          linear-gradient(135deg, var(--d300) 50%, transparent 50%);
+        background-position:
+          calc(100% - 17px) 14px,
+          calc(100% - 12px) 14px;
+        background-size:
+          5px 5px,
+          5px 5px;
+        background-repeat: no-repeat;
+      }
+      .failed-date-field select option {
+        background: #111923;
+        color: var(--d100);
+        font-weight: 700;
+      }
+      .custom-hour-fields {
+        display: none;
+        align-items: flex-end;
+        gap: 10px;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+      }
+      .custom-hour-fields.visible {
+        display: flex;
+      }
+      .failed-date-note {
+        display: none;
+      }
+      .time-select {
+        min-width: 118px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 7px;
+        cursor: pointer;
+        text-align: left;
+      }
+      .time-select-icon {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--d300);
+        background: transparent;
+        border: 0;
+        flex-shrink: 0;
+      }
+      .time-select-icon svg {
+        width: 11px;
+        height: 11px;
+      }
+      .time-select-value {
+        font-size: 12px;
+        letter-spacing: 0.01em;
+        color: var(--d50);
+        white-space: nowrap;
+      }
+      .time-select-caret {
+        width: 12px;
+        height: 12px;
+        color: var(--d400);
+        transition:
+          transform var(--tf),
+          color var(--tf);
+        flex-shrink: 0;
+      }
+      .time-select[aria-expanded="true"] {
+        border-color: rgba(111, 223, 226, 0.58);
+        box-shadow: 0 0 0 2px rgba(111, 223, 226, 0.12);
+      }
+      .time-select[aria-expanded="true"] .time-select-caret {
+        transform: rotate(180deg);
+        color: var(--teal);
+      }
+      .time-wheel-popover {
+        position: absolute;
+        top: calc(100% + 7px);
+        left: 0;
+        width: 205px;
+        padding: 8px;
+        background: #111923;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+        z-index: 40;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-3px);
+        transition:
+          opacity var(--tf),
+          transform var(--tf);
+      }
+      .time-wheel-popover.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .time-wheel-popover::before {
+        display: none;
+      }
+      .time-wheel-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 5px;
+        z-index: 1;
+      }
+      .time-wheel-col {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        max-height: 132px;
+        overflow: auto;
+        padding: 0 1px 0 0;
+      }
+      .time-wheel-col-label {
+        display: none;
+      }
+      .time-wheel-option {
+        height: 27px;
+        min-height: 27px;
+        border: 1px solid transparent;
+        background: transparent;
+        border-radius: 7px;
+        color: var(--d400);
+        font-family: "Urbanist", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition:
+          background var(--tf),
+          color var(--tf),
+          border-color var(--tf);
+      }
+      .time-wheel-option:hover {
+        color: var(--d50);
+        background: rgba(255, 255, 255, 0.055);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      .time-wheel-option.active {
+        color: var(--d50);
+        background: rgba(51, 105, 255, 0.35);
+        border-color: rgba(111, 223, 226, 0.24);
+      }
+      .time-wheel-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 7px;
+        padding-top: 7px;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .time-wheel-action {
+        border: none;
+        background: transparent;
+        color: var(--d500);
+        font-family: "Urbanist", sans-serif;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 5px 7px;
+        border-radius: 6px;
+      }
+      .time-wheel-action:hover {
+        color: var(--d100);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .time-wheel-action.set {
+        color: var(--d50);
+        background: rgba(51, 105, 255, 0.55);
+      }
       .table-card {
         background: var(--d800);
         border: 1px solid var(--card-border);
@@ -840,6 +1120,83 @@
       }
       .failed-table tbody tr.data-row:hover {
         background: rgba(255, 255, 255, 0.025);
+      }
+      .failed-table tbody tr.data-row.open {
+        background: rgba(255, 255, 255, 0.035);
+      }
+      .failed-table tbody tr.data-row.open td {
+        border-bottom-color: rgba(111, 223, 226, 0.12);
+      }
+      .call-times-row {
+        display: none;
+        background: rgba(8, 11, 16, 0.18);
+      }
+      .call-times-row.open {
+        display: table-row;
+      }
+      .call-times-panel {
+        padding: 0 13px 14px !important;
+        background: linear-gradient(
+          180deg,
+          rgba(97, 173, 241, 0.045),
+          rgba(255, 255, 255, 0.018)
+        );
+      }
+      .call-times-inner {
+        border: 1px solid var(--card-border);
+        border-radius: 11px;
+        background: rgba(13, 17, 23, 0.42);
+        max-height: 156px;
+        overflow-y: auto;
+      }
+      .call-times-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--card-border);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--d500);
+      }
+      .call-times-count {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--teal);
+        text-transform: none;
+        letter-spacing: 0.02em;
+      }
+      .call-time-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+        font-size: 12px;
+        color: var(--d300);
+      }
+      .call-time-item:last-child {
+        border-bottom: none;
+      }
+      .call-time-item strong {
+        color: var(--d50);
+        font-weight: 700;
+      }
+      .call-time-item span {
+        color: var(--d500);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .row-expand-hint {
+        font-size: 11px;
+        color: var(--d500);
+        font-weight: 700;
       }
       .masked-num {
         font-weight: 700;
@@ -888,24 +1245,37 @@
         color: var(--ok);
         background: rgba(23, 178, 106, 0.11);
       }
-      .expand-cell {
-        color: var(--d500);
+      .priority-pill {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        padding: 4px 8px;
+        font-size: 11px;
         font-weight: 800;
-        text-align: right;
+        letter-spacing: 0.02em;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .detail-row {
-        display: none;
-        background: rgba(8, 11, 16, 0.32);
+      .priority-pill.high {
+        color: var(--err);
+        background: rgba(240, 68, 56, 0.11);
+        border-color: rgba(240, 68, 56, 0.24);
       }
-      .detail-row.open {
-        display: table-row;
+      .priority-pill.medium {
+        color: var(--warn);
+        background: rgba(247, 144, 9, 0.11);
+        border-color: rgba(247, 144, 9, 0.24);
+      }
+      .priority-pill.low {
+        color: var(--d300);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
       }
       .detail-panel {
         padding: 14px 16px 16px !important;
       }
       .detail-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
       }
       .detail-item {
@@ -943,7 +1313,7 @@
         color: var(--d100);
         margin-bottom: 4px;
       }
-      .incident-summary-strip {
+      .failure-summary-strip {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
@@ -954,7 +1324,7 @@
         padding: 14px 16px;
         margin-bottom: 14px;
       }
-      .incident-summary-label {
+      .failure-summary-label {
         display: block;
         font-size: 10px;
         font-weight: 700;
@@ -963,19 +1333,19 @@
         color: var(--d500);
         margin-bottom: 5px;
       }
-      .incident-summary-strip strong {
+      .failure-summary-strip strong {
         display: block;
         font-size: 14px;
         color: var(--d50);
         margin-bottom: 3px;
       }
-      .incident-summary-strip p {
+      .failure-summary-strip p {
         font-size: 12px;
         color: var(--d400);
         line-height: 1.5;
         margin: 0;
       }
-      .incident-summary-status {
+      .failure-summary-status {
         flex-shrink: 0;
         font-size: 11px;
         font-weight: 800;
@@ -987,7 +1357,7 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
-      .incident-summary-status.active {
+      .failure-summary-status.active {
         color: var(--warn);
         background: var(--warn-bg);
         border-color: rgba(247, 144, 9, 0.24);
@@ -996,6 +1366,16 @@
         color: var(--warn);
         background: var(--warn-bg);
         border-color: rgba(247, 144, 9, 0.24);
+      }
+
+      @media (max-width: 900px) {
+        .failed-filter-row,
+        .failed-date-range {
+          flex-wrap: wrap;
+        }
+        .custom-hour-fields {
+          flex-wrap: wrap;
+        }
       }
       @media (max-width: 980px) {
         .failed-metrics {
@@ -1797,7 +2177,9 @@
                 </div>
               </div>
               <div class="call-card-value">60</div>
-              <div class="call-card-sub">missed during quota reset window</div>
+              <div class="call-card-sub">
+                calls failed in selected date range
+              </div>
               <div class="call-card-delta down">
                 <svg
                   viewBox="0 0 16 16"
@@ -1807,24 +2189,24 @@
                 >
                   <path d="M8 4v8M4 8l4 4 4-4" />
                 </svg>
-                Quota exhausted · active since 7:16 AM
+                Latest failed call recorded at 8:18 PM
               </div>
             </div>
             <div class="failed-card-kpi">
-              <div class="failed-card-kpi-value warn">1</div>
-              <div class="failed-card-kpi-label">Active incident</div>
+              <div class="failed-card-kpi-value warn">60</div>
+              <div class="failed-card-kpi-label">Total failed</div>
             </div>
             <div class="failed-card-kpi">
-              <div class="failed-card-kpi-value">2h 09m</div>
-              <div class="failed-card-kpi-label">Failure window</div>
+              <div class="failed-card-kpi-value">7:16 AM</div>
+              <div class="failed-card-kpi-label">First failed at</div>
             </div>
             <div class="failed-card-kpi">
-              <div class="failed-card-kpi-value ok">42</div>
-              <div class="failed-card-kpi-label">Callbacks triggered</div>
+              <div class="failed-card-kpi-value">8:18 PM</div>
+              <div class="failed-card-kpi-label">Last failed at</div>
             </div>
             <div class="failed-card-kpi">
-              <div class="failed-card-kpi-value warn">18</div>
-              <div class="failed-card-kpi-label">Callbacks pending</div>
+              <div class="failed-card-kpi-value">3</div>
+              <div class="failed-card-kpi-label">Repeat callers</div>
             </div>
           </div>
         </div>
@@ -1833,9 +2215,11 @@
       <!-- AiMY Insight -->
       <div class="insight-banner">
         <div class="insight-aimark">
-          <svg width="14" height="16" viewBox="0 0 18 20">
-            <use href="#aimy-logo-small" />
-          </svg>
+          <img
+            class="insight-logo-icon"
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+            alt=""
+          />
         </div>
         <div class="insight-text">
           <strong
@@ -1892,73 +2276,155 @@
                 <span class="failed-eyebrow">Operations monitoring</span>
                 <h2 class="failed-title">Failed Calls</h2>
                 <p class="failed-desc">
-                  Track missed and failed calls by failure window, reason,
-                  callback status, and client impact. Use this view to confirm
-                  what happened during a voice failure event.
+                  Track failed call records using the backend fields available
+                  today: total failed calls, timestamps, caller numbers, repeat
+                  attempts, and priority.
                 </p>
               </div>
               <div class="health-chip">Voice checks active</div>
             </div>
 
-            <div class="failure-alert">
-              <div class="failure-alert-left">
-                <div class="failure-icon">!</div>
-                <div>
-                  <div class="failure-alert-title">
-                    Active voice failure detected
-                  </div>
-                  <div class="failure-alert-meta">
-                    <strong>Quota exhausted</strong> · Started 7:16 AM · Ongoing
-                    · <strong>60 calls affected so far</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="failure-alert-actions">
-                <button
-                  class="btn-compact primary"
-                  data-scroll-target="failedCallsTable"
-                >
-                  Review failed calls
-                </button>
-                <button class="btn-compact">Export CSV</button>
-              </div>
-            </div>
-
             <div class="failed-metrics">
               <div class="failed-metric">
                 <div class="failed-metric-value warn">60</div>
-                <div class="failed-metric-label">Failed calls today</div>
-                <div class="failed-metric-sub">inside selected window</div>
+                <div class="failed-metric-label">Failed calls in range</div>
+                <div class="failed-metric-sub">Jul 7, 2026</div>
               </div>
               <div class="failed-metric">
-                <div class="failed-metric-value warn">1</div>
-                <div class="failed-metric-label">Active incidents</div>
-                <div class="failed-metric-sub">current status: ongoing</div>
+                <div class="failed-metric-value">7:16 AM</div>
+                <div class="failed-metric-label">First failed at</div>
+                <div class="failed-metric-sub">first failed call timestamp</div>
               </div>
               <div class="failed-metric">
-                <div class="failed-metric-value">2h 09m</div>
-                <div class="failed-metric-label">Failure window</div>
-                <div class="failed-metric-sub">active since 7:16 AM</div>
-              </div>
-              <div class="failed-metric">
-                <div class="failed-metric-value" style="color: var(--ok)">
-                  42
+                <div class="failed-metric-value">8:18 PM</div>
+                <div class="failed-metric-label">Last failed at</div>
+                <div class="failed-metric-sub">
+                  latest failed call timestamp
                 </div>
-                <div class="failed-metric-label">Callbacks triggered</div>
-                <div class="failed-metric-sub">18 still pending</div>
+              </div>
+              <div class="failed-metric">
+                <div class="failed-metric-value">3</div>
+                <div class="failed-metric-label">Repeat callers</div>
+                <div class="failed-metric-sub">
+                  numbers with multiple attempts
+                </div>
               </div>
             </div>
 
-            <div class="incident-summary-strip">
-              <div>
-                <span class="incident-summary-label">Incident summary</span>
-                <strong>Quota exhausted since 7:16 AM</strong>
-                <p>
-                  60 failed calls have been captured so far. 42 callbacks were
-                  triggered and 18 remain pending.
-                </p>
+            <div class="failed-filter-row smart-time-filter">
+              <div
+                class="failed-date-range"
+                aria-label="Failed calls day and hour filter"
+              >
+                <div class="failed-date-field">
+                  <label for="failedDayFilter">Day</label>
+                  <input id="failedDayFilter" type="date" value="2026-07-07" />
+                </div>
+                <div class="failed-date-field wide-field select-field">
+                  <label for="failedHourPreset">Hour preference</label>
+                  <select id="failedHourPreset">
+                    <option value="all-day">All day · 12:00 AM–11:59 PM</option>
+                    <option value="morning">Morning · 6:00 AM–11:59 AM</option>
+                    <option value="failure-window" selected>
+                      Failure window · 7:00 AM–10:00 AM
+                    </option>
+                    <option value="business-hours">
+                      Business hours · 9:00 AM–6:00 PM
+                    </option>
+                    <option value="evening">Evening · 6:00 PM–11:59 PM</option>
+                    <option value="overnight">
+                      Overnight · 12:00 AM–6:00 AM
+                    </option>
+                    <option value="custom">Custom hours</option>
+                  </select>
+                </div>
+                <div
+                  class="custom-hour-fields"
+                  id="customHourFields"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="failed-date-field compact-time-field time-picker-field"
+                  >
+                    <label for="failedHourFromButton">From</label>
+                    <button
+                      class="time-select"
+                      id="failedHourFromButton"
+                      type="button"
+                      data-time-picker="from"
+                      aria-expanded="false"
+                    >
+                      <span class="time-select-icon" aria-hidden="true"
+                        ><svg
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                        >
+                          <circle cx="8" cy="8" r="5.8" />
+                          <path d="M8 4.8v3.7l2.4 1.5" /></svg
+                      ></span>
+                      <span class="time-select-value" id="failedHourFromLabel"
+                        >07:00 AM</span
+                      >
+                      <svg
+                        class="time-select-caret"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M4 6l4 4 4-4" />
+                      </svg>
+                    </button>
+                    <input id="failedHourFrom" type="hidden" value="07:00" />
+                    <div
+                      class="time-wheel-popover"
+                      data-time-popover="from"
+                    ></div>
+                  </div>
+                  <div
+                    class="failed-date-field compact-time-field time-picker-field"
+                  >
+                    <label for="failedHourToButton">To</label>
+                    <button
+                      class="time-select"
+                      id="failedHourToButton"
+                      type="button"
+                      data-time-picker="to"
+                      aria-expanded="false"
+                    >
+                      <span class="time-select-icon" aria-hidden="true"
+                        ><svg
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                        >
+                          <circle cx="8" cy="8" r="5.8" />
+                          <path d="M8 4.8v3.7l2.4 1.5" /></svg
+                      ></span>
+                      <span class="time-select-value" id="failedHourToLabel"
+                        >10:00 AM</span
+                      >
+                      <svg
+                        class="time-select-caret"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M4 6l4 4 4-4" />
+                      </svg>
+                    </button>
+                    <input id="failedHourTo" type="hidden" value="10:00" />
+                    <div
+                      class="time-wheel-popover"
+                      data-time-popover="to"
+                    ></div>
+                  </div>
+                </div>
               </div>
-              <span class="incident-summary-status active">Ongoing</span>
             </div>
 
             <div class="table-card" id="failedCallsTable">
@@ -1968,173 +2434,173 @@
                     <th>Caller</th>
                     <th>Timestamp</th>
                     <th>Failure reason</th>
-                    <th>Window duration</th>
-                    <th>Status</th>
-                    <th></th>
+                    <th>Times called</th>
+                    <th>Priority</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="data-row" data-expand-row="callDetail1">
-                    <td><span class="masked-num">+1 402 *** 8299</span></td>
-                    <td>7:22 AM</td>
+                  <tr
+                    class="data-row"
+                    data-call-row="caller-1"
+                    aria-expanded="false"
+                  >
                     <td>
-                      <span class="reason-pill quota">Quota exhausted</span>
+                      <span class="masked-num">+1 402 204 8299</span>
+                      <div class="row-expand-hint">
+                        Click to view all attempts
+                      </div>
                     </td>
-                    <td>2h 09m</td>
-                    <td>
-                      <span class="status-pill pending">Callback pending</span>
-                    </td>
-                    <td class="expand-cell">⌄</td>
+                    <td>Last call at 7:22 PM</td>
+                    <td>Voice service unavailable</td>
+                    <td>12</td>
+                    <td><span class="priority-pill high">High</span></td>
                   </tr>
-                  <tr class="detail-row" id="callDetail1">
-                    <td colspan="6" class="detail-panel">
-                      <div class="detail-grid">
-                        <div class="detail-item">
-                          <div class="detail-label">Full timestamp</div>
-                          <div class="detail-value">
-                            Jul 1, 2026 · 7:22:14 AM
-                          </div>
+                  <tr class="call-times-row" data-call-details="caller-1">
+                    <td colspan="5" class="call-times-panel">
+                      <div class="call-times-inner">
+                        <div class="call-times-title">
+                          All failed call times
+                          <span class="call-times-count">12 attempts</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure detail</div>
-                          <div class="detail-value">
-                            Monthly quota reset to zero blocked AiMY Voice
-                            handling.
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 7:22 PM</strong
+                          ><span>latest</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Follow-up action</div>
-                          <div class="detail-value">
-                            Callback task created · pending owner assignment
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 6:48 PM</strong
+                          ><span>attempt 11</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure window</div>
-                          <div class="detail-value">Active since 7:16 AM</div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 5:55 PM</strong
+                          ><span>attempt 10</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Product / client</div>
-                          <div class="detail-value">
-                            AiMY Voice · Connect Operations
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 4:32 PM</strong
+                          ><span>attempt 9</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Related incident</div>
-                          <div class="detail-value">
-                            INC-2026-07-01-VOICE-RESET
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 3:16 PM</strong
+                          ><span>attempt 8</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 2:08 PM</strong
+                          ><span>attempt 7</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 1:21 PM</strong
+                          ><span>attempt 6</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 12:44 PM</strong
+                          ><span>attempt 5</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 10:58 AM</strong
+                          ><span>attempt 4</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 9:37 AM</strong
+                          ><span>attempt 3</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 8:14 AM</strong
+                          ><span>attempt 2</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 7:22 AM</strong
+                          ><span>first</span>
                         </div>
                       </div>
                     </td>
                   </tr>
-
-                  <tr class="data-row" data-expand-row="callDetail2">
-                    <td><span class="masked-num">+1 229 *** 4744</span></td>
-                    <td>7:41 AM</td>
+                  <tr
+                    class="data-row"
+                    data-call-row="caller-2"
+                    aria-expanded="false"
+                  >
                     <td>
-                      <span class="reason-pill disconnect"
-                        >Service disconnected</span
-                      >
+                      <span class="masked-num">+1 229 949 4744</span>
+                      <div class="row-expand-hint">
+                        Click to view all attempts
+                      </div>
                     </td>
-                    <td>2h 09m</td>
-                    <td>
-                      <span class="status-pill pending"
-                        >Queued for callback</span
-                      >
-                    </td>
-                    <td class="expand-cell">⌄</td>
+                    <td>Last call at 6:13 PM</td>
+                    <td>Inbound call handling failed</td>
+                    <td>7</td>
+                    <td><span class="priority-pill medium">Medium</span></td>
                   </tr>
-                  <tr class="detail-row" id="callDetail2">
-                    <td colspan="6" class="detail-panel">
-                      <div class="detail-grid">
-                        <div class="detail-item">
-                          <div class="detail-label">Full timestamp</div>
-                          <div class="detail-value">
-                            Jul 1, 2026 · 7:41:03 AM
-                          </div>
+                  <tr class="call-times-row" data-call-details="caller-2">
+                    <td colspan="5" class="call-times-panel">
+                      <div class="call-times-inner">
+                        <div class="call-times-title">
+                          All failed call times
+                          <span class="call-times-count">7 attempts</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure detail</div>
-                          <div class="detail-value">
-                            Voice worker disconnected after quota validation
-                            failed.
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 6:13 PM</strong
+                          ><span>latest</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Follow-up action</div>
-                          <div class="detail-value">
-                            Callback queued · retry policy active
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 4:59 PM</strong
+                          ><span>attempt 6</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure window</div>
-                          <div class="detail-value">Active since 7:16 AM</div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 2:41 PM</strong
+                          ><span>attempt 5</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Product / client</div>
-                          <div class="detail-value">
-                            AiMY Voice · MacPractice Support
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 12:03 PM</strong
+                          ><span>attempt 4</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Related incident</div>
-                          <div class="detail-value">
-                            INC-2026-07-01-VOICE-RESET
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 10:28 AM</strong
+                          ><span>attempt 3</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 8:52 AM</strong
+                          ><span>attempt 2</span>
+                        </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 7:41 AM</strong
+                          ><span>first</span>
                         </div>
                       </div>
                     </td>
                   </tr>
-
-                  <tr class="data-row" data-expand-row="callDetail3">
-                    <td><span class="masked-num">+1 614 *** 0905</span></td>
-                    <td>8:18 AM</td>
+                  <tr
+                    class="data-row"
+                    data-call-row="caller-3"
+                    aria-expanded="false"
+                  >
                     <td>
-                      <span class="reason-pill quota">Quota exhausted</span>
+                      <span class="masked-num">+1 614 890 0905</span>
+                      <div class="row-expand-hint">
+                        Click to view all attempts
+                      </div>
                     </td>
-                    <td>2h 09m</td>
-                    <td>
-                      <span class="status-pill done">Callback triggered</span>
-                    </td>
-                    <td class="expand-cell">⌄</td>
+                    <td>Last call at 8:18 PM</td>
+                    <td>Call routing failed</td>
+                    <td>3</td>
+                    <td><span class="priority-pill low">Low</span></td>
                   </tr>
-                  <tr class="detail-row" id="callDetail3">
-                    <td colspan="6" class="detail-panel">
-                      <div class="detail-grid">
-                        <div class="detail-item">
-                          <div class="detail-label">Full timestamp</div>
-                          <div class="detail-value">
-                            Jul 1, 2026 · 8:18:55 AM
-                          </div>
+                  <tr class="call-times-row" data-call-details="caller-3">
+                    <td colspan="5" class="call-times-panel">
+                      <div class="call-times-inner">
+                        <div class="call-times-title">
+                          All failed call times
+                          <span class="call-times-count">3 attempts</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure detail</div>
-                          <div class="detail-value">
-                            Call arrived while AiMY Voice was unavailable due to
-                            zero quota.
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 8:18 PM</strong
+                          ><span>latest</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Follow-up action</div>
-                          <div class="detail-value">
-                            Callback triggered · completed by queue automation
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 1:46 PM</strong
+                          ><span>attempt 2</span>
                         </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Failure window</div>
-                          <div class="detail-value">Active since 7:16 AM</div>
-                        </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Product / client</div>
-                          <div class="detail-value">
-                            AiMY Voice · Connect Operations
-                          </div>
-                        </div>
-                        <div class="detail-item">
-                          <div class="detail-label">Related incident</div>
-                          <div class="detail-value">
-                            INC-2026-07-01-VOICE-RESET
-                          </div>
+                        <div class="call-time-item">
+                          <strong>Jul 7, 2026, 8:18 AM</strong
+                          ><span>first</span>
                         </div>
                       </div>
                     </td>
@@ -2145,8 +2611,7 @@
 
             <div class="empty-failed-state" id="failedEmptyState">
               <strong>No failed calls in this period</strong>
-              AiMY Voice did not miss or fail any calls for the selected
-              filters.
+              AiMY Voice has no failed call records for the selected period.
             </div>
           </div>
         </div>
@@ -2236,9 +2701,11 @@
           </div>
           <div class="insight-banner">
             <div class="insight-aimark">
-              <svg width="14" height="16" viewBox="0 0 18 20">
-                <use href="#aimy-logo-small" />
-              </svg>
+              <img
+                class="insight-logo-icon"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+                alt=""
+              />
             </div>
             <div class="insight-text">
               <strong>Agent R. Fouad is 6m 31s into a live call</strong> — above
@@ -2344,9 +2811,11 @@
           </div>
           <div class="insight-banner">
             <div class="insight-aimark">
-              <svg width="14" height="16" viewBox="0 0 18 20">
-                <use href="#aimy-logo-small" />
-              </svg>
+              <img
+                class="insight-logo-icon"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+                alt=""
+              />
             </div>
             <div class="insight-text">
               <strong
@@ -2455,9 +2924,11 @@
           </div>
           <div class="insight-banner">
             <div class="insight-aimark">
-              <svg width="14" height="16" viewBox="0 0 18 20">
-                <use href="#aimy-logo-small" />
-              </svg>
+              <img
+                class="insight-logo-icon"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+                alt=""
+              />
             </div>
             <div class="insight-text">
               <strong
@@ -2543,9 +3014,11 @@
           </div>
           <div class="insight-banner">
             <div class="insight-aimark">
-              <svg width="14" height="16" viewBox="0 0 18 20">
-                <use href="#aimy-logo-small" />
-              </svg>
+              <img
+                class="insight-logo-icon"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+                alt=""
+              />
             </div>
             <div class="insight-text">
               <strong>Team is 2.4 calls/day below the 40 target.</strong>
@@ -2657,9 +3130,11 @@
           </div>
           <div class="insight-banner">
             <div class="insight-aimark">
-              <svg width="14" height="16" viewBox="0 0 18 20">
-                <use href="#aimy-logo-small" />
-              </svg>
+              <img
+                class="insight-logo-icon"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+                alt=""
+              />
             </div>
             <div class="insight-text">
               <strong
@@ -2722,6 +3197,153 @@
         });
       });
 
+      /* Failed calls table: expand each caller to show every failed attempt time */
+      document.querySelectorAll("[data-call-row]").forEach((row) => {
+        row.addEventListener("click", () => {
+          const id = row.dataset.callRow;
+          const details = document.querySelector(
+            '[data-call-details="' + id + '"]',
+          );
+          const isOpen = row.classList.contains("open");
+          document.querySelectorAll("[data-call-row]").forEach((r) => {
+            r.classList.remove("open");
+            r.setAttribute("aria-expanded", "false");
+          });
+          document
+            .querySelectorAll("[data-call-details]")
+            .forEach((d) => d.classList.remove("open"));
+          if (details && !isOpen) {
+            row.classList.add("open");
+            row.setAttribute("aria-expanded", "true");
+            details.classList.add("open");
+          }
+        });
+      });
+
+      /* Smart hour filter: only show custom time controls when needed */
+      const failedHourPreset = document.getElementById("failedHourPreset");
+      const customHourFields = document.getElementById("customHourFields");
+      function closeTimeWheels() {
+        document
+          .querySelectorAll(".time-wheel-popover.open")
+          .forEach((pop) => pop.classList.remove("open"));
+        document
+          .querySelectorAll('.time-select[aria-expanded="true"]')
+          .forEach((btn) => btn.setAttribute("aria-expanded", "false"));
+      }
+      function syncCustomHourFields() {
+        if (!failedHourPreset || !customHourFields) return;
+        const isCustom = failedHourPreset.value === "custom";
+        customHourFields.classList.toggle("visible", isCustom);
+        customHourFields.setAttribute(
+          "aria-hidden",
+          isCustom ? "false" : "true",
+        );
+        if (!isCustom) closeTimeWheels();
+      }
+      if (failedHourPreset) {
+        failedHourPreset.addEventListener("change", syncCustomHourFields);
+        syncCustomHourFields();
+      }
+
+      /* Futuristic custom time wheel */
+      const timeState = {
+        from: { hour: "07", minute: "00", meridiem: "AM" },
+        to: { hour: "10", minute: "00", meridiem: "AM" },
+      };
+      const hours = Array.from({ length: 12 }, (_, i) =>
+        String(i + 1).padStart(2, "0"),
+      );
+      const minutes = ["00", "15", "30", "45"];
+      const meridiems = ["AM", "PM"];
+      function to24h(hour, minute, meridiem) {
+        let h = Number(hour);
+        if (meridiem === "AM" && h === 12) h = 0;
+        if (meridiem === "PM" && h !== 12) h += 12;
+        return String(h).padStart(2, "0") + ":" + minute;
+      }
+      function renderWheel(target) {
+        const pop = document.querySelector(
+          '[data-time-popover="' + target + '"]',
+        );
+        if (!pop || pop.dataset.rendered === "true") return;
+        const column = (label, part, values) => `
+    <div class="time-wheel-col" data-time-column="${part}">
+      ${values.map((value) => `<button type="button" class="time-wheel-option" data-time-target="${target}" data-time-part="${part}" data-time-value="${value}">${value}</button>`).join("")}
+    </div>`;
+        pop.innerHTML = `
+    <div class="time-wheel-grid">
+      ${column("Hour", "hour", hours)}
+      ${column("Min", "minute", minutes)}
+      ${column("Period", "meridiem", meridiems)}
+    </div>
+    <div class="time-wheel-actions">
+      <button type="button" class="time-wheel-action" data-time-close="${target}">Cancel</button>
+      <button type="button" class="time-wheel-action set" data-time-close="${target}">Set time</button>
+    </div>`;
+        pop.dataset.rendered = "true";
+        syncWheelActive(target);
+      }
+      function syncWheelActive(target) {
+        const state = timeState[target];
+        const label = document.getElementById(
+          target === "from" ? "failedHourFromLabel" : "failedHourToLabel",
+        );
+        const hidden = document.getElementById(
+          target === "from" ? "failedHourFrom" : "failedHourTo",
+        );
+        if (label)
+          label.textContent =
+            state.hour + ":" + state.minute + " " + state.meridiem;
+        if (hidden)
+          hidden.value = to24h(state.hour, state.minute, state.meridiem);
+        document
+          .querySelectorAll('[data-time-target="' + target + '"]')
+          .forEach((btn) => {
+            const part = btn.dataset.timePart;
+            btn.classList.toggle(
+              "active",
+              btn.dataset.timeValue === state[part],
+            );
+          });
+      }
+      document.querySelectorAll(".time-select").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const target = btn.dataset.timePicker;
+          renderWheel(target);
+          const pop = document.querySelector(
+            '[data-time-popover="' + target + '"]',
+          );
+          const willOpen = !(pop && pop.classList.contains("open"));
+          closeTimeWheels();
+          if (pop && willOpen) {
+            pop.classList.add("open");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+      document.addEventListener("click", (e) => {
+        const option = e.target.closest("[data-time-target]");
+        if (option) {
+          const target = option.dataset.timeTarget;
+          const part = option.dataset.timePart;
+          timeState[target][part] = option.dataset.timeValue;
+          syncWheelActive(target);
+          return;
+        }
+        const close = e.target.closest("[data-time-close]");
+        if (close) {
+          closeTimeWheels();
+          return;
+        }
+        if (!e.target.closest(".time-picker-field")) closeTimeWheels();
+      });
+      ["from", "to"].forEach((target) => {
+        renderWheel(target);
+        syncWheelActive(target);
+      });
+
       /* Modal internal scroll buttons */
       document.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-scroll-target]");
@@ -2729,18 +3351,6 @@
         const target = document.getElementById(btn.dataset.scrollTarget);
         if (target)
           target.scrollIntoView({ behavior: "smooth", block: "center" });
-      });
-
-      /* Failed call row expansion */
-      document.addEventListener("click", (e) => {
-        const row = e.target.closest("[data-expand-row]");
-        if (!row) return;
-        const detail = document.getElementById(row.dataset.expandRow);
-        if (!detail) return;
-        detail.classList.toggle("open");
-        const icon = row.querySelector(".expand-cell");
-        if (icon)
-          icon.textContent = detail.classList.contains("open") ? "⌃" : "⌄";
       });
 
       /* ── LIVE CALL COUNT SIMULATOR ── */
