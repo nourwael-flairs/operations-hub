@@ -183,6 +183,10 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .failed-filter-row{display:flex;align-items:flex-end;justify-content:flex-start;gap:10px;margin:0 0 14px;flex-wrap:nowrap}
 .failed-filter-row.smart-time-filter{position:relative;padding:11px 12px;background:rgba(20,27,36,.82);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:visible}
 .failed-filter-row.smart-time-filter::before{display:none}
+.failed-select-row{gap:12px;flex-wrap:wrap;overflow:visible}
+.failed-select-row .failed-date-field{flex:1;min-width:200px}
+.failed-select-row .preset-select{min-width:0;width:100%}
+.failed-select-row .preset-popover{width:100%}
 .failed-date-range{position:relative;z-index:1;display:flex;align-items:flex-end;gap:10px;flex-wrap:nowrap;width:100%}
 .failed-date-field{position:relative;display:flex;flex-direction:column;gap:5px;flex-shrink:0}
 .failed-date-field label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
@@ -286,6 +290,9 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .priority-pill.high{color:var(--err);background:rgba(240,68,56,.11);border-color:rgba(240,68,56,.24)}
 .priority-pill.medium{color:var(--warn);background:rgba(247,144,9,.11);border-color:rgba(247,144,9,.24)}
 .priority-pill.low{color:var(--d300);background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.cat-pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.01em;border:1px solid rgba(255,255,255,.08);white-space:nowrap}
+.cat-pill.unreachable{color:#61adf1;background:rgba(97,173,241,.11);border-color:rgba(97,173,241,.26)}
+.cat-pill.behavioural{color:#6fdfe2;background:rgba(111,223,226,.1);border-color:rgba(111,223,226,.26)}
 .detail-panel{padding:14px 16px 16px!important}
 .detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .detail-item{background:rgba(255,255,255,.035);border:1px solid var(--card-border);border-radius:10px;padding:10px 11px}
@@ -454,10 +461,6 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
       <button class="period-pill">MTD</button>
       <button class="period-pill">QTD</button>
     </div>
-    <button class="btn-export">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M3 12h10"/></svg>
-      Export
-    </button>
   </div>
 </header>
 
@@ -782,17 +785,40 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
           </div>
         </div>
 
+        <div class="failed-filter-row failed-select-row">
+          <div class="failed-date-field choice-picker-field">
+            <label for="failedCategoryButton">Failure category</label>
+            <button class="preset-select" id="failedCategoryButton" type="button" data-choice-picker="failedCategory" aria-expanded="false">
+              <span class="preset-select-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.2h12L9.4 8.4v4.4L6.6 11V8.4L2 3.2z"/></svg></span>
+              <span class="preset-select-value" id="failedCategoryLabel">All categories</span>
+              <svg class="preset-select-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <input id="failedCategoryFilter" type="hidden" value="all" />
+            <div class="preset-popover" data-choice-popover="failedCategory"></div>
+          </div>
+          <div class="failed-date-field choice-picker-field">
+            <label for="failedClientButton">Client</label>
+            <button class="preset-select" id="failedClientButton" type="button" data-choice-picker="failedClient" aria-expanded="false">
+              <span class="preset-select-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="5.6" r="2.6"/><path d="M3.5 13c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/></svg></span>
+              <span class="preset-select-value" id="failedClientLabel">All clients</span>
+              <svg class="preset-select-caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <input id="failedClientFilter" type="hidden" value="all" />
+            <div class="preset-popover" data-choice-popover="failedClient"></div>
+          </div>
+        </div>
+
         <div class="table-card" id="failedCallsTable">
           <table class="failed-table">
             <thead>
-              <tr><th>Caller</th><th>Timestamp</th><th>Failure reason</th><th>Times called</th><th>Priority</th></tr>
+              <tr><th>Caller</th><th>Timestamp</th><th>Category</th><th>Failure reason</th><th>Times called</th><th>Priority</th></tr>
             </thead>
             <tbody>
-              <tr class="data-row" data-call-row="caller-1" aria-expanded="false">
-                <td><span class="masked-num">+1 402 204 8299</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 7:22 PM</td><td>Voice service unavailable</td><td>12</td><td><span class="priority-pill high">High</span></td>
+              <tr class="data-row" data-call-row="caller-1" data-category="behavioural" data-client="northwind" aria-expanded="false">
+                <td><span class="masked-num">+1 402 204 8299</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 7:22 PM</td><td><span class="cat-pill behavioural">Failure During Call</span></td><td>Voice service unavailable</td><td>12</td><td><span class="priority-pill high">High</span></td>
               </tr>
               <tr class="call-times-row" data-call-details="caller-1">
-                <td colspan="5" class="call-times-panel">
+                <td colspan="6" class="call-times-panel">
                   <div class="call-times-inner">
                     <div class="call-times-title">All failed call times <span class="call-times-count">12 attempts</span></div>
                     <div class="call-time-item"><strong>Jul 7, 2026, 7:22 PM</strong><span>latest</span></div>
@@ -810,11 +836,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
                   </div>
                 </td>
               </tr>
-              <tr class="data-row" data-call-row="caller-2" aria-expanded="false">
-                <td><span class="masked-num">+1 229 949 4744</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 6:13 PM</td><td>Inbound call handling failed</td><td>7</td><td><span class="priority-pill medium">Medium</span></td>
+              <tr class="data-row" data-call-row="caller-2" data-category="behavioural" data-client="meridian" aria-expanded="false">
+                <td><span class="masked-num">+1 229 949 4744</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 6:13 PM</td><td><span class="cat-pill behavioural">Failure During Call</span></td><td>Inbound call handling failed</td><td>7</td><td><span class="priority-pill medium">Medium</span></td>
               </tr>
               <tr class="call-times-row" data-call-details="caller-2">
-                <td colspan="5" class="call-times-panel">
+                <td colspan="6" class="call-times-panel">
                   <div class="call-times-inner">
                     <div class="call-times-title">All failed call times <span class="call-times-count">7 attempts</span></div>
                     <div class="call-time-item"><strong>Jul 7, 2026, 6:13 PM</strong><span>latest</span></div>
@@ -827,11 +853,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
                   </div>
                 </td>
               </tr>
-              <tr class="data-row" data-call-row="caller-3" aria-expanded="false">
-                <td><span class="masked-num">+1 614 890 0905</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 8:18 PM</td><td>Call routing failed</td><td>3</td><td><span class="priority-pill low">Low</span></td>
+              <tr class="data-row" data-call-row="caller-3" data-category="unreachable" data-client="vertex" aria-expanded="false">
+                <td><span class="masked-num">+1 614 890 0905</span><div class="row-expand-hint">Click to view all attempts</div></td><td>Last call at 8:18 PM</td><td><span class="cat-pill unreachable">Call Unreachable</span></td><td>Call routing failed</td><td>3</td><td><span class="priority-pill low">Low</span></td>
               </tr>
               <tr class="call-times-row" data-call-details="caller-3">
-                <td colspan="5" class="call-times-panel">
+                <td colspan="6" class="call-times-panel">
                   <div class="call-times-inner">
                     <div class="call-times-title">All failed call times <span class="call-times-count">3 attempts</span></div>
                     <div class="call-time-item"><strong>Jul 7, 2026, 8:18 PM</strong><span>latest</span></div>
@@ -1125,6 +1151,94 @@ document.querySelectorAll('[data-call-row]').forEach(row => {
   });
 });
 
+/* Failed calls: category + client filters */
+function applyFailedFilters(){
+  const catSel = document.getElementById('failedCategoryFilter');
+  const clientSel = document.getElementById('failedClientFilter');
+  if(!catSel || !clientSel) return;
+  const cat = catSel.value;
+  const client = clientSel.value;
+  let visible = 0;
+  document.querySelectorAll('#failedCallsTable [data-call-row]').forEach(row => {
+    const match = (cat === 'all' || row.dataset.category === cat) &&
+                  (client === 'all' || row.dataset.client === client);
+    const details = document.querySelector('[data-call-details="' + row.dataset.callRow + '"]');
+    row.style.display = match ? '' : 'none';
+    if(!match){
+      row.classList.remove('open');
+      row.setAttribute('aria-expanded','false');
+    }
+    if(details){ details.classList.remove('open'); details.style.display = match ? '' : 'none'; }
+    if(match) visible++;
+  });
+  const table = document.getElementById('failedCallsTable');
+  const empty = document.getElementById('failedEmptyState');
+  if(table) table.style.display = visible ? '' : 'none';
+  if(empty) empty.style.display = visible ? 'none' : 'block';
+}
+/* Category + client dropdowns — same widget as the date/hour pickers */
+const choiceConfigs = {
+  failedCategory: {
+    input: 'failedCategoryFilter', label: 'failedCategoryLabel',
+    options: [
+      { value: 'all', label: 'All categories' },
+      { value: 'unreachable', label: 'Call Unreachable' },
+      { value: 'behavioural', label: 'Failure During Call' }
+    ]
+  },
+  failedClient: {
+    input: 'failedClientFilter', label: 'failedClientLabel',
+    options: [
+      { value: 'all', label: 'All clients' },
+      { value: 'northwind', label: 'Northwind Trading' },
+      { value: 'meridian', label: 'Meridian Labs' },
+      { value: 'vertex', label: 'Vertex Retail' }
+    ]
+  }
+};
+function renderChoicePicker(key){
+  const cfg = choiceConfigs[key];
+  const pop = document.querySelector('[data-choice-popover="' + key + '"]');
+  const input = cfg && document.getElementById(cfg.input);
+  if(!pop || !input) return;
+  pop.innerHTML = cfg.options.map(o => `
+    <button type="button" class="preset-option${o.value === input.value ? ' active' : ''}" data-choice-value="${o.value}" data-choice-key="${key}">${o.label}</button>`).join('');
+}
+document.querySelectorAll('[data-choice-picker]').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const key = btn.dataset.choicePicker;
+    const pop = document.querySelector('[data-choice-popover="' + key + '"]');
+    const willOpen = !(pop && pop.classList.contains('open'));
+    closeDatePopovers();
+    closeTimeWheels();
+    closePresetPopovers();
+    renderChoicePicker(key);
+    if(pop && willOpen){
+      pop.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
+document.addEventListener('click', e => {
+  const option = e.target.closest('[data-choice-value]');
+  if(option){
+    const key = option.dataset.choiceKey;
+    const cfg = choiceConfigs[key];
+    const input = cfg && document.getElementById(cfg.input);
+    if(input){
+      input.value = option.dataset.choiceValue;
+      const selected = cfg.options.find(o => o.value === input.value);
+      const label = document.getElementById(cfg.label);
+      if(label && selected) label.textContent = selected.label;
+      applyFailedFilters();
+    }
+    closePresetPopovers();
+    return;
+  }
+  if(!e.target.closest('.choice-picker-field')) closePresetPopovers();
+});
+
 
 /* Themed day filter calendar */
 const dateState = { failed: { year: 2026, month: 6, day: 7 }, callLogs: { year: 2026, month: 6, day: 7 } };
@@ -1263,7 +1377,7 @@ function syncCustomHourFields(key){
   if(!isCustom) closeTimeWheels();
   renderPresetPicker(key);
 }
-document.querySelectorAll('.preset-select').forEach(btn => {
+document.querySelectorAll('.preset-select[data-preset-picker]').forEach(btn => {
   btn.addEventListener('click', e => {
     e.stopPropagation();
     const key = btn.dataset.presetPicker;
