@@ -51,6 +51,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .svg-defs{position:absolute;width:0;height:0;overflow:hidden}
 .topbar{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.7);border-bottom:1px solid var(--card-border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-logo{height:30px;width:auto;display:block;flex-shrink:0}
 .topbar-divider{width:1px;height:22px;background:var(--card-border)}
 .page-label{font-size:13px;font-weight:500;color:var(--d400);letter-spacing:.01em}
 .topbar-right{display:flex;align-items:center;gap:10px}
@@ -134,6 +135,700 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .cov-bar-fill{height:100%;border-radius:99px;background:var(--ai);width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1) .3s}
 .cov-bar-label{font-size:11px;font-weight:700;color:var(--teal);flex-shrink:0}
 .cov-bar-label.err-label{color:var(--err)}
+
+/* ── Transfers overview card ── */
+.transfers-row{margin:14px 0}
+.transfers-card{
+  width:100%;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:16px;
+  padding:22px 24px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:center;
+  gap:22px;
+  cursor:pointer;
+  color:inherit;
+  font-family:'Urbanist',sans-serif;
+  text-align:left;
+  transition:border-color var(--tb),transform var(--tf),background var(--tf);
+}
+.transfers-card:hover{
+  border-color:rgba(111,223,226,.28);
+  background:linear-gradient(110deg,rgba(0,102,255,.055),rgba(111,223,226,.025)),var(--card-bg);
+  transform:translateY(-1px);
+}
+.transfers-card:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:16px}
+.transfers-card-number{font-size:46px;font-weight:800;letter-spacing:-.06em;line-height:1;color:var(--teal)}
+.transfers-card-content{min-width:0}
+.transfers-card-heading-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.transfers-card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
+.transfers-card-badge{font-size:10px;font-weight:700;color:var(--teal);background:rgba(111,223,226,.1);border:1px solid rgba(111,223,226,.2);padding:3px 8px;border-radius:20px}
+.transfers-card-desc{font-size:13px;color:var(--d300);line-height:1.45}
+.transfers-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.transfers-card-chip{font-size:11px;color:var(--d400);background:var(--d800);border:1px solid var(--card-border);padding:5px 9px;border-radius:7px}
+.transfers-card-chip strong{color:var(--d100);font-weight:700}
+
+/* ── Transfers detail modal ── */
+.transfers-modal{max-width:820px}
+.transfers-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(230px,.85fr);gap:20px;align-items:start}
+.transfer-reasons-list{display:flex;flex-direction:column}
+.transfer-reason-row{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) 46px 40px 18px;
+  align-items:center;
+  gap:10px;
+  min-height:44px;
+  padding:8px 10px;
+  border-bottom:1px solid var(--card-border);
+}
+.transfer-reason-row:last-child{border-bottom:none}
+.transfer-reason-row .reason-label{font-size:13px}
+.transfer-reason-row .reason-count{font-size:13px;text-align:right}
+.transfer-reason-row .reason-pct{min-width:0;text-align:right}
+.other-transfer-toggle{
+  position:relative;
+  width:100%;
+  appearance:none;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:9px;
+  color:inherit;
+  cursor:pointer;
+  font-family:'Urbanist',sans-serif;
+  text-align:left;
+  transition:background var(--tf),border-color var(--tf);
+}
+.other-transfer-toggle:hover{
+  background:rgba(0,102,255,.07);
+  border-color:rgba(97,173,241,.22);
+}
+.other-transfer-toggle[aria-expanded="true"]{
+  background:rgba(0,102,255,.11);
+  border-color:rgba(97,173,241,.4);
+}
+.other-transfer-toggle .reason-label,
+.other-transfer-toggle .reason-count{color:var(--d50)}
+.other-transfer-toggle .reason-pct{color:var(--teal)}
+.other-chevron{width:16px;height:16px;color:var(--teal);transition:transform var(--tb);justify-self:end}
+.other-transfer-toggle[aria-expanded="true"] .other-chevron{transform:rotate(180deg)}
+.other-reasons-panel{
+  margin:8px 0 10px;
+  background:var(--d800);
+  border:1px solid rgba(111,223,226,.22);
+  border-radius:12px;
+  overflow:hidden;
+}
+.other-reasons-panel[hidden]{display:none}
+.other-panel-header{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:flex-start;
+  padding:13px 15px;
+  border-bottom:1px solid var(--card-border);
+}
+.other-panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal)}
+.other-panel-subtitle{font-size:10px;color:var(--d500);margin-top:2px}
+.other-panel-count{font-size:12px;font-weight:700;color:var(--teal);white-space:nowrap}
+.ai-reason-item{padding:13px 15px;border-bottom:1px solid var(--card-border)}
+.ai-reason-item:last-of-type{border-bottom:none}
+.ai-reason-text{font-size:12px;font-weight:600;color:var(--d100);line-height:1.45}
+.ai-reason-meta{font-size:10px;color:var(--d500);margin-top:4px;line-height:1.4}
+.other-panel-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 15px;
+  border-top:1px solid var(--card-border);
+  font-size:10px;
+  color:var(--d500);
+}
+.other-pagination{display:flex;align-items:center;gap:12px}
+.other-page-disabled{opacity:.45}
+.other-page-next{color:var(--teal);font-weight:700}
+.transfer-outcomes{display:flex;flex-direction:column;gap:12px}
+.transfer-outcome-card{background:var(--d800);border:1px solid var(--card-border);border-radius:12px;padding:15px}
+.transfer-outcome-title{font-size:12px;font-weight:600;color:var(--d300)}
+.transfer-outcome-stats{display:flex;justify-content:space-between;align-items:end;margin-top:5px}
+.transfer-outcome-value{font-size:24px;font-weight:800;line-height:1;color:var(--d50)}
+.transfer-outcome-pct{font-size:14px;font-weight:700;color:var(--d300)}
+.transfer-outcome-track{height:6px;background:var(--d700);border-radius:99px;overflow:hidden;margin-top:13px}
+.transfer-outcome-fill{height:100%;border-radius:99px;background:var(--ai)}
+
+.followup-outcome-card{
+  padding:0;
+  overflow:hidden;
+  transition:border-color var(--tf),background var(--tf);
+}
+.followup-outcome-card:hover{
+  border-color:rgba(111,223,226,.24);
+}
+.followup-outcome-toggle{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:inherit;
+  font-family:'Urbanist',sans-serif;
+  text-align:left;
+  cursor:pointer;
+  padding:15px;
+}
+.followup-outcome-toggle:focus-visible{
+  outline:2px solid var(--brand);
+  outline-offset:-3px;
+  border-radius:10px;
+}
+.followup-outcome-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.followup-outcome-title-wrap{
+  min-width:0;
+}
+.followup-chevron{
+  width:16px;
+  height:16px;
+  color:var(--teal);
+  flex-shrink:0;
+  transition:transform var(--tb);
+}
+.followup-outcome-toggle[aria-expanded="true"] .followup-chevron{
+  transform:rotate(180deg);
+}
+.followup-outcome-toggle[aria-expanded="true"]{
+  background:rgba(0,102,255,.055);
+}
+.followup-insights{
+  border-top:1px solid rgba(111,223,226,.15);
+  background:linear-gradient(180deg,rgba(0,102,255,.055),rgba(111,223,226,.018));
+}
+.followup-insights[hidden]{display:none}
+.followup-insights-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 14px 10px;
+}
+.followup-insights-eyebrow{
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--teal);
+}
+.followup-insights-copy{
+  font-size:10px;
+  color:var(--d500);
+  line-height:1.45;
+  margin-top:2px;
+}
+.followup-insights-total{
+  font-size:10px;
+  font-weight:700;
+  color:var(--teal);
+  white-space:nowrap;
+}
+.followup-type-list{
+  padding:0 14px 12px;
+}
+.followup-type-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid var(--card-border);
+}
+.followup-type-row:last-child{border-bottom:none}
+.followup-type-main{min-width:0}
+.followup-type-name{
+  font-size:11px;
+  font-weight:600;
+  color:var(--d100);
+}
+.followup-type-meta{
+  font-size:9px;
+  color:var(--d500);
+  margin-top:2px;
+}
+.followup-type-value{
+  font-size:11px;
+  font-weight:700;
+  color:var(--d100);
+  text-align:right;
+}
+.followup-type-pct{
+  display:block;
+  font-size:9px;
+  font-weight:500;
+  color:var(--d500);
+  margin-top:1px;
+}
+.followup-type-track{
+  height:4px;
+  background:rgba(255,255,255,.06);
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:6px;
+}
+.followup-type-fill{
+  height:100%;
+  border-radius:99px;
+  background:var(--ai);
+}
+.followup-insight-note{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:0 14px 14px;
+  padding:9px 10px;
+  border-radius:8px;
+  border:1px solid rgba(111,223,226,.14);
+  background:rgba(111,223,226,.045);
+}
+.followup-insight-note-icon{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--teal);
+  border:1px solid rgba(111,223,226,.32);
+  font-size:10px;
+  font-weight:800;
+  flex-shrink:0;
+}
+.followup-insight-note-text{
+  font-size:9px;
+  color:var(--d500);
+  line-height:1.5;
+}
+.followup-insight-note-text strong{
+  color:var(--teal);
+  font-weight:700;
+}
+.transfer-insight{margin-top:20px}
+
+.transfer-insight .insight-aimark{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:linear-gradient(135deg,rgba(111,223,226,.24),rgba(51,105,255,.13));
+  border:1px solid rgba(111,223,226,.62);
+  box-shadow:0 0 0 3px rgba(111,223,226,.06),0 8px 20px rgba(0,0,0,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.transfer-insight .insight-logo-icon{
+  width:18px;
+  height:18px;
+  display:block;
+  object-fit:contain;
+}
+@media(max-width:760px){
+  .transfers-card{grid-template-columns:auto minmax(0,1fr)}
+  .transfers-layout{grid-template-columns:1fr}
+  .modal-grid-4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .transfers-card{grid-template-columns:1fr}
+  .transfers-card-number{font-size:38px}
+  .transfer-reason-row{grid-template-columns:auto minmax(0,1fr) 36px 34px 18px}
+}
+
+
+/* ── Transfers modal redesign ── */
+.transfers-modal-redesign{
+  max-width:920px;
+  max-height:92vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.transfers-modal-redesign .transfers-sticky-header{
+  position:sticky;
+  top:0;
+  z-index:6;
+  padding:20px 24px;
+  align-items:center;
+  background:rgba(20,27,36,.94);
+  border-bottom:1px solid var(--card-border);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.transfers-modal-redesign .modal-title-group{gap:3px}
+.transfers-modal-eyebrow{
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  color:var(--teal);
+}
+.transfers-modal-subtitle{
+  font-size:11px;
+  color:var(--d500);
+  line-height:1.45;
+}
+.transfers-modal-redesign .transfers-modal-body{
+  overflow-y:auto;
+  padding:20px 24px 24px;
+}
+.transfer-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.transfer-summary-grid .m-stat{
+  min-height:100px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.transfer-summary-grid .m-stat-value{font-size:25px}
+.transfer-workspace{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin-top:18px;
+}
+.transfer-analysis-section{
+  overflow:hidden;
+  background:rgba(28,38,48,.52);
+  border:1px solid var(--card-border);
+  border-radius:14px;
+}
+.transfer-analysis-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 18px 14px;
+  background:rgba(255,255,255,.012);
+}
+.transfer-analysis-heading{
+  min-width:0;
+}
+.transfer-analysis-title{
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--d400);
+}
+.transfer-analysis-description{
+  font-size:11px;
+  color:var(--d500);
+  line-height:1.45;
+  margin-top:3px;
+}
+.transfer-analysis-total{
+  flex-shrink:0;
+  font-size:10px;
+  font-weight:700;
+  color:var(--teal);
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(111,223,226,.075);
+  border:1px solid rgba(111,223,226,.16);
+  white-space:nowrap;
+}
+.transfer-overview-list{
+  border-top:1px solid var(--card-border);
+}
+.transfer-overview-row{
+  width:100%;
+  min-height:58px;
+  display:grid;
+  grid-template-columns:8px minmax(165px,1.15fr) minmax(140px,1fr) 54px 42px 18px;
+  align-items:center;
+  gap:12px;
+  padding:9px 16px;
+  border:0;
+  border-bottom:1px solid var(--card-border);
+  background:transparent;
+  color:inherit;
+  font-family:'Urbanist',sans-serif;
+  text-align:left;
+}
+.transfer-overview-row:last-child{border-bottom:0}
+button.transfer-overview-row{
+  cursor:pointer;
+  transition:background var(--tf),box-shadow var(--tf);
+}
+button.transfer-overview-row:hover{
+  background:rgba(0,102,255,.05);
+}
+button.transfer-overview-row:focus-visible{
+  outline:2px solid var(--brand);
+  outline-offset:-3px;
+  border-radius:8px;
+}
+button.transfer-overview-row[aria-expanded="true"]{
+  background:rgba(0,102,255,.09);
+  box-shadow:inset 3px 0 0 var(--teal);
+}
+.transfer-overview-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+}
+.transfer-overview-name{
+  min-width:0;
+  font-size:13px;
+  font-weight:600;
+  color:var(--d300);
+}
+button.transfer-overview-row .transfer-overview-name{
+  color:var(--d50);
+}
+.transfer-overview-track{
+  height:5px;
+  overflow:hidden;
+  border-radius:99px;
+  background:rgba(255,255,255,.06);
+}
+.transfer-overview-fill{
+  height:100%;
+  border-radius:99px;
+  background:var(--ai);
+}
+.transfer-overview-count{
+  font-size:13px;
+  font-weight:700;
+  color:var(--d100);
+  text-align:right;
+}
+.transfer-overview-pct{
+  font-size:11px;
+  color:var(--d500);
+  text-align:right;
+}
+button.transfer-overview-row .transfer-overview-pct{
+  color:var(--teal);
+}
+.transfer-overview-chevron{
+  width:16px;
+  height:16px;
+  justify-self:end;
+  color:var(--teal);
+  transition:transform var(--tb);
+}
+button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
+  transform:rotate(180deg);
+}
+.transfer-chevron-placeholder{
+  width:16px;
+  height:16px;
+}
+.transfer-expanded-panel{
+  border-bottom:1px solid var(--card-border);
+  background:linear-gradient(180deg,rgba(0,102,255,.04),rgba(111,223,226,.012));
+}
+.transfer-expanded-panel[hidden]{display:none}
+.transfer-expanded-inner{
+  padding:16px 18px 18px;
+}
+.transfer-expanded-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+.transfer-expanded-eyebrow{
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--teal);
+}
+.transfer-expanded-copy{
+  font-size:10px;
+  color:var(--d500);
+  margin-top:3px;
+}
+.transfer-expanded-count{
+  flex-shrink:0;
+  font-size:11px;
+  font-weight:700;
+  color:var(--teal);
+}
+.transfer-ai-list{
+  overflow:hidden;
+  border:1px solid var(--card-border);
+  border-radius:11px;
+  background:rgba(13,17,23,.28);
+}
+.transfer-ai-item{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:18px;
+  align-items:center;
+  padding:12px 14px;
+  border-bottom:1px solid var(--card-border);
+}
+.transfer-ai-item:last-child{border-bottom:0}
+.transfer-ai-reason{
+  font-size:12px;
+  font-weight:600;
+  color:var(--d100);
+  line-height:1.45;
+}
+.transfer-ai-meta{
+  font-size:10px;
+  color:var(--d500);
+  margin-top:3px;
+  line-height:1.4;
+}
+.transfer-ai-ref{
+  font-size:10px;
+  font-weight:700;
+  color:var(--d400);
+  white-space:nowrap;
+}
+.transfer-expanded-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-top:12px;
+  font-size:10px;
+  color:var(--d500);
+}
+.transfer-pagination{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.transfer-pagination-disabled{opacity:.42}
+.transfer-pagination-next{color:var(--teal);font-weight:700}
+.transfer-followup-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.transfer-followup-card{
+  min-width:0;
+  padding:13px 14px;
+  border:1px solid var(--card-border);
+  border-radius:10px;
+  background:rgba(13,17,23,.3);
+}
+.transfer-followup-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.transfer-followup-name{
+  font-size:12px;
+  font-weight:650;
+  color:var(--d100);
+}
+.transfer-followup-description{
+  font-size:10px;
+  line-height:1.45;
+  color:var(--d500);
+  margin-top:3px;
+}
+.transfer-followup-value{
+  flex-shrink:0;
+  font-size:15px;
+  font-weight:800;
+  color:var(--d50);
+  text-align:right;
+}
+.transfer-followup-value span{
+  display:block;
+  font-size:9px;
+  font-weight:600;
+  color:var(--d500);
+  margin-top:1px;
+}
+.transfer-followup-track{
+  height:4px;
+  overflow:hidden;
+  border-radius:99px;
+  background:rgba(255,255,255,.06);
+  margin-top:10px;
+}
+.transfer-followup-fill{
+  height:100%;
+  border-radius:99px;
+  background:var(--ai);
+}
+.transfer-followup-note{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  margin-top:12px;
+  padding:10px 11px;
+  border:1px solid rgba(111,223,226,.14);
+  border-radius:9px;
+  background:rgba(111,223,226,.04);
+}
+.transfer-followup-note-icon{
+  width:19px;
+  height:19px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:var(--teal);
+  border:1px solid rgba(111,223,226,.32);
+  font-size:10px;
+  font-weight:800;
+}
+.transfer-followup-note-text{
+  font-size:10px;
+  line-height:1.5;
+  color:var(--d500);
+}
+.transfer-followup-note-text strong{
+  color:var(--teal);
+  font-weight:700;
+}
+.transfers-modal-redesign .transfer-insight{
+  margin-top:18px;
+}
+.transfers-modal-redesign .transfer-insight .insight-text{
+  max-width:none;
+}
+@media(max-width:780px){
+  .transfer-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .transfer-overview-row{
+    grid-template-columns:8px minmax(120px,1fr) 48px 38px 18px;
+  }
+  .transfer-overview-track{display:none}
+  .transfer-followup-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .transfers-modal-redesign .transfers-sticky-header{padding:17px 18px}
+  .transfers-modal-redesign .transfers-modal-body{padding:16px 18px 20px}
+  .transfer-summary-grid{grid-template-columns:1fr 1fr}
+  .transfer-summary-grid .m-stat{min-height:88px;padding:12px}
+  .transfer-overview-row{
+    grid-template-columns:7px minmax(0,1fr) 42px 34px 16px;
+    gap:8px;
+    padding:9px 12px;
+  }
+  .transfer-analysis-head{padding:14px}
+  .transfer-expanded-inner{padding:14px}
+  .transfer-ai-item{grid-template-columns:1fr;gap:5px}
+  .transfer-ai-ref{white-space:normal}
+  .transfer-expanded-footer{align-items:flex-start;flex-direction:column}
+}
+
 /* ── MODALS ── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(8,11,16,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s cubic-bezier(.16,1,.3,1)}
 .modal-backdrop.open{opacity:1;pointer-events:all}
@@ -328,6 +1023,66 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
   .modal{transition:none}
   .stat-card,.cov-card,.minutes-card{transition:none}
 }
+
+/* ── Classification trend ── */
+.trend-row{margin:14px 0}
+.trend-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:22px 24px;overflow:hidden;transition:border-color var(--tb)}
+.trend-card:hover{border-color:var(--card-border-hover)}
+.trend-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}
+.trend-title-wrap{min-width:0}
+.trend-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:var(--teal);margin-bottom:4px}
+.trend-title{font-size:18px;font-weight:800;letter-spacing:-.025em;color:var(--d50)}
+.trend-subtitle{font-size:12px;color:var(--d500);margin-top:4px;line-height:1.5}
+.metric-picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.metric-chip{--metric-color:var(--teal);position:relative;display:flex;align-items:center;gap:8px;min-height:34px;border:1px solid rgba(255,255,255,.07);background:rgba(28,38,48,.68);color:var(--d500);font:650 11px 'Urbanist',sans-serif;padding:7px 11px;border-radius:9px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.015);transition:border-color var(--tf),background var(--tf),color var(--tf),box-shadow var(--tf),transform var(--tf),opacity var(--tf)}
+.metric-chip:hover:not(.active){border-color:rgba(255,255,255,.16);background:var(--d750);color:var(--d300);transform:translateY(-1px)}
+.metric-chip.active{color:var(--d50);border-color:var(--metric-color);background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),var(--d800);box-shadow:0 6px 16px rgba(0,0,0,.2);transform:translateY(-1px)}
+.metric-chip.active::after{content:'✓';display:flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:2px;border-radius:50%;background:var(--metric-color);color:#071014;font-size:9px;font-weight:900;line-height:1}
+.metric-chip:focus-visible{outline:2px solid var(--metric-color);outline-offset:2px}
+.metric-chip:disabled{opacity:.4;cursor:not-allowed}
+.metric-chip .metric-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1.5px solid var(--metric-color);background:transparent!important;box-shadow:none;opacity:.62;transition:background var(--tf),box-shadow var(--tf),opacity var(--tf),transform var(--tf)}
+.metric-chip.active .metric-dot{background:var(--metric-color)!important;border-color:var(--metric-color);box-shadow:0 0 0 3px color-mix(in srgb,var(--metric-color) 18%,transparent),0 0 10px color-mix(in srgb,var(--metric-color) 50%,transparent);opacity:1;transform:scale(1.05)}
+.metric-limit{font-size:10px;color:var(--d600);margin-left:auto;align-self:center}
+.trend-layout{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:18px;align-items:stretch}
+.chart-panel{position:relative;min-height:310px;border:1px solid var(--card-border);background:rgba(13,17,23,.28);border-radius:12px;padding:14px 12px 8px;overflow:hidden}
+#trendChart{width:100%;height:286px;display:block;overflow:visible}
+.chart-grid{stroke:rgba(255,255,255,.065);stroke-width:1}
+.chart-axis-label{fill:#637280;font-size:10px;font-family:'Urbanist',sans-serif}
+.chart-line{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 3px 5px rgba(0,0,0,.18))}
+.chart-point{stroke:var(--card-bg);stroke-width:2;cursor:crosshair;transition:r var(--tf)}
+.chart-point:hover{r:5}
+.chart-hover-guide{stroke:rgba(216,224,232,.42);stroke-width:1;stroke-dasharray:3 4;pointer-events:none}
+.chart-hover-marker{stroke:var(--card-bg);stroke-width:2.5;pointer-events:none}
+.chart-hover-layer{pointer-events:none}
+.chart-hit-area{fill:transparent;pointer-events:all;cursor:crosshair}
+.chart-anomaly-band{fill:rgba(240,68,56,.055)}
+.chart-anomaly-line{stroke:rgba(240,68,56,.34);stroke-width:1;stroke-dasharray:3 4}
+.chart-anomaly-label{fill:#f04438;font-size:9px;font-weight:700;font-family:'Urbanist',sans-serif}
+.chart-empty{fill:#637280;font-size:12px;font-family:'Urbanist',sans-serif}
+.chart-tooltip{position:absolute;pointer-events:none;z-index:3;min-width:170px;background:rgba(8,11,16,.96);border:1px solid var(--card-border-hover);border-radius:9px;padding:10px 11px;box-shadow:0 12px 30px rgba(0,0,0,.35);opacity:0;transform:translate(-50%,calc(-100% - 12px));transition:opacity 80ms}
+.chart-tooltip.visible{opacity:1}
+.tooltip-date{font-size:10px;font-weight:700;color:var(--d500);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.tooltip-row{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:11px;margin-top:5px}
+.tooltip-name{display:flex;align-items:center;gap:6px;color:var(--d300)}
+.tooltip-value{font-weight:800;color:var(--d50)}
+.trend-side{display:flex;flex-direction:column;gap:10px}
+.trend-summary{border:1px solid var(--card-border);background:var(--d800);border-radius:11px;padding:13px 14px}
+.trend-summary-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.trend-summary-name{font-size:11px;font-weight:650;color:var(--d300);display:flex;align-items:center;gap:7px}
+.trend-summary-value{font-size:20px;font-weight:800;color:var(--d50);letter-spacing:-.03em;margin-top:8px}
+.trend-summary-meta{font-size:10px;color:var(--d500);margin-top:3px}
+.trend-summary-delta{font-size:10px;font-weight:700;padding:3px 6px;border-radius:20px}
+.trend-summary-delta.good{color:var(--ok);background:var(--ok-bg)}
+.trend-summary-delta.bad{color:var(--err);background:var(--err-bg)}
+.trend-summary-delta.neutral{color:var(--d400);background:rgba(255,255,255,.05)}
+.trend-insight{margin-top:auto;border:1px solid rgba(111,223,226,.15);background:linear-gradient(135deg,rgba(0,102,255,.075),rgba(111,223,226,.035));border-radius:11px;padding:13px 14px}
+.trend-insight-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal)}
+.trend-insight-text{font-size:11px;color:var(--d400);line-height:1.55;margin-top:5px}
+.trend-insight-text strong{color:var(--d100)}
+.trend-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:12px;font-size:10px;color:var(--d600)}
+@media(max-width:900px){.trend-layout{grid-template-columns:1fr}.trend-side{display:grid;grid-template-columns:repeat(3,1fr)}.trend-insight{grid-column:1/-1}.trend-card-header{flex-direction:column}}
+@media(max-width:620px){.trend-card{padding:18px}.trend-side{grid-template-columns:1fr 1fr}.trend-card-header{gap:12px}.metric-limit{width:100%;margin-left:0}.chart-panel{min-height:280px}#trendChart{height:255px}.trend-foot{align-items:flex-start;flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -362,33 +1117,23 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-left">
-    <svg width="140" height="43" viewBox="0 0 140 43" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:30px;width:auto;flex-shrink:0">
-      <path d="M25.964 9.56226C27.5774 8.84423 28.6413 8.09182 28.8916 7.41178C29.0015 7.11318 28.8916 6.43318 28.8916 6.43318C28.8916 6.43318 29.3383 7.92983 30.375 8.4582C31.2355 8.89674 33.3197 8.68599 33.7501 8.90818C34.1187 9.02666 32.8764 15.135 31.95 15.2082C31.4887 15.2447 30.9275 10.1363 29.7001 9.8082C28.4632 9.47756 26.8847 9.89699 25.964 9.56226Z" fill="url(#tp0)"/>
-      <path d="M33.5968 15.8817C34.9427 17.025 36.0817 17.658 36.8031 17.5891C37.1198 17.5589 37.6851 17.1653 37.6851 17.1653C37.6851 17.1653 37.1521 17.8703 37.1249 19.0335C37.1023 19.9991 39.1638 22.5994 39.15 23.0836C39.2028 23.4672 32.6423 23.4368 32.1751 22.6336C31.9424 22.2336 34.6608 20.2819 34.4249 19.0335C34.1872 17.7754 33.6939 16.8566 33.5968 15.8817Z" fill="url(#tp1)"/>
-      <path d="M22.8572 3.67314C21.7566 5.05413 21.1594 6.21232 21.2508 6.93118C21.2909 7.24683 21.702 7.79956 21.702 7.79956C21.702 7.79956 20.9807 7.28885 19.8171 7.29797C18.8514 7.30554 16.3167 9.44731 15.8323 9.44859C15.4506 9.5134 12.0368 3.77545 12.8251 3.28337C13.2177 3.03829 18.4924 4.87403 19.7328 4.59929C20.9829 4.3224 21.8858 3.80061 22.8572 3.67314Z" fill="url(#tp2)"/>
-      <path d="M35.353 32.2897C35.0693 33.6685 34.6602 34.9577 33.9185 36.171C32.1588 39.0981 29.2879 41.1871 25.9614 41.9609C22.6447 42.7526 19.2266 42.1926 16.4857 40.0593C15.6878 39.4383 14.9023 38.5196 14.3017 37.7089C13.1638 36.1731 12.6329 34.6538 10.9007 33.6182C10.0747 33.1329 9.14586 32.8493 8.18968 32.7905C7.60994 32.7534 7.01448 32.7608 6.43601 32.6937C5.38875 32.5733 4.38082 32.2238 3.48384 31.67C1.80714 30.6426 0.614118 28.9841 0.173303 27.0678C-0.34519 24.7955 0.316539 22.415 1.93328 20.7363C2.51072 20.1257 3.11648 19.7471 3.56557 19.0101C4.47025 17.5253 4.05871 16.2435 3.68432 14.7048C3.09513 12.2764 3.51443 9.75872 4.86865 7.655C7.19066 4.04807 11.9949 1.63318 15.9619 4.24527C18.6041 5.98512 20.4254 8.71736 21.1211 11.778C22.9496 11.4091 25.1088 11.4468 26.716 12.5039C27.5474 13.0506 28.1767 13.8989 28.3784 14.8814C28.8772 17.3105 26.5206 19.5877 26.9161 21.0374C27.0242 21.4335 27.2938 21.6907 27.5182 22.0169C27.8259 22.2067 28.3787 22.5388 28.6989 22.7095C28.855 22.6167 29.0892 22.2242 29.2357 22.0738C30.6297 20.6434 32.8711 19.8933 34.855 20.2666C36.4964 20.5651 37.9498 21.5086 38.8906 22.8863C39.8815 24.358 40.1544 25.7673 39.8406 27.5105C39.4298 29.792 37.637 31.7834 35.353 32.2897Z" fill="url(#tp3)"/>
-      <path d="M21.1209 11.7781C22.9494 11.4093 25.1086 11.4469 26.7158 12.5041C27.5472 13.0508 28.1765 13.8991 28.3783 14.8816C28.877 17.3107 26.5205 19.5879 26.916 21.0375C27.024 21.4336 27.2936 21.6909 27.518 22.0171C26.1225 21.4144 24.8128 20.662 23.1806 21.1001C22.7044 21.2279 22.2298 21.5556 21.9374 21.9522C20.2545 24.2347 22.33 27.4287 20.9827 29.8298C20.6225 30.4718 19.9777 31.0226 19.2638 31.2114C18.1853 31.4967 16.9575 31.0493 16.0269 30.4946C14.487 29.5767 13.1798 27.922 12.3629 26.3422C12.0376 25.7131 11.7392 24.8505 11.5591 24.1762C10.939 21.8544 11.3381 19.6975 12.5572 17.647C12.7892 17.2567 13.0629 16.8055 13.3518 16.4536C14.8291 14.6548 16.9552 13.1525 19.1392 12.353C19.8097 12.1075 20.4368 11.9553 21.1209 11.7781Z" fill="#B200FF"/>
-      <path d="M28.6988 22.709C28.855 22.6162 29.0891 22.2236 29.2357 22.0733C30.6296 20.6428 32.871 19.8927 34.855 20.2661C36.4963 20.5646 37.9497 21.5081 38.8905 22.8858C39.8814 24.3575 40.1544 25.7668 39.8405 27.5099C39.4298 29.7914 37.6369 31.7829 35.3529 32.2891C35.2105 32.3243 35.0673 32.3557 34.9233 32.3833C29.5084 33.4182 25.4698 27.4291 28.7071 22.7476Z" fill="#925EFF"/>
-      <path d="M33.4328 8.93115C34.2114 8.80675 35.4467 9.20819 36.0841 9.65153C37.3799 10.5597 38.3586 11.9554 38.6713 13.5139C39.0817 15.5597 38.2312 17.9944 35.9744 18.4259C34.9167 18.5655 33.8718 18.1028 33.0412 17.4708C31.7237 16.4833 30.8576 15.0865 30.6418 13.4478C30.4374 11.895 30.977 10.035 32.4136 9.22571C32.7343 9.04504 33.0702 8.97552 33.4328 8.93116Z" fill="#D000FF"/>
-      <path d="M25.3512 2.09374C26.1072 1.96178 27.2872 2.27321 27.8678 2.79718C30.054 4.76998 29.5755 8.73209 26.9349 10.1192C26.3184 10.4431 25.8145 10.5708 25.1115 10.6134C23.0837 10.628 21.4111 9.04433 21.1848 7.10322C21.0334 5.905 21.379 4.69734 22.1442 3.75129C22.9041 2.81981 24.1515 2.22407 25.3512 2.09374Z" fill="#8400FF"/>
-      <path d="M12.3181 4.79712C13.1581 4.65127 14.4691 4.99549 15.1142 5.57461C17.5433 7.75507 17.0117 12.1342 14.0777 13.6673C13.3926 14.0253 12.8328 14.1665 12.0517 14.2136C9.79854 14.2297 7.94014 12.4794 7.68865 10.3339C7.5204 9.00957 7.90451 7.67479 8.75471 6.62915C9.59897 5.59962 10.985 4.94117 12.3181 4.79712Z" fill="#00EFFF"/>
-      <path d="M62.9308 29.5953H53.4045L51.8692 34.2012H45.364L54.6098 8.10156H61.8083L71.0541 34.2012H64.4666L62.9308 29.5953ZM61.3293 24.686L58.1596 15.1199L55.0227 24.6688H61.3293V24.686Z" fill="url(#tp4)"/>
-      <path d="M80.0677 19.9121V34.2018H73.8435V19.9121H80.0677Z" fill="url(#tp5)"/>
-      <path d="M113.501 8.10156V34.2012H107.276V18.5447L101.564 34.2012H96.5445L90.7989 18.511V34.2012H84.5747V8.10156H91.9218L99.087 26.1704L106.186 8.10156H113.501Z" fill="url(#tp6)"/>
-      <path d="M139.864 8.10156L131.031 25.5797V34.2012H124.806V25.5797L115.973 8.10156H123.023L127.977 19.0339L132.88 8.10156H139.864Z" fill="url(#tp7)"/>
-      <path d="M76.952 9.14746C74.9376 9.14746 73.3032 10.8181 73.3032 12.8763C73.3032 14.9344 74.9376 16.6046 76.952 16.6046C78.9664 16.6046 80.6008 14.9344 80.6008 12.8763C80.617 10.8347 78.9664 9.14746 76.952 9.14746Z" fill="url(#tp8)"/>
-      <defs>
-        <linearGradient id="tp0" x1="28.13" y1="9.13" x2="31.95" y2="10.03" gradientUnits="userSpaceOnUse"><stop stop-color="#A16DFA" stop-opacity=".78"/><stop offset="1" stop-color="#B68BFF" stop-opacity="0"/></linearGradient>
-        <linearGradient id="tp1" x1="34.92" y1="17.64" x2="35.76" y2="21.48" gradientUnits="userSpaceOnUse"><stop stop-color="#A16DFA" stop-opacity=".78"/><stop offset="1" stop-color="#B68BFF" stop-opacity="0"/></linearGradient>
-        <linearGradient id="tp2" x1="21.14" y1="5.05" x2="17.33" y2="6.01" gradientUnits="userSpaceOnUse"><stop stop-color="#A16DFA" stop-opacity=".78"/><stop offset="1" stop-color="#B68BFF" stop-opacity="0"/></linearGradient>
-        <linearGradient id="tp3" x1="1.29" y1="14.38" x2="35.75" y2="32.52" gradientUnits="userSpaceOnUse"><stop stop-color="#335EFB"/><stop offset=".5" stop-color="#3C3CFD"/><stop offset="1" stop-color="#451AFF"/></linearGradient>
-        <linearGradient id="tp4" x1="23.44" y1="17.38" x2="179.98" y2="36.15" gradientUnits="userSpaceOnUse"><stop stop-color="#8C4FF4"/><stop offset=".136" stop-color="#8650F5"/><stop offset=".325" stop-color="#7453F6"/><stop offset=".544" stop-color="#5658F8"/><stop offset=".785" stop-color="#2E5FFC"/><stop offset="1" stop-color="#0366FF"/></linearGradient>
-        <linearGradient id="tp5" x1="18.18" y1="19.69" x2="167.23" y2="37.57" gradientUnits="userSpaceOnUse"><stop stop-color="#8C4FF4"/><stop offset=".163" stop-color="#7C52F5"/><stop offset=".48" stop-color="#5359F9"/><stop offset=".916" stop-color="#1164FE"/><stop offset="1" stop-color="#0366FF"/></linearGradient>
-        <linearGradient id="tp6" x1="16.06" y1="10.76" x2="172.59" y2="29.53" gradientUnits="userSpaceOnUse"><stop stop-color="#8C4FF4"/><stop offset=".133" stop-color="#8550F5"/><stop offset=".333" stop-color="#7054F6"/><stop offset=".573" stop-color="#4F59F9"/><stop offset=".844" stop-color="#2161FD"/><stop offset="1" stop-color="#0366FF"/></linearGradient>
-        <linearGradient id="tp7" x1="16.54" y1="6.65" x2="173.08" y2="25.42" gradientUnits="userSpaceOnUse"><stop stop-color="#8C4FF4"/><stop offset=".133" stop-color="#8450F5"/><stop offset=".337" stop-color="#6F54F6"/><stop offset=".587" stop-color="#4C5AF9"/><stop offset=".87" stop-color="#1C62FD"/><stop offset="1" stop-color="#0366FF"/></linearGradient>
-        <linearGradient id="tp8" x1="62.83" y1="9.23" x2="93.59" y2="16.84" gradientUnits="userSpaceOnUse"><stop stop-color="#8C4FF4"/><stop offset=".134" stop-color="#8351F5"/><stop offset=".354" stop-color="#6A55F7"/><stop offset=".632" stop-color="#425BFA"/><stop offset=".955" stop-color="#0B65FE"/><stop offset="1" stop-color="#0366FF"/></linearGradient>
-      </defs>
-    </svg>
+    <svg class="topbar-logo" viewBox="0 0 419 148" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AiMY">
+<path d="M209.52 97.2498H183.94L179.84 109.36H162.36L187.16 40.8198H206.49L231.29 109.36H213.62L209.52 97.2498ZM205.22 84.3598L196.73 59.2698L188.33 84.3598H205.22Z" fill="#0366FF"/>
+<path d="M255.5 40.8198V109.36H238.8V40.8198H255.5Z" fill="#0366FF"/>
+<path d="M345.23 40.8198V109.36H328.53V68.2598L313.2 109.36H299.73L284.3 68.1598V109.36H267.6V40.8198H287.32L306.55 88.2698L325.59 40.8198H345.22H345.23Z" fill="#0366FF"/>
+<path d="M416.02 40.8198L392.29 86.7098V109.36H375.59V86.7098L351.86 40.8198H370.8L384.08 69.5298L397.26 40.8198H416.01H416.02Z" fill="#0366FF"/>
+<path d="M81 8.0198C82.09 5.1198 84.26 4.3498 87.2 4.5598C90.24 4.7698 93.32 4.5198 96.37 4.6498C99.46 4.7798 100.56 6.6398 99.09 9.3798C96.29 14.6098 93.4 19.7798 90.45 24.9198C89.54 26.5098 89.14 27.8198 90.15 29.6098C91.24 31.5498 91.83 33.7698 92.62 35.8798C93.18 37.3598 93.76 38.7798 95.72 38.7198C97.75 38.6598 98.1 37.1798 98.43 35.6098C99.53 30.5098 100.65 25.4198 101.82 20.3298C102.48 17.4498 103.46 17.1298 105.52 19.1498C108.67 22.2298 111.74 25.3998 114.89 28.4798C116.18 29.7398 116.25 30.8798 114.99 32.1798C113.74 33.4698 112.52 34.7998 111.33 36.1498C110.72 36.8398 110.2 37.6398 110.87 38.5698C111.55 39.5098 112.42 39.1798 113.29 38.8398C117.8 37.0398 122.33 35.3098 126.82 33.4498C128.65 32.6898 130.14 32.9798 131.49 34.3198C133.98 36.7898 136.53 39.2198 138.91 41.7898C141.45 44.5198 140.82 46.5298 137.14 47.6098C131.45 49.2798 125.75 50.8698 120.04 52.4598C118.67 52.8398 117.78 53.3498 117.29 54.9298C116.53 57.3998 115.27 59.7298 114.19 62.0998C113.58 63.4498 113.47 64.6898 114.7 65.7798C115.95 66.8898 117.14 66.5298 118.38 65.7298C122.91 62.8098 127.45 59.8998 132.02 57.0398C134.52 55.4698 135.35 55.9598 135.38 58.9498C135.42 63.1698 135.3 67.3998 135.43 71.6198C135.5 74.0098 134.45 74.8598 132.22 74.8198C130.69 74.7898 129.16 74.8798 127.63 74.9598C126.61 75.0198 125.57 75.2198 125.43 76.4798C125.3 77.6298 126.24 77.9398 127.08 78.2998C131.37 80.1498 135.62 82.0998 139.96 83.8298C142.12 84.6898 143.06 86.0598 143.02 88.3298C142.96 91.6598 143.04 94.9798 142.98 98.3098C142.9 102.13 141.1 103.2 137.78 101.38C132.58 98.5398 127.4 95.6598 122.25 92.7198C120.91 91.9598 119.87 91.6898 118.33 92.5198C116.05 93.7398 113.51 94.4698 111.07 95.3798C109.67 95.9098 108.78 96.7598 108.9 98.3798C109.03 100.05 110.14 100.57 111.59 100.88C116.86 102 122.12 103.15 127.37 104.37C130.29 105.04 130.53 105.93 128.44 108.06C125.35 111.2 122.18 114.27 119.11 117.44C117.84 118.74 116.75 118.82 115.45 117.53C114.18 116.26 112.82 115.08 111.47 113.88C110.78 113.26 109.99 112.74 109.05 113.38C108.08 114.04 108.41 114.91 108.76 115.78C110.52 120.2 112.19 124.66 114.04 129.04C114.99 131.28 114.51 132.94 112.8 134.55C110.57 136.64 108.48 138.88 106.29 141.02C103.16 144.08 101.07 143.52 99.84 139.26C98.26 133.74 96.71 128.21 95.2 122.67C94.8 121.19 94.18 120.28 92.54 119.77C90.15 119.03 87.92 117.8 85.62 116.76C84.19 116.11 82.84 115.96 81.72 117.33C80.67 118.62 81.18 119.79 81.97 121.02C84.85 125.47 87.7 129.94 90.52 134.43C92.17 137.05 91.69 137.91 88.54 137.95C84.4 138 80.26 137.89 76.13 138.01C73.66 138.08 72.8 137 72.75 134.64C72.71 132.7 73.14 130.68 72.2 128.82C70.46 126.64 69.84 128.47 69.28 129.73C67.52 133.67 65.72 137.6 64.2 141.63C63.09 144.59 61.28 145.88 58.1 145.66C55.33 145.46 52.53 145.65 49.74 145.6C45.47 145.53 44.34 143.65 46.37 139.97C49.11 135.02 51.86 130.07 54.68 125.17C55.58 123.61 56.01 122.31 54.97 120.5C53.82 118.5 53.22 116.18 52.41 113.99C51.88 112.55 51.16 111.39 49.37 111.46C47.54 111.54 47.05 112.77 46.73 114.31C45.63 119.49 44.49 124.67 43.29 129.83C42.62 132.71 41.64 133 39.57 130.96C36.49 127.94 33.49 124.82 30.38 121.82C28.89 120.38 28.84 119.14 30.32 117.72C31.42 116.66 32.43 115.5 33.45 114.36C34.18 113.55 35.02 112.64 34.17 111.53C33.41 110.53 32.37 111.09 31.45 111.45C27.18 113.14 22.89 114.76 18.67 116.55C16.44 117.5 14.74 117.09 13.11 115.37C10.82 112.95 8.36001 110.7 6.09001 108.27C3.75001 105.76 4.31001 103.63 7.58001 102.65C13.18 100.98 18.8 99.3798 24.44 97.8598C26.21 97.3798 27.4 96.7498 27.97 94.7598C28.64 92.4498 29.88 90.3098 30.87 88.0998C31.52 86.6598 31.59 85.3098 30.22 84.2098C28.9 83.1598 27.77 83.7398 26.55 84.5298C22.19 87.3698 17.79 90.1798 13.38 92.9398C10.62 94.6698 9.67001 94.1698 9.64001 90.9898C9.60001 86.8498 9.73001 82.7098 9.61001 78.5798C9.55001 76.2398 10.5 75.3198 12.79 75.3698C14.49 75.4098 16.2 75.1998 17.91 75.0698C18.78 75.0098 19.53 74.6698 19.67 73.7098C19.82 72.7098 19.09 72.2998 18.31 71.9598C13.94 70.0698 9.61001 68.0898 5.19001 66.3298C2.94001 65.4298 1.96001 63.9798 2.00001 61.6198C2.06001 58.2898 1.93001 54.9598 2.04001 51.6398C2.16001 48.0798 4.11001 46.9998 7.24001 48.7098C12.37 51.4998 17.47 54.3298 22.54 57.2298C24.04 58.0898 25.26 58.4498 26.98 57.5198C29.1 56.3698 31.48 55.7098 33.75 54.8498C35.22 54.2998 36.28 53.4698 36.12 51.6998C35.97 50.0198 34.77 49.5398 33.36 49.2398C28.17 48.1098 22.99 46.9898 17.81 45.7998C14.95 45.1398 14.64 44.1298 16.65 42.0698C19.67 38.9798 22.79 35.9998 25.78 32.8798C27.22 31.3698 28.45 31.3498 29.88 32.8198C30.95 33.9098 32.09 34.9398 33.24 35.9398C34.04 36.6398 34.9 37.5798 36.05 36.6798C37.05 35.8998 36.5 34.8798 36.13 33.9698C34.44 29.6998 32.83 25.4098 31.03 21.1898C30.06 18.9298 30.55 17.2698 32.22 15.6298C34.46 13.4298 36.51 11.0298 38.73 8.8098C41.25 6.2898 44.01 6.9598 45.02 10.3398C46.7 16.0298 48.33 21.7398 49.88 27.4698C50.3 28.9998 50.97 29.8498 52.58 30.3698C55.05 31.1698 57.37 32.4198 59.75 33.4798C61.13 34.0898 62.37 34.0298 63.39 32.7898C64.37 31.5998 64 30.4698 63.26 29.3298C60.44 24.9498 57.61 20.5798 54.84 16.1598C54.26 15.2298 53.15 14.2898 53.91 13.0098C54.59 11.8598 55.85 12.2498 56.88 12.2398C61.01 12.1998 65.15 12.2998 69.28 12.2098C71.35 12.1698 72.25 12.9898 72.23 15.0498C72.22 16.7598 72.37 18.4598 72.49 20.1698C72.56 21.1098 72.83 22.0198 73.96 22.1298C74.94 22.2298 75.37 21.4998 75.69 20.7098C77.45 16.4798 79.21 12.2498 80.97 8.0298L81 8.0198ZM58.64 69.4298C55.3 71.2898 52.33 70.7598 49.52 68.2198C47.39 66.2998 45.12 64.5198 42.84 62.7798C41.47 61.7298 37.38 62.6598 36.96 64.2598C36.56 65.7698 38.41 65.8798 39.31 66.5198C41.57 68.1398 41.73 69.3398 39.75 71.5098C38.55 72.8198 37.89 74.2798 38.94 75.8698C40.01 77.4798 41.62 77.8798 43.44 77.1198C45.1 76.4298 46.79 75.8098 48.39 75.0098C51.74 73.3398 54.78 73.5398 57.52 76.2198C60 81.9998 57.92 85.6498 51.68 86.4098C48.74 86.7698 45.78 86.9998 42.84 87.3998C41.13 87.6398 39.12 90.7698 39.8 92.3898C40.54 94.1398 41.94 92.6598 42.98 92.5198C45.8 92.1298 46.72 92.7698 46.87 95.6898C46.96 97.4498 47.47 98.9798 49.35 99.3798C51.41 99.8098 52.79 98.7398 53.56 96.8598C54.38 94.8698 55.16 92.8598 56 90.8698C57.06 88.3398 58.86 86.7498 61.72 86.6698C64.32 86.5998 66.27 87.7898 67.4 90.0698C68.62 92.5498 68.27 94.9398 66.46 97.0998C64.9 98.9598 63.4 100.87 61.85 102.73C58.88 106.3 58.95 107.64 62.37 111.13C62.84 110.34 63.29 109.57 63.75 108.81C65.52 105.88 66.61 105.7 69.15 107.94C70.5 109.13 71.99 109.64 73.54 108.53C75.04 107.45 75.32 105.87 74.66 104.19C73.77 101.93 72.7 99.7398 71.89 97.4598C70.57 93.7298 72.45 90.1098 76.06 89.1598C79.63 88.2198 83.14 90.5298 83.76 94.3698C84.16 96.8498 84.36 99.3698 84.56 101.87C84.97 106.81 85.53 107.4 90.55 107.84C90.59 107.89 90.63 107.95 90.68 107.98C90.69 107.98 90.75 107.93 90.79 107.9C90.7 107.9 90.6 107.9 90.51 107.9C90.99 106.69 90.25 105.64 90.05 104.53C89.57 101.84 90.34 100.78 93 100.73C94.88 100.7 96.52 100.23 96.93 98.2198C97.38 96.0298 96.12 94.6798 94.14 93.8998C92.13 93.1198 90.13 92.3298 88.15 91.4798C85.7 90.4298 84.26 88.5498 84.17 85.8798C84.09 83.3298 85.29 81.3398 87.58 80.1998C89.96 79.0198 92.3 79.2798 94.4 80.9598C96.3 82.4698 98.17 84.0098 100.04 85.5598C103.91 88.7698 104.7 88.7598 108.79 85.2898C107.75 84.6798 106.72 84.1498 105.77 83.4998C103.53 81.9698 103.37 80.6798 105.23 78.7098C106.51 77.3498 107.35 75.8798 106.17 74.1498C104.97 72.3998 103.21 72.2998 101.35 73.0598C99.27 73.9198 97.24 74.8898 95.13 75.6498C91.4 76.9998 87.64 75.1498 86.75 71.6298C85.79 67.8198 88.05 64.3998 92.08 63.7998C94.56 63.4298 97.08 63.2098 99.59 63.0198C104.34 62.6598 105.03 61.9698 105.36 56.7198C104.21 57.0098 103.12 57.3398 102.01 57.5398C99.39 58.0298 98.3 57.1898 98.23 54.5098C98.18 52.6198 97.71 51.0198 95.66 50.6598C93.59 50.2998 92.27 51.4398 91.52 53.3298C90.69 55.4198 89.9 57.5298 88.95 59.5598C87.27 63.1598 83.38 64.4698 80.19 62.6098C76.83 60.6498 76.01 56.5098 78.44 53.2898C80.01 51.2098 81.71 49.2298 83.37 47.2198C86.31 43.6598 86.26 42.6498 82.94 39.0698C82.86 39.0898 82.74 39.0798 82.71 39.1298C82.41 39.5698 82.11 40.0198 81.83 40.4798C79.53 44.2898 79.08 44.3698 75.62 41.7798C74.38 40.8498 73.01 40.4398 71.65 41.4698C70.32 42.4898 69.76 43.8898 70.39 45.5298C71.23 47.7098 72.13 49.8598 73.06 51.9998C74.22 54.6698 73.94 57.1198 71.93 59.2398C70.14 61.1298 67.81 61.4998 65.46 60.6798C62.85 59.7698 61.5 57.7698 61.28 54.9598C61.03 51.8298 60.67 48.6998 60.27 45.5798C60.03 43.6598 57.2 41.5498 55.24 42.2098C53.23 42.8898 55.02 44.4498 55.13 45.5498C55.4 48.2898 54.77 49.1898 51.78 49.3598C49.99 49.4598 48.53 50.0498 48.2 51.9598C47.89 53.7698 48.77 55.1098 50.44 55.8398C52.17 56.5998 53.94 57.2598 55.68 57.9898C61.5 60.3998 62.55 64.4298 58.67 69.3998L58.64 69.4298Z" fill="url(#paint0_radial_9282_142)"/>
+<defs>
+<radialGradient id="paint0_radial_9282_142" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(72.51 75.0898) scale(70.54 70.54)">
+<stop offset="0.26" stop-color="#8C4FF4"/>
+<stop offset="0.36" stop-color="#8250F4"/>
+<stop offset="0.51" stop-color="#6954F6"/>
+<stop offset="0.7" stop-color="#3F5BF9"/>
+<stop offset="0.92" stop-color="#0764FE"/>
+<stop offset="0.95" stop-color="#0066FF"/>
+</radialGradient>
+</defs>
+</svg>
     <div class="topbar-divider"></div>
     <span class="page-label">Operations Hub</span>
   </div>
@@ -515,6 +1260,26 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
     </div>
   </div>
 
+
+  <!-- Transfers overview -->
+  <div class="transfers-row">
+    <button class="transfers-card" type="button" data-modal="transfersModal" aria-label="Open Transfers Handled details">
+      <div class="transfers-card-number">499</div>
+      <div class="transfers-card-content">
+        <div class="transfers-card-heading-row">
+          <span class="transfers-card-label">Transfers Handled</span>
+          <span class="transfers-card-badge">+2.7% vs prev</span>
+        </div>
+        <div class="transfers-card-desc">3.7% of conversations were transferred to an agent. Review transfer outcomes and inspect the AI-written reasons grouped under Other.</div>
+        <div class="transfers-card-meta">
+          <span class="transfers-card-chip"><strong>89%</strong> resolved after transfer</span>
+          <span class="transfers-card-chip"><strong>74</strong> categorized as Other</span>
+          <span class="transfers-card-chip"><strong>2m 14s</strong> avg before transfer</span>
+        </div>
+      </div>
+    </button>
+  </div>
+
   <!-- Coverage row -->
   <div class="coverage-row">
     <div class="cov-card" data-modal="escalationsModal">
@@ -540,6 +1305,41 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
       </div>
     </div>
   </div>
+
+
+  <!-- Classification trend -->
+  <section class="trend-row" aria-labelledby="classificationTrendTitle">
+    <div class="trend-card">
+      <div class="trend-card-header">
+        <div class="trend-title-wrap">
+          <div class="trend-eyebrow">Voice performance</div>
+          <h2 class="trend-title" id="classificationTrendTitle">Classification trends</h2>
+          <p class="trend-subtitle">Track how conversation outcomes change over time and isolate periods of degraded performance.</p>
+        </div>
+      </div>
+
+      <div class="metric-picker" id="metricPicker" aria-label="Select metrics to display">
+        <button class="metric-chip active" type="button" data-metric="success" style="--metric-color:#6fdfe2"><span class="metric-dot"></span>Successful transfers</button>
+        <button class="metric-chip" type="button" data-metric="failed" style="--metric-color:#f04438"><span class="metric-dot"></span>Failed transfers</button>
+        <button class="metric-chip" type="button" data-metric="resolved" style="--metric-color:#8b4ff4"><span class="metric-dot"></span>AiMY resolutions</button>
+        <button class="metric-chip" type="button" data-metric="outscope" style="--metric-color:#f79009"><span class="metric-dot"></span>Out of scope</button>
+        <button class="metric-chip" type="button" data-metric="sentiment" style="--metric-color:#17b26a"><span class="metric-dot"></span>Positive sentiment</button>
+        <span class="metric-limit">Select one or more</span>
+      </div>
+
+      <div class="trend-layout">
+        <div class="chart-panel" id="chartPanel">
+          <svg id="trendChart" role="img" aria-label="Line chart of selected voice classification metrics for April 2025"></svg>
+          <div class="chart-tooltip" id="chartTooltip" role="status" aria-live="polite"></div>
+        </div>
+        <aside class="trend-side" id="trendSummary" aria-label="Selected metric summaries"></aside>
+      </div>
+
+      <div class="trend-foot">
+        <span>Values are shown as a percentage of classified calls. Hover anywhere on the chart for details.</span>
+      </div>
+    </div>
+  </section>
 
   <div class="footer-note">
     <span class="footer-left">Data refreshed every 15 minutes · Last updated 11:42 AM</span>
@@ -606,6 +1406,258 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
       <div class="modal-section"><div class="modal-grid-4"><div class="m-stat"><div class="m-stat-value" style="color:var(--err)">142</div><div class="m-stat-label">total escalations</div><div class="m-stat-delta down">+2.7% vs prev</div></div><div class="m-stat"><div class="m-stat-value">3.7%</div><div class="m-stat-label">escalation rate</div></div><div class="m-stat"><div class="m-stat-value">4h 18m</div><div class="m-stat-label">avg time to resolve</div></div><div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">89%</div><div class="m-stat-label">resolved rate</div></div></div></div>
       <div class="modal-section"><div class="modal-grid-2"><div><div class="modal-section-title">Top Escalation Reasons</div><div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Billing issue</span><span class="reason-count">38</span><span class="reason-pct">27%</span></div><div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Tech fault</span><span class="reason-count">31</span><span class="reason-pct">22%</span></div><div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">Customer request</span><span class="reason-count">29</span><span class="reason-pct">20%</span></div><div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Unresolved query</span><span class="reason-count">24</span><span class="reason-pct">17%</span></div><div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Other</span><span class="reason-count">20</span><span class="reason-pct">14%</span></div></div><div><div class="modal-section-title">Rate by Day</div><div class="trend-tags"><span class="trend-tag hi">Mon 5.1%</span><span class="trend-tag ok">Tue 3.0%</span><span class="trend-tag ok">Wed 2.8%</span><span class="trend-tag ok">Thu 2.9%</span><span class="trend-tag ok">Fri 3.1%</span><span class="trend-tag hi">Sat 5.9%</span><span class="trend-tag hi">Sun 5.6%</span></div></div></div></div>
       <div class="insight-banner"><div class="insight-aimark"><svg width="14" height="16" viewBox="0 0 18 20"><use href="#aimy-logo-small"/></svg></div><div class="insight-text"><strong>Monday and Saturday show escalation rates above 5%.</strong> Weekend escalation rates are consistently 2x weekday averages — review agent handoff protocols for those shifts.</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Transfers -->
+<div class="modal-backdrop" id="transfersModal">
+  <div class="modal transfers-modal transfers-modal-redesign" role="dialog" aria-modal="true" aria-labelledby="transfersModalTitle">
+    <div class="modal-header transfers-sticky-header">
+      <div class="modal-title-group">
+        <span class="transfers-modal-eyebrow">Transfer operations</span>
+        <span class="modal-title" id="transfersModalTitle">Transfers Handled</span>
+        <span class="transfers-modal-subtitle">Review transfer volume, reasons, outcomes, and AiMY follow-up actions.</span>
+      </div>
+      <button class="modal-close" aria-label="Close Transfers Handled">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-body transfers-modal-body">
+      <section aria-label="Transfer summary">
+        <div class="transfer-summary-grid">
+          <div class="m-stat">
+            <div class="m-stat-value">499</div>
+            <div class="m-stat-label">total transfers</div>
+            <div class="m-stat-delta up">+2.7% vs prev</div>
+          </div>
+          <div class="m-stat">
+            <div class="m-stat-value">3.7%</div>
+            <div class="m-stat-label">transfer rate</div>
+          </div>
+          <div class="m-stat">
+            <div class="m-stat-value">2m 14s</div>
+            <div class="m-stat-label">avg before transfer</div>
+          </div>
+          <div class="m-stat">
+            <div class="m-stat-value">89%</div>
+            <div class="m-stat-label">resolved after transfer</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="transfer-workspace">
+        <section class="transfer-analysis-section" aria-labelledby="topTransferReasonsTitle">
+          <div class="transfer-analysis-head">
+            <div class="transfer-analysis-heading">
+              <div class="transfer-analysis-title" id="topTransferReasonsTitle">Top Transfer Reasons</div>
+              <div class="transfer-analysis-description">Why conversations were handed from AiMY to an agent.</div>
+            </div>
+            <div class="transfer-analysis-total">499 transfers</div>
+          </div>
+
+          <div class="transfer-overview-list">
+            <div class="transfer-overview-row">
+              <span class="transfer-overview-dot" style="background:var(--err)"></span>
+              <span class="transfer-overview-name">Customer request</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:38%"></span></span>
+              <span class="transfer-overview-count">184</span>
+              <span class="transfer-overview-pct">38%</span>
+              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+
+            <div class="transfer-overview-row">
+              <span class="transfer-overview-dot" style="background:var(--warn)"></span>
+              <span class="transfer-overview-name">Unresolved query</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:25%"></span></span>
+              <span class="transfer-overview-count">121</span>
+              <span class="transfer-overview-pct">25%</span>
+              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+
+            <button class="transfer-overview-row" id="toggleOtherReasons" type="button" aria-expanded="false" aria-controls="otherReasonsPanel">
+              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
+              <span class="transfer-overview-name">Other</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:15%"></span></span>
+              <span class="transfer-overview-count">74</span>
+              <span class="transfer-overview-pct">15%</span>
+              <svg class="transfer-overview-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+
+            <div class="transfer-expanded-panel" id="otherReasonsPanel" hidden>
+              <div class="transfer-expanded-inner">
+                <div class="transfer-expanded-head">
+                  <div>
+                    <div class="transfer-expanded-eyebrow">AI-generated reasons</div>
+                    <div class="transfer-expanded-copy">Latest uncategorized transfers with available conversation context.</div>
+                  </div>
+                  <div class="transfer-expanded-count">74 transfers</div>
+                </div>
+
+                <div class="transfer-ai-list">
+                  <div class="transfer-ai-item">
+                    <div>
+                      <div class="transfer-ai-reason">Customer requested to speak with a supervisor</div>
+                      <div class="transfer-ai-meta">Session S-2941 · Apr 24, 10:42 AM</div>
+                    </div>
+                    <div class="transfer-ai-ref">CONV-18492</div>
+                  </div>
+                  <div class="transfer-ai-item">
+                    <div>
+                      <div class="transfer-ai-reason">The requested refund required manual authorization</div>
+                      <div class="transfer-ai-meta">Customer C-8821 · Apr 24, 10:18 AM</div>
+                    </div>
+                    <div class="transfer-ai-ref">CONV-18471</div>
+                  </div>
+                  <div class="transfer-ai-item">
+                    <div>
+                      <div class="transfer-ai-reason">Account ownership could not be verified by the AI</div>
+                      <div class="transfer-ai-meta">Session S-2874 · Apr 23, 4:31 PM</div>
+                    </div>
+                    <div class="transfer-ai-ref">CONV-18396</div>
+                  </div>
+                  <div class="transfer-ai-item">
+                    <div>
+                      <div class="transfer-ai-reason">The customer requested a policy exception</div>
+                      <div class="transfer-ai-meta">Apr 23, 1:06 PM</div>
+                    </div>
+                    <div class="transfer-ai-ref">CONV-18341</div>
+                  </div>
+                </div>
+
+                <div class="transfer-expanded-footer">
+                  <span>Showing 1–4 of 74</span>
+                  <span class="transfer-pagination">
+                    <span class="transfer-pagination-disabled">Previous</span>
+                    <span>1 of 19</span>
+                    <span class="transfer-pagination-next">Next</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="transfer-overview-row">
+              <span class="transfer-overview-dot" style="background:var(--d600)"></span>
+              <span class="transfer-overview-name">Technical fault</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:11%"></span></span>
+              <span class="transfer-overview-count">52</span>
+              <span class="transfer-overview-pct">11%</span>
+              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="transfer-analysis-section" aria-labelledby="transferOutcomesTitle">
+          <div class="transfer-analysis-head">
+            <div class="transfer-analysis-heading">
+              <div class="transfer-analysis-title" id="transferOutcomesTitle">Transfer Outcomes</div>
+              <div class="transfer-analysis-description">What happened after the conversation reached an agent.</div>
+            </div>
+            <div class="transfer-analysis-total">499 outcomes</div>
+          </div>
+
+          <div class="transfer-overview-list">
+            <div class="transfer-overview-row">
+              <span class="transfer-overview-dot" style="background:var(--ok)"></span>
+              <span class="transfer-overview-name">Resolved by agent</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:59%"></span></span>
+              <span class="transfer-overview-count">286</span>
+              <span class="transfer-overview-pct">59%</span>
+              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+
+            <button class="transfer-overview-row" id="toggleFollowupInsights" type="button" aria-expanded="false" aria-controls="followupInsightsPanel">
+              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
+              <span class="transfer-overview-name">Follow-up needed</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:28%"></span></span>
+              <span class="transfer-overview-count">142</span>
+              <span class="transfer-overview-pct">28%</span>
+              <svg class="transfer-overview-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+
+            <div class="transfer-expanded-panel" id="followupInsightsPanel" hidden>
+              <div class="transfer-expanded-inner">
+                <div class="transfer-expanded-head">
+                  <div>
+                    <div class="transfer-expanded-eyebrow">AiMY follow-up insights</div>
+                    <div class="transfer-expanded-copy">Actions completed or scheduled after the transfer.</div>
+                  </div>
+                  <div class="transfer-expanded-count">142 actions</div>
+                </div>
+
+                <div class="transfer-followup-grid">
+                  <div class="transfer-followup-card">
+                    <div class="transfer-followup-head">
+                      <div>
+                        <div class="transfer-followup-name">Callback scheduled</div>
+                        <div class="transfer-followup-description">AiMY booked a return call with an available agent.</div>
+                      </div>
+                      <div class="transfer-followup-value">62<span>44%</span></div>
+                    </div>
+                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:44%"></div></div>
+                  </div>
+
+                  <div class="transfer-followup-card">
+                    <div class="transfer-followup-head">
+                      <div>
+                        <div class="transfer-followup-name">Email or SMS sent</div>
+                        <div class="transfer-followup-description">Confirmation, instructions, or requested information.</div>
+                      </div>
+                      <div class="transfer-followup-value">41<span>29%</span></div>
+                    </div>
+                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:29%"></div></div>
+                  </div>
+
+                  <div class="transfer-followup-card">
+                    <div class="transfer-followup-head">
+                      <div>
+                        <div class="transfer-followup-name">Case or ticket created</div>
+                        <div class="transfer-followup-description">A tracked item was opened for the responsible team.</div>
+                      </div>
+                      <div class="transfer-followup-value">23<span>16%</span></div>
+                    </div>
+                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:16%"></div></div>
+                  </div>
+
+                  <div class="transfer-followup-card">
+                    <div class="transfer-followup-head">
+                      <div>
+                        <div class="transfer-followup-name">Awaiting customer response</div>
+                        <div class="transfer-followup-description">AiMY requested missing information before continuing.</div>
+                      </div>
+                      <div class="transfer-followup-value">16<span>11%</span></div>
+                    </div>
+                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:11%"></div></div>
+                  </div>
+                </div>
+
+                <div class="transfer-followup-note">
+                  <div class="transfer-followup-note-icon" aria-hidden="true">i</div>
+                  <div class="transfer-followup-note-text"><strong>Callbacks are the most common follow-up.</strong> They account for 44% of follow-up actions after a transfer.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="transfer-overview-row">
+              <span class="transfer-overview-dot" style="background:var(--warn)"></span>
+              <span class="transfer-overview-name">Reopened</span>
+              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:14%"></span></span>
+              <span class="transfer-overview-count">71</span>
+              <span class="transfer-overview-pct">14%</span>
+              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="insight-banner transfer-insight">
+        <div class="insight-aimark"><img class="insight-logo-icon" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUyIiBoZWlnaHQ9IjE0OCIgdmlld0JveD0iMCAwIDE1MiAxNDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik04NC4yIDYuNzYwMDNDODUuMjkgMy44NjAwMyA4Ny40NiAzLjA5MDAzIDkwLjQgMy4zMDAwM0M5My40NCAzLjUxMDAzIDk2LjUyIDMuMjYwMDMgOTkuNTcgMy4zOTAwM0MxMDIuNjYgMy41MjAwMyAxMDMuNzYgNS4zODAwMyAxMDIuMjkgOC4xMjAwM0M5OS40OSAxMy4zNSA5Ni42IDE4LjUyIDkzLjY1IDIzLjY2QzkyLjc0IDI1LjI1IDkyLjM0IDI2LjU2IDkzLjM1IDI4LjM1Qzk0LjQ0IDMwLjI5IDk1LjAzIDMyLjUxIDk1LjgyIDM0LjYyQzk2LjM4IDM2LjEgOTYuOTYgMzcuNTIgOTguOTIgMzcuNDZDMTAwLjk1IDM3LjQgMTAxLjMgMzUuOTIgMTAxLjYzIDM0LjM1QzEwMi43MyAyOS4yNSAxMDMuODUgMjQuMTYgMTA1LjAyIDE5LjA3QzEwNS42OCAxNi4xOSAxMDYuNjYgMTUuODcgMTA4LjcyIDE3Ljg5QzExMS44NyAyMC45NyAxMTQuOTQgMjQuMTQgMTE4LjA5IDI3LjIyQzExOS4zOCAyOC40OCAxMTkuNDUgMjkuNjIgMTE4LjE5IDMwLjkyQzExNi45NCAzMi4yMSAxMTUuNzIgMzMuNTQgMTE0LjUzIDM0Ljg5QzExMy45MiAzNS41OCAxMTMuNCAzNi4zOCAxMTQuMDcgMzcuMzFDMTE0Ljc1IDM4LjI1IDExNS42MiAzNy45MiAxMTYuNDkgMzcuNThDMTIxIDM1Ljc4IDEyNS41MyAzNC4wNSAxMzAuMDIgMzIuMTlDMTMxLjg1IDMxLjQzIDEzMy4zNCAzMS43MiAxMzQuNjkgMzMuMDZDMTM3LjE4IDM1LjUzIDEzOS43MyAzNy45NiAxNDIuMTEgNDAuNTNDMTQ0LjY1IDQzLjI2IDE0NC4wMiA0NS4yNyAxNDAuMzQgNDYuMzVDMTM0LjY1IDQ4LjAyIDEyOC45NSA0OS42MSAxMjMuMjQgNTEuMkMxMjEuODcgNTEuNTggMTIwLjk4IDUyLjA5IDEyMC40OSA1My42N0MxMTkuNzMgNTYuMTQgMTE4LjQ3IDU4LjQ3IDExNy4zOSA2MC44NEMxMTYuNzggNjIuMTkgMTE2LjY3IDYzLjQzIDExNy45IDY0LjUyQzExOS4xNSA2NS42MyAxMjAuMzQgNjUuMjcgMTIxLjU4IDY0LjQ3QzEyNi4xMSA2MS41NSAxMzAuNjUgNTguNjQgMTM1LjIyIDU1Ljc4QzEzNy43MiA1NC4yMSAxMzguNTUgNTQuNyAxMzguNTggNTcuNjlDMTM4LjYyIDYxLjkxIDEzOC41IDY2LjE0IDEzOC42MyA3MC4zNkMxMzguNyA3Mi43NSAxMzcuNjUgNzMuNiAxMzUuNDIgNzMuNTZDMTMzLjg5IDczLjUzIDEzMi4zNiA3My42MiAxMzAuODMgNzMuN0MxMjkuODEgNzMuNzYgMTI4Ljc3IDczLjk2IDEyOC42MyA3NS4yMkMxMjguNSA3Ni4zNyAxMjkuNDQgNzYuNjggMTMwLjI4IDc3LjA0QzEzNC41NyA3OC44OSAxMzguODIgODAuODQgMTQzLjE2IDgyLjU3QzE0NS4zMiA4My40MyAxNDYuMjYgODQuOCAxNDYuMjIgODcuMDdDMTQ2LjE2IDkwLjQgMTQ2LjI0IDkzLjcyIDE0Ni4xOCA5Ny4wNUMxNDYuMSAxMDAuODcgMTQ0LjMgMTAxLjk0IDE0MC45OCAxMDAuMTJDMTM1Ljc4IDk3LjI4IDEzMC42IDk0LjQgMTI1LjQ1IDkxLjQ2QzEyNC4xMSA5MC43IDEyMy4wNyA5MC40MyAxMjEuNTMgOTEuMjZDMTE5LjI1IDkyLjQ4IDExNi43MSA5My4yMSAxMTQuMjcgOTQuMTJDMTEyLjg3IDk0LjY1IDExMS45OCA5NS41IDExMi4xIDk3LjEyQzExMi4yMyA5OC43OSAxMTMuMzQgOTkuMzEgMTE0Ljc5IDk5LjYyQzEyMC4wNiAxMDAuNzQgMTI1LjMyIDEwMS44OSAxMzAuNTcgMTAzLjExQzEzMy40OSAxMDMuNzggMTMzLjczIDEwNC42NyAxMzEuNjQgMTA2LjhDMTI4LjU1IDEwOS45NCAxMjUuMzggMTEzLjAxIDEyMi4zMSAxMTYuMThDMTIxLjA0IDExNy40OCAxMTkuOTUgMTE3LjU2IDExOC42NSAxMTYuMjdDMTE3LjM4IDExNSAxMTYuMDIgMTEzLjgyIDExNC42NyAxMTIuNjJDMTEzLjk4IDExMiAxMTMuMTkgMTExLjQ4IDExMi4yNSAxMTIuMTJDMTExLjI4IDExMi43OCAxMTEuNjEgMTEzLjY1IDExMS45NiAxMTQuNTJDMTEzLjcyIDExOC45NCAxMTUuMzkgMTIzLjQgMTE3LjI0IDEyNy43OEMxMTguMTkgMTMwLjAyIDExNy43MSAxMzEuNjggMTE2IDEzMy4yOUMxMTMuNzcgMTM1LjM4IDExMS42OCAxMzcuNjIgMTA5LjQ5IDEzOS43NkMxMDYuMzYgMTQyLjgyIDEwNC4yNyAxNDIuMjYgMTAzLjA0IDEzOEMxMDEuNDYgMTMyLjQ4IDk5LjkxIDEyNi45NSA5OC40IDEyMS40MUM5OCAxMTkuOTMgOTcuMzggMTE5LjAyIDk1Ljc0IDExOC41MUM5My4zNSAxMTcuNzcgOTEuMTIgMTE2LjU0IDg4LjgyIDExNS41Qzg3LjM5IDExNC44NSA4Ni4wNCAxMTQuNyA4NC45MiAxMTYuMDdDODMuODcgMTE3LjM2IDg0LjM4IDExOC41MyA4NS4xNyAxMTkuNzZDODguMDUgMTI0LjIxIDkwLjkgMTI4LjY4IDkzLjcyIDEzMy4xN0M5NS4zNyAxMzUuNzkgOTQuODkgMTM2LjY1IDkxLjc0IDEzNi42OUM4Ny42IDEzNi43NCA4My40NiAxMzYuNjMgNzkuMzMgMTM2Ljc1Qzc2Ljg2IDEzNi44MiA3NiAxMzUuNzQgNzUuOTUgMTMzLjM4Qzc1LjkxIDEzMS40NCA3Ni4zNCAxMjkuNDIgNzUuNCAxMjcuNTZDNzMuNjYgMTI1LjM4IDczLjA0IDEyNy4yMSA3Mi40OCAxMjguNDdDNzAuNzIgMTMyLjQxIDY4LjkyIDEzNi4zNCA2Ny40IDE0MC4zN0M2Ni4yOSAxNDMuMzMgNjQuNDggMTQ0LjYyIDYxLjMgMTQ0LjRDNTguNTMgMTQ0LjIgNTUuNzMgMTQ0LjM5IDUyLjk0IDE0NC4zNEM0OC42NyAxNDQuMjcgNDcuNTQgMTQyLjM5IDQ5LjU3IDEzOC43MUM1Mi4zMSAxMzMuNzYgNTUuMDYgMTI4LjgxIDU3Ljg4IDEyMy45MUM1OC43OCAxMjIuMzUgNTkuMjEgMTIxLjA1IDU4LjE3IDExOS4yNEM1Ny4wMiAxMTcuMjQgNTYuNDIgMTE0LjkyIDU1LjYxIDExMi43M0M1NS4wOCAxMTEuMjkgNTQuMzYgMTEwLjEzIDUyLjU3IDExMC4yQzUwLjc0IDExMC4yOCA1MC4yNSAxMTEuNTEgNDkuOTMgMTEzLjA1QzQ4LjgzIDExOC4yMyA0Ny42OSAxMjMuNDEgNDYuNDkgMTI4LjU3QzQ1LjgyIDEzMS40NSA0NC44NCAxMzEuNzQgNDIuNzcgMTI5LjdDMzkuNjkgMTI2LjY4IDM2LjY5IDEyMy41NiAzMy41OCAxMjAuNTZDMzIuMDkgMTE5LjEyIDMyLjA0IDExNy44OCAzMy41MiAxMTYuNDZDMzQuNjIgMTE1LjQgMzUuNjMgMTE0LjI0IDM2LjY1IDExMy4xQzM3LjM4IDExMi4yOSAzOC4yMiAxMTEuMzggMzcuMzcgMTEwLjI3QzM2LjYxIDEwOS4yNyAzNS41NyAxMDkuODMgMzQuNjUgMTEwLjE5QzMwLjM4IDExMS44OCAyNi4wOSAxMTMuNSAyMS44NyAxMTUuMjlDMTkuNjQgMTE2LjI0IDE3Ljk0IDExNS44MyAxNi4zMSAxMTQuMTFDMTQuMDIgMTExLjY5IDExLjU2IDEwOS40NCA5LjI4OTk5IDEwNy4wMUM2Ljk0OTk5IDEwNC41IDcuNTA5OTkgMTAyLjM3IDEwLjc4IDEwMS4zOUMxNi4zOCA5OS43MiAyMiA5OC4xMiAyNy42NCA5Ni42QzI5LjQxIDk2LjEyIDMwLjYgOTUuNDkgMzEuMTcgOTMuNUMzMS44NCA5MS4xOSAzMy4wOCA4OS4wNSAzNC4wNyA4Ni44NEMzNC43MiA4NS40IDM0Ljc5IDg0LjA1IDMzLjQyIDgyLjk1QzMyLjEgODEuOSAzMC45NyA4Mi40OCAyOS43NSA4My4yN0MyNS4zOSA4Ni4xMSAyMC45OSA4OC45MiAxNi41OCA5MS42OEMxMy44MiA5My40MSAxMi44NyA5Mi45MSAxMi44NCA4OS43M0MxMi44IDg1LjU5IDEyLjkzIDgxLjQ1IDEyLjgxIDc3LjMyQzEyLjc1IDc0Ljk4IDEzLjcgNzQuMDYgMTUuOTkgNzQuMTFDMTcuNjkgNzQuMTUgMTkuNCA3My45NCAyMS4xMSA3My44MUMyMS45OCA3My43NSAyMi43MyA3My40MSAyMi44NyA3Mi40NUMyMy4wMiA3MS40NSAyMi4yOSA3MS4wNCAyMS41MSA3MC43QzE3LjE0IDY4LjgxIDEyLjgxIDY2LjgzIDguMzg5OTkgNjUuMDdDNi4xMzk5OSA2NC4xNyA1LjE1OTk5IDYyLjcyIDUuMTk5OTkgNjAuMzZDNS4yNTk5OSA1Ny4wMyA1LjEyOTk5IDUzLjcgNS4yMzk5OSA1MC4zOEM1LjM1OTk5IDQ2LjgyIDcuMzA5OTkgNDUuNzQgMTAuNDQgNDcuNDVDMTUuNTcgNTAuMjQgMjAuNjcgNTMuMDcgMjUuNzQgNTUuOTdDMjcuMjQgNTYuODMgMjguNDYgNTcuMTkgMzAuMTggNTYuMjZDMzIuMyA1NS4xMSAzNC42OCA1NC40NSAzNi45NSA1My41OUMzOC40MiA1My4wNCAzOS40OCA1Mi4yMSAzOS4zMiA1MC40NEMzOS4xNyA0OC43NiAzNy45NyA0OC4yOCAzNi41NiA0Ny45OEMzMS4zNyA0Ni44NSAyNi4xOSA0NS43MyAyMS4wMSA0NC41NEMxOC4xNSA0My44OCAxNy44NCA0Mi44NyAxOS44NSA0MC44MUMyMi44NyAzNy43MiAyNS45OSAzNC43NCAyOC45OCAzMS42MkMzMC40MiAzMC4xMSAzMS42NSAzMC4wOSAzMy4wOCAzMS41NkMzNC4xNSAzMi42NSAzNS4yOSAzMy42OCAzNi40NCAzNC42OEMzNy4yNCAzNS4zOCAzOC4xIDM2LjMyIDM5LjI1IDM1LjQyQzQwLjI1IDM0LjY0IDM5LjcgMzMuNjIgMzkuMzMgMzIuNzFDMzcuNjQgMjguNDQgMzYuMDMgMjQuMTUgMzQuMjMgMTkuOTNDMzMuMjYgMTcuNjcgMzMuNzUgMTYuMDEgMzUuNDIgMTQuMzdDMzcuNjYgMTIuMTcgMzkuNzEgOS43NzAwMyA0MS45MyA3LjU1MDAzQzQ0LjQ1IDUuMDMwMDMgNDcuMjEgNS43MDAwMyA0OC4yMiA5LjA4MDAzQzQ5LjkgMTQuNzcgNTEuNTMgMjAuNDggNTMuMDggMjYuMjFDNTMuNSAyNy43NCA1NC4xNyAyOC41OSA1NS43OCAyOS4xMUM1OC4yNSAyOS45MSA2MC41NyAzMS4xNiA2Mi45NSAzMi4yMkM2NC4zMyAzMi44MyA2NS41NyAzMi43NyA2Ni41OSAzMS41M0M2Ny41NyAzMC4zNCA2Ny4yIDI5LjIxIDY2LjQ2IDI4LjA3QzYzLjY0IDIzLjY5IDYwLjgxIDE5LjMyIDU4LjA0IDE0LjlDNTcuNDYgMTMuOTcgNTYuMzUgMTMuMDMgNTcuMTEgMTEuNzVDNTcuNzkgMTAuNiA1OS4wNSAxMC45OSA2MC4wOCAxMC45OEM2NC4yMSAxMC45NCA2OC4zNSAxMS4wNCA3Mi40OCAxMC45NUM3NC41NSAxMC45MSA3NS40NSAxMS43MyA3NS40MyAxMy43OUM3NS40MiAxNS41IDc1LjU3IDE3LjIgNzUuNjkgMTguOTFDNzUuNzYgMTkuODUgNzYuMDMgMjAuNzYgNzcuMTYgMjAuODdDNzguMTQgMjAuOTcgNzguNTcgMjAuMjQgNzguODkgMTkuNDVDODAuNjUgMTUuMjIgODIuNDEgMTAuOTkgODQuMTcgNi43NzAwM0w4NC4yIDYuNzYwMDNaTTYxLjg0IDY4LjE3QzU4LjUgNzAuMDMgNTUuNTMgNjkuNSA1Mi43MiA2Ni45NkM1MC41OSA2NS4wNCA0OC4zMiA2My4yNiA0Ni4wNCA2MS41MkM0NC42NyA2MC40NyA0MC41OCA2MS40IDQwLjE2IDYzQzM5Ljc2IDY0LjUxIDQxLjYxIDY0LjYyIDQyLjUxIDY1LjI2QzQ0Ljc3IDY2Ljg4IDQ0LjkzIDY4LjA4IDQyLjk1IDcwLjI1QzQxLjc1IDcxLjU2IDQxLjA5IDczLjAyIDQyLjE0IDc0LjYxQzQzLjIxIDc2LjIyIDQ0LjgyIDc2LjYyIDQ2LjY0IDc1Ljg2QzQ4LjMgNzUuMTcgNDkuOTkgNzQuNTUgNTEuNTkgNzMuNzVDNTQuOTQgNzIuMDggNTcuOTggNzIuMjggNjAuNzIgNzQuOTZDNjMuMiA4MC43NCA2MS4xMiA4NC4zOSA1NC44OCA4NS4xNUM1MS45NCA4NS41MSA0OC45OCA4NS43NCA0Ni4wNCA4Ni4xNEM0NC4zMyA4Ni4zOCA0Mi4zMiA4OS41MSA0MyA5MS4xM0M0My43NCA5Mi44OCA0NS4xNCA5MS40IDQ2LjE4IDkxLjI2QzQ5IDkwLjg3IDQ5LjkyIDkxLjUxIDUwLjA3IDk0LjQzQzUwLjE2IDk2LjE5IDUwLjY3IDk3LjcyIDUyLjU1IDk4LjEyQzU0LjYxIDk4LjU1IDU1Ljk5IDk3LjQ4IDU2Ljc2IDk1LjZDNTcuNTggOTMuNjEgNTguMzYgOTEuNiA1OS4yIDg5LjYxQzYwLjI2IDg3LjA4IDYyLjA2IDg1LjQ5IDY0LjkyIDg1LjQxQzY3LjUyIDg1LjM0IDY5LjQ3IDg2LjUzIDcwLjYgODguODFDNzEuODIgOTEuMjkgNzEuNDcgOTMuNjggNjkuNjYgOTUuODRDNjguMSA5Ny43IDY2LjYgOTkuNjEgNjUuMDUgMTAxLjQ3QzYyLjA4IDEwNS4wNCA2Mi4xNSAxMDYuMzggNjUuNTcgMTA5Ljg3QzY2LjA0IDEwOS4wOCA2Ni40OSAxMDguMzEgNjYuOTUgMTA3LjU1QzY4LjcyIDEwNC42MiA2OS44MSAxMDQuNDQgNzIuMzUgMTA2LjY4QzczLjcgMTA3Ljg3IDc1LjE5IDEwOC4zOCA3Ni43NCAxMDcuMjdDNzguMjQgMTA2LjE5IDc4LjUyIDEwNC42MSA3Ny44NiAxMDIuOTNDNzYuOTcgMTAwLjY3IDc1LjkgOTguNDggNzUuMDkgOTYuMkM3My43NyA5Mi40NyA3NS42NSA4OC44NSA3OS4yNiA4Ny45QzgyLjgzIDg2Ljk2IDg2LjM0IDg5LjI3IDg2Ljk2IDkzLjExQzg3LjM2IDk1LjU5IDg3LjU2IDk4LjExIDg3Ljc2IDEwMC42MUM4OC4xNyAxMDUuNTUgODguNzMgMTA2LjE0IDkzLjc1IDEwNi41OEM5My43OSAxMDYuNjMgOTMuODMgMTA2LjY5IDkzLjg4IDEwNi43MkM5My44OSAxMDYuNzIgOTMuOTUgMTA2LjY3IDkzLjk5IDEwNi42NEM5My45IDEwNi42NCA5My44IDEwNi42NCA5My43MSAxMDYuNjRDOTQuMTkgMTA1LjQzIDkzLjQ1IDEwNC4zOCA5My4yNSAxMDMuMjdDOTIuNzcgMTAwLjU4IDkzLjU0IDk5LjUyIDk2LjIgOTkuNDdDOTguMDggOTkuNDQgOTkuNzIgOTguOTcgMTAwLjEzIDk2Ljk2QzEwMC41OCA5NC43NyA5OS4zMiA5My40MiA5Ny4zNCA5Mi42NEM5NS4zMyA5MS44NiA5My4zMyA5MS4wNyA5MS4zNSA5MC4yMkM4OC45IDg5LjE3IDg3LjQ2IDg3LjI5IDg3LjM3IDg0LjYyQzg3LjI5IDgyLjA3IDg4LjQ5IDgwLjA4IDkwLjc4IDc4Ljk0QzkzLjE2IDc3Ljc2IDk1LjUgNzguMDIgOTcuNiA3OS43Qzk5LjUgODEuMjEgMTAxLjM3IDgyLjc1IDEwMy4yNCA4NC4zQzEwNy4xMSA4Ny41MSAxMDcuOSA4Ny41IDExMS45OSA4NC4wM0MxMTAuOTUgODMuNDIgMTA5LjkyIDgyLjg5IDEwOC45NyA4Mi4yNEMxMDYuNzMgODAuNzEgMTA2LjU3IDc5LjQyIDEwOC40MyA3Ny40NUMxMDkuNzEgNzYuMDkgMTEwLjU1IDc0LjYyIDEwOS4zNyA3Mi44OUMxMDguMTcgNzEuMTQgMTA2LjQxIDcxLjA0IDEwNC41NSA3MS44QzEwMi40NyA3Mi42NiAxMDAuNDQgNzMuNjMgOTguMzMgNzQuMzlDOTQuNiA3NS43NCA5MC44NCA3My44OSA4OS45NSA3MC4zN0M4OC45OSA2Ni41NiA5MS4yNSA2My4xNCA5NS4yOCA2Mi41NEM5Ny43NiA2Mi4xNyAxMDAuMjggNjEuOTUgMTAyLjc5IDYxLjc2QzEwNy41NCA2MS40IDEwOC4yMyA2MC43MSAxMDguNTYgNTUuNDZDMTA3LjQxIDU1Ljc1IDEwNi4zMiA1Ni4wOCAxMDUuMjEgNTYuMjhDMTAyLjU5IDU2Ljc3IDEwMS41IDU1LjkzIDEwMS40MyA1My4yNUMxMDEuMzggNTEuMzYgMTAwLjkxIDQ5Ljc2IDk4Ljg2IDQ5LjRDOTYuNzkgNDkuMDQgOTUuNDcgNTAuMTggOTQuNzIgNTIuMDdDOTMuODkgNTQuMTYgOTMuMSA1Ni4yNyA5Mi4xNSA1OC4zQzkwLjQ3IDYxLjkgODYuNTggNjMuMjEgODMuMzkgNjEuMzVDODAuMDMgNTkuMzkgNzkuMjEgNTUuMjUgODEuNjQgNTIuMDNDODMuMjEgNDkuOTUgODQuOTEgNDcuOTcgODYuNTcgNDUuOTZDODkuNTEgNDIuNCA4OS40NiA0MS4zOSA4Ni4xNCAzNy44MUM4Ni4wNiAzNy44MyA4NS45NCAzNy44MiA4NS45MSAzNy44N0M4NS42MSAzOC4zMSA4NS4zMSAzOC43NiA4NS4wMyAzOS4yMkM4Mi43MyA0My4wMyA4Mi4yOCA0My4xMSA3OC44MiA0MC41MkM3Ny41OCAzOS41OSA3Ni4yMSAzOS4xOCA3NC44NSA0MC4yMUM3My41MiA0MS4yMyA3Mi45NiA0Mi42MyA3My41OSA0NC4yN0M3NC40MyA0Ni40NSA3NS4zMyA0OC42IDc2LjI2IDUwLjc0Qzc3LjQyIDUzLjQxIDc3LjE0IDU1Ljg2IDc1LjEzIDU3Ljk4QzczLjM0IDU5Ljg3IDcxLjAxIDYwLjI0IDY4LjY2IDU5LjQyQzY2LjA1IDU4LjUxIDY0LjcgNTYuNTEgNjQuNDggNTMuN0M2NC4yMyA1MC41NyA2My44NyA0Ny40NCA2My40NyA0NC4zMkM2My4yMyA0Mi40IDYwLjQgNDAuMjkgNTguNDQgNDAuOTVDNTYuNDMgNDEuNjMgNTguMjIgNDMuMTkgNTguMzMgNDQuMjlDNTguNiA0Ny4wMyA1Ny45NyA0Ny45MyA1NC45OCA0OC4xQzUzLjE5IDQ4LjIgNTEuNzMgNDguNzkgNTEuNCA1MC43QzUxLjA5IDUyLjUxIDUxLjk3IDUzLjg1IDUzLjY0IDU0LjU4QzU1LjM3IDU1LjM0IDU3LjE0IDU2IDU4Ljg4IDU2LjczQzY0LjcgNTkuMTQgNjUuNzUgNjMuMTcgNjEuODcgNjguMTRMNjEuODQgNjguMTdaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfOTI4Ml8xNDkpIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfOTI4Ml8xNDkiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzUuNzIgNzMuODMpIHNjYWxlKDcwLjU0IDcwLjU0KSI+CjxzdG9wIG9mZnNldD0iMC4yNiIgc3RvcC1jb2xvcj0iIzhDNEZGNCIvPgo8c3RvcCBvZmZzZXQ9IjAuMzYiIHN0b3AtY29sb3I9IiM4MjUwRjQiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjNjk1NEY2Ii8+CjxzdG9wIG9mZnNldD0iMC43IiBzdG9wLWNvbG9yPSIjM0Y1QkY5Ii8+CjxzdG9wIG9mZnNldD0iMC45MiIgc3RvcC1jb2xvcj0iIzA3NjRGRSIvPgo8c3RvcCBvZmZzZXQ9IjAuOTUiIHN0b3AtY29sb3I9IiMwMDY2RkYiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K" alt="" /></div>
+        <div class="insight-text">
+          <strong>Select Other or Follow-up needed for deeper insight.</strong> The modal keeps one detail panel open at a time so users can investigate without losing their place or creating excessive scrolling.
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -943,6 +1995,35 @@ function openModal(id){document.getElementById(id).classList.add('open');documen
 function closeModal(id){document.getElementById(id).classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow=''}
 window.openModal=openModal; window.closeModal=closeModal;
 
+
+// Transfers modal accordions. Keep only one detail panel open at a time.
+const toggleOtherReasons = document.getElementById('toggleOtherReasons');
+const otherReasonsPanel = document.getElementById('otherReasonsPanel');
+const toggleFollowupInsights = document.getElementById('toggleFollowupInsights');
+const followupInsightsPanel = document.getElementById('followupInsightsPanel');
+
+function setTransferPanel(toggle, panel, shouldOpen) {
+  if (!toggle || !panel) return;
+  toggle.setAttribute('aria-expanded', String(shouldOpen));
+  panel.hidden = !shouldOpen;
+}
+
+if (toggleOtherReasons && otherReasonsPanel) {
+  toggleOtherReasons.addEventListener('click', () => {
+    const shouldOpen = toggleOtherReasons.getAttribute('aria-expanded') !== 'true';
+    setTransferPanel(toggleFollowupInsights, followupInsightsPanel, false);
+    setTransferPanel(toggleOtherReasons, otherReasonsPanel, shouldOpen);
+  });
+}
+
+if (toggleFollowupInsights && followupInsightsPanel) {
+  toggleFollowupInsights.addEventListener('click', () => {
+    const shouldOpen = toggleFollowupInsights.getAttribute('aria-expanded') !== 'true';
+    setTransferPanel(toggleOtherReasons, otherReasonsPanel, false);
+    setTransferPanel(toggleFollowupInsights, followupInsightsPanel, shouldOpen);
+  });
+}
+
 // [6] Modal backdrops
 document.querySelectorAll('.modal-backdrop').forEach(backdrop=>{
   backdrop.addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal(backdrop.id)});
@@ -1034,6 +2115,8 @@ function confirmCredits(){
   if(rem)rem.textContent=nr.toLocaleString()+' remaining out of '+nq.toLocaleString();
 
   // ring — animate to new ratio
+  updateMetricChips();
+  renderTrendChart();
   const ring=document.getElementById('ringCircle');
   if(ring){
     const c=2*Math.PI*42;
@@ -1173,7 +2256,103 @@ if(btnPlanConfirm) btnPlanConfirm.addEventListener('click',()=>{
 
 const btnPlanDone=document.getElementById('btnPlanDone');
 if(btnPlanDone) btnPlanDone.addEventListener('click',()=>closeModal('planSuccessModal'));
+
+
+// ── Classification trend chart ────────────────────────────────
+const trendMetrics={
+  success:{label:'Successful transfers',color:'#6fdfe2',goodUp:true,values:[78,80,79,82,83,81,80,84,85,86,82,80,79,77,74,72,76,79,81,83,84,86,87,85,84,86,88,89,87,88],prev:[76,77,78,78,80,79,81,80,82,81,80,79,78,78,77,76,78,80,80,81,82,82,83,83,84,83,85,85,86,86]},
+  failed:{label:'Failed transfers',color:'#f04438',goodUp:false,values:[8,7,8,6,6,7,7,6,5,5,7,8,9,10,13,15,12,10,8,7,6,5,5,6,6,5,4,4,5,4],prev:[9,9,8,8,7,8,7,8,7,7,8,8,9,8,9,10,9,8,8,7,7,7,6,6,6,7,6,6,5,5]},
+  resolved:{label:'AiMY resolutions',color:'#8b4ff4',goodUp:true,values:[84,85,84,86,87,86,85,87,88,89,86,85,83,82,79,77,80,83,84,86,87,88,89,88,88,89,90,91,90,91],prev:[82,82,83,83,84,84,85,84,85,86,84,84,83,83,82,81,82,84,84,85,86,86,87,87,87,88,88,89,89,89]},
+  outscope:{label:'Out of scope',color:'#f79009',goodUp:false,values:[5,5,6,5,4,5,5,4,4,3,5,6,7,7,9,10,8,7,6,5,5,4,4,4,4,3,3,3,4,3],prev:[6,6,6,6,5,6,5,6,5,5,6,6,7,6,7,7,7,6,6,5,5,5,5,4,4,5,4,4,4,4]},
+  sentiment:{label:'Positive sentiment',color:'#17b26a',goodUp:true,values:[71,72,72,74,75,74,73,76,77,78,75,73,71,69,65,63,67,70,72,74,76,78,79,78,77,79,81,82,81,82],prev:[69,70,71,71,72,72,73,72,74,74,73,72,71,71,70,69,70,72,73,73,74,75,76,76,77,77,78,78,79,79]}
+};
+let selectedTrendMetrics=['success'];
+const trendDates=Array.from({length:30},(_,i)=>`Apr ${i+1}`);
+
+function trendData(metric){
+  return trendMetrics[metric].values.map((value,index)=>({label:trendDates[index],value}));
+}
+function svgEl(name,attrs={}){const el=document.createElementNS('http://www.w3.org/2000/svg',name);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));return el;}
+function renderTrendChart(){
+  const svg=document.getElementById('trendChart'); if(!svg)return;
+  const width=Math.max(620,svg.clientWidth||760),height=286,pad={l:42,r:18,t:20,b:34};
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.innerHTML='';
+  const all=selectedTrendMetrics.flatMap(metric=>trendData(metric).map(point=>point.value));
+  const min=Math.max(0,Math.floor((Math.min(...all)-8)/10)*10),max=Math.min(100,Math.ceil((Math.max(...all)+7)/10)*10);
+  const plotW=width-pad.l-pad.r,plotH=height-pad.t-pad.b;
+  const x=(index,count)=>pad.l+(count===1?0:index/(count-1))*plotW;
+  const y=value=>pad.t+(max-value)/(max-min)*plotH;
+
+  for(let i=0;i<=4;i++){
+    const value=max-(max-min)*i/4,yy=pad.t+plotH*i/4;
+    svg.append(svgEl('line',{x1:pad.l,y1:yy,x2:width-pad.r,y2:yy,class:'chart-grid'}));
+    const label=svgEl('text',{x:pad.l-9,y:yy+3,'text-anchor':'end',class:'chart-axis-label'});
+    label.textContent=Math.round(value)+'%';svg.append(label);
+  }
+
+  const labels=trendData(selectedTrendMetrics[0]),count=labels.length,labelStep=Math.ceil(count/6);
+  labels.forEach((point,index)=>{
+    if(index%labelStep===0||index===count-1){
+      const label=svgEl('text',{x:x(index,count),y:height-11,'text-anchor':index===0?'start':index===count-1?'end':'middle',class:'chart-axis-label'});
+      label.textContent=point.label;svg.append(label);
+    }
+  });
+
+  const anomalyStart=x(13,count),anomalyEnd=x(16,count);
+  svg.append(svgEl('rect',{x:anomalyStart,y:pad.t,width:anomalyEnd-anomalyStart,height:plotH,class:'chart-anomaly-band'}));
+  svg.append(svgEl('line',{x1:x(15,count),y1:pad.t,x2:x(15,count),y2:pad.t+plotH,class:'chart-anomaly-line'}));
+  const anomalyLabel=svgEl('text',{x:x(15,count)+5,y:pad.t+11,class:'chart-anomaly-label'});
+  anomalyLabel.textContent='Degradation';svg.append(anomalyLabel);
+
+  selectedTrendMetrics.forEach(metric=>{
+    const config=trendMetrics[metric],data=trendData(metric);
+    const points=data.map((point,index)=>`${x(index,data.length)},${y(point.value)}`).join(' ');
+    svg.append(svgEl('polyline',{points,stroke:config.color,class:'chart-line'}));
+    data.forEach((point,index)=>svg.append(svgEl('circle',{cx:x(index,data.length),cy:y(point.value),r:2.8,fill:config.color,class:'chart-point'})));
+  });
+
+  const hoverLayer=svgEl('g',{class:'chart-hover-layer',id:'trendHoverLayer',visibility:'hidden'});
+  hoverLayer.append(svgEl('line',{id:'trendHoverGuide',y1:pad.t,y2:pad.t+plotH,class:'chart-hover-guide'}));
+  selectedTrendMetrics.forEach(metric=>hoverLayer.append(svgEl('circle',{id:`trendHoverMarker-${metric}`,r:5,fill:trendMetrics[metric].color,class:'chart-hover-marker'})));
+  svg.append(hoverLayer);
+
+  const hitArea=svgEl('rect',{x:pad.l,y:pad.t,width:plotW,height:plotH,class:'chart-hit-area','aria-hidden':'true'});
+  hitArea.addEventListener('mousemove',event=>{
+    const bounds=svg.getBoundingClientRect();
+    const svgX=(event.clientX-bounds.left)*(width/bounds.width);
+    const index=Math.max(0,Math.min(count-1,Math.round(((svgX-pad.l)/plotW)*(count-1))));
+    const guideX=x(index,count);
+    document.getElementById('trendHoverGuide')?.setAttribute('x1',guideX);
+    document.getElementById('trendHoverGuide')?.setAttribute('x2',guideX);
+    selectedTrendMetrics.forEach(metric=>{
+      const marker=document.getElementById(`trendHoverMarker-${metric}`);
+      if(marker){marker.setAttribute('cx',guideX);marker.setAttribute('cy',y(trendData(metric)[index].value));}
+    });
+    hoverLayer.setAttribute('visibility','visible');
+    showTrendTooltip(event,index);
+  });
+  hitArea.addEventListener('mouseleave',()=>{hoverLayer.setAttribute('visibility','hidden');hideTrendTooltip();});
+  svg.append(hitArea);
+  renderTrendSummary();
+}
+function showTrendTooltip(e,index){
+  const tip=document.getElementById('chartTooltip');const rows=selectedTrendMetrics.map(m=>{const d=trendData(m)[index],cfg=trendMetrics[m];return `<div class="tooltip-row"><span class="tooltip-name"><span class="metric-dot" style="background:${cfg.color}"></span>${cfg.label}</span><span class="tooltip-value">${d.value}%</span></div>`}).join('');
+  tip.innerHTML=`<div class="tooltip-date">${trendData(selectedTrendMetrics[0])[index].label}</div>${rows}`;tip.classList.add('visible');positionTrendTooltip(e);
+}
+function positionTrendTooltip(e){const panel=document.getElementById('chartPanel'),tip=document.getElementById('chartTooltip'),r=panel.getBoundingClientRect();tip.style.left=`${Math.max(95,Math.min(r.width-95,e.clientX-r.left))}px`;tip.style.top=`${Math.max(100,e.clientY-r.top)}px`;}
+function hideTrendTooltip(){document.getElementById('chartTooltip')?.classList.remove('visible')}
+function renderTrendSummary(){
+  const wrap=document.getElementById('trendSummary');if(!wrap)return;
+  wrap.innerHTML=selectedTrendMetrics.map(m=>{const cfg=trendMetrics[m],d=trendData(m),first=d[0].value,last=d[d.length-1].value,delta=last-first;const good=delta===0?'neutral':((delta>0)===cfg.goodUp?'good':'bad');const sign=delta>0?'+':'';return `<div class="trend-summary"><div class="trend-summary-top"><div class="trend-summary-name"><span class="metric-dot" style="background:${cfg.color}"></span>${cfg.label}</div><span class="trend-summary-delta ${good}">${sign}${delta} pts</span></div><div class="trend-summary-value">${last}%</div><div class="trend-summary-meta">Period end · average ${Math.round(d.reduce((a,b)=>a+b.value,0)/d.length)}%</div></div>`}).join('')+`<div class="trend-insight"><div class="trend-insight-label">AiMY insight</div><div class="trend-insight-text"><strong>Performance degraded Apr 14–17.</strong> Failed transfers peaked at 15% while AiMY resolutions fell to 77%. Recovery began Apr 18.</div></div>`;
+}
+function updateMetricChips(){document.querySelectorAll('.metric-chip').forEach(b=>{const active=selectedTrendMetrics.includes(b.dataset.metric);b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));b.disabled=false;});}
+document.querySelectorAll('.metric-chip').forEach(btn=>btn.addEventListener('click',()=>{const m=btn.dataset.metric;if(selectedTrendMetrics.includes(m)){if(selectedTrendMetrics.length===1)return;selectedTrendMetrics=selectedTrendMetrics.filter(x=>x!==m)}else{selectedTrendMetrics.push(m)}updateMetricChips();renderTrendChart();}));
+window.addEventListener('resize',()=>{clearTimeout(window._trendResize);window._trendResize=setTimeout(renderTrendChart,120)});
+
 window.addEventListener('load',()=>{
+  updateMetricChips();
+  renderTrendChart();
+
   const ring=document.getElementById('ringCircle');
   if(ring){
     const c=2*Math.PI*42;
