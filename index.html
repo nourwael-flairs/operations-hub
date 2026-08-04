@@ -108,8 +108,6 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .add-credits-btn:hover{background:linear-gradient(135deg,rgba(0,102,255,.25) 0%,rgba(111,223,226,.15) 100%);border-color:rgba(0,102,255,.5);color:var(--d50)}
 .add-credits-btn svg{width:15px;height:15px;flex-shrink:0}
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:14px}
-/* Three tiles in a 2x2 — the last spans both columns so the grid has no hole. */
-.stats-grid > .stat-card:nth-child(3):last-child{grid-column:1 / -1}
 .stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:22px;cursor:pointer;transition:border-color var(--tb),transform var(--tf);position:relative;overflow:hidden}
 .stat-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
 .stat-card-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
@@ -127,10 +125,8 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .stat-sub{font-size:11px;color:var(--d500);font-weight:500;margin-top:6px;line-height:1.4}
 .stat-icon{width:38px;height:38px;border-radius:10px;background:var(--d750);border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;color:var(--d400);flex-shrink:0}
 .stat-icon svg{width:18px;height:18px}
-/* ── Operations tile grid ── */
-.ops-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0}
 
-/* ── Distribution bar + legend (coverage modal, transfers modal) ── */
+/* ── Distribution bar + legend ── */
 .dist-bar{display:flex;gap:2px;width:100%;height:12px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.05)}
 .dist-seg{height:100%;border-radius:2px}
 .dist-seg.is-aimy{background:var(--ai)}
@@ -180,13 +176,19 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 /* Symbol glyphs need a touch more size than the L1/L2 text tokens to read. */
 .outcome-glyph.pos{background:var(--ok-bg);color:var(--ok);font-size:12px}
 .outcome-glyph.part{background:rgba(111,223,226,.12);color:var(--teal);font-size:12px}
-.outcome-glyph.info{background:var(--brand-dim);color:#8aabff}
+.outcome-glyph.info{background:var(--brand-dim);color:#8aabff;font-size:12px}
+.outcome-glyph.neutral{background:var(--d750);color:var(--d300);font-size:12px}
+.outcome-glyph.warn{background:var(--warn-bg);color:var(--warn);font-size:12px}
+/* Identification reads as one column — two side by side was too dense. */
+.ident-stack{display:flex;flex-direction:column;gap:22px}
+/* caption inside a drill-down panel, e.g. "Top reasons" */
+.panel-caption{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:6px}
 .outcome-glyph.neg{background:var(--err-bg);color:var(--err);font-size:12px}
 .outcome-name{font-size:13px;color:var(--d300);min-width:0}
 .outcome-tag{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--d500);margin-top:2px}
 .outcome-count{font-size:13px;font-weight:700;color:var(--d100);text-align:right}
 .outcome-pct{font-size:11px;color:var(--d500);min-width:46px;text-align:right}
-/* Expandable outcome row — mirrors the transfers modal's accordion */
+/* Expandable outcome row */
 /* line-height:inherit — buttons default to `normal`, which shortens the row */
 button.outcome-row{width:100%;border:0;border-bottom:1px solid var(--card-border);background:transparent;font-family:'Urbanist',sans-serif;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background var(--tf)}
 button.outcome-row:hover{background:rgba(255,255,255,.028)}
@@ -198,98 +200,11 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 .outcome-panel .modal-section-title{margin-bottom:8px}
 
 /* ── Caller memory badges (performance modal) ── */
-/* padding matches .transfer-overview-row's 16px — the rows are what this labels */
-.transfer-analysis-subhead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);padding:0 16px;margin:16px 0 8px}
 /* the head already pads 14px below; adding a margin here stacked two gaps */
-.transfer-analysis-head+.transfer-analysis-subhead{margin-top:0}
-.transfer-overview-list+.transfer-analysis-subhead{margin-top:16px}
 
-/* ── Transfers detail modal ── */
-.transfers-modal{max-width:820px}
-.transfers-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(230px,.85fr);gap:20px;align-items:start}
-.transfer-reasons-list{display:flex;flex-direction:column}
-.transfer-reason-row{
-  display:grid;
-  grid-template-columns:auto minmax(0,1fr) 46px 40px 18px;
-  align-items:center;
-  gap:10px;
-  min-height:44px;
-  padding:8px 10px;
-  border-bottom:1px solid var(--card-border);
-}
-.transfer-reason-row:last-child{border-bottom:none}
-.transfer-reason-row .reason-label{font-size:13px}
-.transfer-reason-row .reason-count{font-size:13px;text-align:right}
-.transfer-reason-row .reason-pct{min-width:0;text-align:right}
-.other-transfer-toggle{
-  position:relative;
-  width:100%;
-  appearance:none;
-  background:transparent;
-  border:1px solid transparent;
-  border-radius:9px;
-  color:inherit;
-  cursor:pointer;
-  font-family:'Urbanist',sans-serif;
-  text-align:left;
-  transition:background var(--tf),border-color var(--tf);
-}
-.other-transfer-toggle:hover{
-  background:rgba(0,102,255,.07);
-  border-color:rgba(97,173,241,.22);
-}
-.other-transfer-toggle[aria-expanded="true"]{
-  background:rgba(0,102,255,.11);
-  border-color:rgba(97,173,241,.4);
-}
-.other-transfer-toggle .reason-label,
-.other-transfer-toggle .reason-count{color:var(--d50)}
-.other-transfer-toggle .reason-pct{color:var(--teal)}
-.other-chevron{width:16px;height:16px;color:var(--teal);transition:transform var(--tb);justify-self:end}
-.other-transfer-toggle[aria-expanded="true"] .other-chevron{transform:rotate(180deg)}
-.other-reasons-panel{
-  margin:8px 0 10px;
-  background:var(--d800);
-  border:1px solid rgba(111,223,226,.22);
-  border-radius:12px;
-  overflow:hidden;
-}
-.other-reasons-panel[hidden]{display:none}
-.other-panel-header{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  align-items:flex-start;
-  padding:13px 15px;
-  border-bottom:1px solid var(--card-border);
-}
-.other-panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal)}
-.other-panel-count{font-size:12px;font-weight:700;color:var(--teal);white-space:nowrap}
-.ai-reason-item{padding:13px 15px;border-bottom:1px solid var(--card-border)}
-.ai-reason-item:last-of-type{border-bottom:none}
-.ai-reason-text{font-size:12px;font-weight:600;color:var(--d100);line-height:1.45}
-.ai-reason-meta{font-size:10px;color:var(--d500);margin-top:4px;line-height:1.4}
-.other-panel-footer{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:11px 15px;
-  border-top:1px solid var(--card-border);
-  font-size:10px;
-  color:var(--d500);
-}
 .other-pagination{display:flex;align-items:center;gap:12px}
 .other-page-disabled{opacity:.45}
 .other-page-next{color:var(--teal);font-weight:700}
-.transfer-outcomes{display:flex;flex-direction:column;gap:12px}
-.transfer-outcome-card{background:var(--d800);border:1px solid var(--card-border);border-radius:12px;padding:15px}
-.transfer-outcome-title{font-size:12px;font-weight:600;color:var(--d300)}
-.transfer-outcome-stats{display:flex;justify-content:space-between;align-items:end;margin-top:5px}
-.transfer-outcome-value{font-size:24px;font-weight:800;line-height:1;color:var(--d50)}
-.transfer-outcome-pct{font-size:14px;font-weight:700;color:var(--d300)}
-.transfer-outcome-track{height:6px;background:var(--d700);border-radius:99px;overflow:hidden;margin-top:13px}
-.transfer-outcome-fill{height:100%;border-radius:99px;background:var(--ai)}
 
 .followup-outcome-card{
   padding:0;
@@ -335,30 +250,6 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 }
 .followup-outcome-toggle[aria-expanded="true"]{
   background:rgba(0,102,255,.055);
-}
-.followup-insights{
-  border-top:1px solid rgba(111,223,226,.15);
-  background:linear-gradient(180deg,rgba(0,102,255,.055),rgba(111,223,226,.018));
-}
-.followup-insights[hidden]{display:none}
-.followup-insights-header{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  padding:12px 14px 10px;
-}
-.followup-insights-copy{
-  font-size:10px;
-  color:var(--d500);
-  line-height:1.45;
-  margin-top:2px;
-}
-.followup-insights-total{
-  font-size:10px;
-  font-weight:700;
-  color:var(--teal);
-  white-space:nowrap;
 }
 .followup-type-list{
   padding:0 14px 12px;
@@ -444,16 +335,14 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
   .hero-row{grid-template-columns:1fr}
 }
 @media(max-width:760px){
-  .transfers-layout{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .stats-grid,.ops-grid{grid-template-columns:1fr;grid-template-rows:none}
+  .stats-grid{grid-template-columns:1fr;grid-template-rows:none}
   .topbar{height:auto;min-height:60px;padding:10px 14px;flex-wrap:wrap;gap:10px}
   .topbar-right{width:100%;justify-content:space-between}
   .period-pills{flex:1;justify-content:space-between}
 }
 @media(max-width:520px){
-  .transfer-reason-row{grid-template-columns:auto minmax(0,1fr) 36px 34px 18px}
   .dist-row{grid-template-columns:auto minmax(0,1fr) auto;row-gap:2px}
   .outcome-row{grid-template-columns:auto minmax(0,1fr) auto 18px;row-gap:2px}
   .dist-pct,.outcome-pct{grid-column:2/-1;min-width:0;text-align:left}
@@ -462,310 +351,10 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 
 
 /* ── Transfers modal redesign ── */
-.transfers-modal-redesign{
-  max-width:920px;
-  max-height:92vh;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-}
-.transfers-modal-redesign .transfers-sticky-header{
-  position:sticky;
-  top:0;
-  z-index:6;
-  padding:20px 24px;
-  align-items:center;
-  background:rgba(20,27,36,.94);
-  border-bottom:1px solid var(--card-border);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-.transfers-modal-redesign .modal-title-group{gap:3px}
-.transfers-modal-redesign .transfers-modal-body{
-  overflow-y:auto;
-  padding:20px 24px 24px;
-}
-.transfer-summary-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.transfer-summary-grid .m-stat{
-  min-height:100px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.transfer-summary-grid .m-stat-value{font-size:25px}
-.transfer-workspace{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  margin-top:18px;
-}
-.transfer-analysis-section{
-  overflow:hidden;
-  background:rgba(28,38,48,.52);
-  border:1px solid var(--card-border);
-  border-radius:14px;
-}
-.transfer-analysis-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
-  /* 16px gutter matches .transfer-overview-row and .transfer-analysis-subhead */
-  padding:16px 16px 14px;
-  background:rgba(255,255,255,.012);
-}
-.transfer-analysis-heading{
-  min-width:0;
-}
-.transfer-analysis-title{
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--d400);
-}
-.transfer-analysis-total{
-  flex-shrink:0;
-  font-size:10px;
-  font-weight:700;
-  color:var(--teal);
-  padding:4px 8px;
-  border-radius:999px;
-  background:rgba(111,223,226,.075);
-  border:1px solid rgba(111,223,226,.16);
-  white-space:nowrap;
-}
-.transfer-overview-list{
-  border-top:1px solid var(--card-border);
-}
-.transfer-overview-row{
-  width:100%;
-  min-height:58px;
-  display:grid;
-  grid-template-columns:8px minmax(165px,1.15fr) minmax(140px,1fr) 54px 42px 18px;
-  align-items:center;
-  gap:12px;
-  padding:9px 16px;
-  border:0;
-  border-bottom:1px solid var(--card-border);
-  background:transparent;
-  color:inherit;
-  font-family:'Urbanist',sans-serif;
-  text-align:left;
-}
-.transfer-overview-row:last-child{border-bottom:0}
-button.transfer-overview-row{
-  cursor:pointer;
-  transition:background var(--tf),box-shadow var(--tf);
-}
-button.transfer-overview-row:hover{
-  background:rgba(0,102,255,.05);
-}
-button.transfer-overview-row:focus-visible{
-  outline:2px solid var(--brand);
-  outline-offset:-3px;
-  border-radius:8px;
-}
-button.transfer-overview-row[aria-expanded="true"]{
-  background:rgba(0,102,255,.09);
-  box-shadow:inset 3px 0 0 var(--teal);
-}
-.transfer-overview-dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-}
-.transfer-overview-name{
-  min-width:0;
-  font-size:13px;
-  font-weight:600;
-  color:var(--d300);
-}
-button.transfer-overview-row .transfer-overview-name{
-  color:var(--d50);
-}
-.transfer-overview-track{
-  height:5px;
-  overflow:hidden;
-  border-radius:99px;
-  background:rgba(255,255,255,.06);
-}
-.transfer-overview-fill{
-  height:100%;
-  border-radius:99px;
-  background:var(--ai);
-}
-.transfer-overview-count{
-  font-size:13px;
-  font-weight:700;
-  color:var(--d100);
-  text-align:right;
-}
-.transfer-overview-pct{
-  font-size:11px;
-  color:var(--d500);
-  text-align:right;
-}
-button.transfer-overview-row .transfer-overview-pct{
-  color:var(--teal);
-}
-.transfer-overview-chevron{
-  width:16px;
-  height:16px;
-  justify-self:end;
-  color:var(--teal);
-  transition:transform var(--tb);
-}
-button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
-  transform:rotate(180deg);
-}
-.transfer-chevron-placeholder{
-  width:16px;
-  height:16px;
-}
-.transfer-expanded-panel{
-  border-bottom:1px solid var(--card-border);
-  background:linear-gradient(180deg,rgba(0,102,255,.04),rgba(111,223,226,.012));
-}
-.transfer-expanded-panel[hidden]{display:none}
-.transfer-expanded-inner{
-  padding:16px 18px 18px;
-}
-.transfer-expanded-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:12px;
-}
-.transfer-expanded-count{
-  flex-shrink:0;
-  font-size:11px;
-  font-weight:700;
-  color:var(--teal);
-}
-.transfer-ai-list{
-  overflow:hidden;
-  border:1px solid var(--card-border);
-  border-radius:11px;
-  background:rgba(13,17,23,.28);
-}
-.transfer-ai-item{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:18px;
-  align-items:center;
-  padding:12px 14px;
-  border-bottom:1px solid var(--card-border);
-}
-.transfer-ai-item:last-child{border-bottom:0}
-.transfer-ai-reason{
-  font-size:12px;
-  font-weight:600;
-  color:var(--d100);
-  line-height:1.45;
-}
-.transfer-ai-meta{
-  font-size:10px;
-  color:var(--d500);
-  margin-top:3px;
-  line-height:1.4;
-}
+/* Section card + header used by Handoffs and Context passed */
 /* Conversation reference — opens the interaction in AiMY Connect */
-.transfer-ai-ref{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  font-size:10px;
-  font-weight:700;
-  color:var(--d400);
-  white-space:nowrap;
-  text-decoration:none;
-  padding:5px 9px;
-  border:1px solid var(--card-border);
-  border-radius:7px;
-  background:var(--d800);
-  transition:color var(--tf),border-color var(--tf),background var(--tf);
-}
-.transfer-ai-ref:hover{
-  color:var(--teal);
-  border-color:rgba(111,223,226,.35);
-  background:var(--d750);
-}
-.transfer-ai-ref:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.transfer-ai-ref svg{width:11px;height:11px;flex-shrink:0;opacity:.65}
-.transfer-ai-ref:hover svg{opacity:1}
-.transfer-expanded-footer{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  margin-top:12px;
-  font-size:10px;
-  color:var(--d500);
-}
-.transfer-pagination{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.transfer-pagination-disabled{opacity:.42}
-.transfer-pagination-next{color:var(--teal);font-weight:700}
-.transfer-followup-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.transfer-followup-card{
-  min-width:0;
-  padding:13px 14px;
-  border:1px solid var(--card-border);
-  border-radius:10px;
-  background:rgba(13,17,23,.3);
-}
-.transfer-followup-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-}
-.transfer-followup-name{
-  font-size:12px;
-  font-weight:650;
-  color:var(--d100);
-}
-.transfer-followup-value{
-  flex-shrink:0;
-  font-size:15px;
-  font-weight:800;
-  color:var(--d50);
-  text-align:right;
-}
-.transfer-followup-value span{
-  display:block;
-  font-size:9px;
-  font-weight:600;
-  color:var(--d500);
-  margin-top:1px;
-}
-.transfer-followup-track{
-  height:4px;
-  overflow:hidden;
-  border-radius:99px;
-  background:rgba(255,255,255,.06);
-  margin-top:10px;
-}
-.transfer-followup-fill{
-  height:100%;
-  border-radius:99px;
-  background:var(--ai);
-}
 /* Info icon — AIMY-852 requires one on the TeamSupport discrepancy notice. */
-.transfer-followup-note-icon{
+.notice-icon{
   width:19px;
   height:19px;
   border-radius:50%;
@@ -780,27 +369,8 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
   line-height:1;
 }
 @media(max-width:780px){
-  .transfer-overview-row{
-    grid-template-columns:8px minmax(120px,1fr) 48px 38px 18px;
-  }
-  .transfer-overview-track{display:none}
-  .transfer-followup-grid{grid-template-columns:1fr}
 }
 @media(max-width:520px){
-  .transfers-modal-redesign .transfers-sticky-header{padding:17px 18px}
-  .transfers-modal-redesign .transfers-modal-body{padding:16px 18px 20px}
-  .transfer-summary-grid{grid-template-columns:1fr 1fr}
-  .transfer-summary-grid .m-stat{min-height:88px;padding:12px}
-  .transfer-overview-row{
-    grid-template-columns:7px minmax(0,1fr) 42px 34px 16px;
-    gap:8px;
-    padding:9px 12px;
-  }
-  .transfer-analysis-head{padding:14px}
-  .transfer-expanded-inner{padding:14px}
-  .transfer-ai-item{grid-template-columns:1fr;gap:8px}
-  .transfer-ai-ref{justify-self:start}
-  .transfer-expanded-footer{align-items:flex-start;flex-direction:column}
 }
 
 /* ── MODALS ── */
@@ -856,7 +426,7 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
 .alert-strip{border-radius:10px;padding:12px 15px;border:1px solid;margin:16px 0 22px;background:var(--warn-bg);border-color:rgba(247,144,9,.25)}
 .alert-strip-title{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--warn)}
 .alert-strip-title /* Info icon — AIMY-852 requires one on the TeamSupport discrepancy notice. */
-.transfer-followup-note-icon{color:var(--warn);border-color:rgba(247,144,9,.4)}
+.notice-icon{color:var(--warn);border-color:rgba(247,144,9,.4)}
 .alert-strip-body{font-size:12px;color:var(--d300);line-height:1.5}
 /* Credits modal */
 .credits-modal{max-width:580px}
@@ -1164,59 +734,35 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
           <div>
             <div class="stat-label">Ticket Activity</div>
             <div class="stat-value">1,817</div>
-            <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>1,205 created <span class="stat-delta-label">· 612 comments</span></div>
-            <div class="stat-sub">1,178 currently in TeamSupport</div>
+            <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>1,205 created <span class="stat-delta-label">· 612 updated</span></div>
+            <div class="stat-sub">1,178 in TeamSupport</div>
           </div>
           <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="14" height="13" rx="1.5"/><path d="M3 8h14M7 4V3m6 1V3"/></svg></div>
         </div>
       </div>
+      <div class="stat-card" data-modal="performanceModal">
+        <div class="stat-card-inner">
+          <div>
+            <div class="stat-label"><span class="brand-name">AiMY</span> Performance</div>
+            <div class="stat-value skel">80.0<span class="stat-unit">% success</span></div>
+            <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>2,510 <span class="stat-delta-label">of 3,137 calls</span></div>
+            <div class="stat-sub">1,438 full resolution · 1,072 clean handoff</div>
+          </div>
+          <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2.5l6 2.5v5c0 3.4-2.4 6.5-6 7.5-3.6-1-6-4.1-6-7.5V5z"/><path d="M7.5 10l1.8 1.8L13 8"/></svg></div>
+        </div>
+        <div class="state-block state-empty">
+          <span class="sb-title">No analysed calls</span>
+          <span class="sb-text">Outcomes are only measured once a call has been analysed.</span>
+        </div>
+        <div class="state-block state-error">
+          <span class="sb-title">Performance data unavailable</span>
+          <span class="sb-text">The voice analysis service did not respond.</span>
+        </div>
+      </div>
     </div>
   </div>
 
 
-  <!-- Operations tiles: AiMY performance (coverage + identification + assistance), transfers -->
-  <div class="ops-grid">
-
-    <div class="stat-card" data-modal="performanceModal">
-      <div class="stat-card-inner">
-        <div>
-          <div class="stat-label"><span class="brand-name">AiMY</span> Performance</div>
-          <div class="stat-value skel">93.8<span class="stat-unit">% success</span></div>
-          <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>2,810 <span class="stat-delta-label">of 2,995 calls assisted</span></div>
-          <div class="stat-sub">185 could not be troubleshot</div>
-        </div>
-        <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2.5l6 2.5v5c0 3.4-2.4 6.5-6 7.5-3.6-1-6-4.1-6-7.5V5z"/><path d="M7.5 10l1.8 1.8L13 8"/></svg></div>
-      </div>
-      <div class="state-block state-empty">
-        <span class="sb-title">No analysed calls</span>
-        <span class="sb-text">Coverage, identification and assistance are only measured once a call has been analysed.</span>
-      </div>
-      <div class="state-block state-error">
-        <span class="sb-title">Performance data unavailable</span>
-        <span class="sb-text">The voice analysis service did not respond.</span>
-      </div>
-    </div>
-
-    <div class="stat-card" data-modal="transfersModal">
-      <div class="stat-card-inner">
-        <div>
-          <div class="stat-label">Transfers</div>
-          <div class="stat-value skel">984</div>
-          <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>94% <span class="stat-delta-label">handover success</span></div>
-          <div class="stat-sub">51% customer-requested · 49% AiMY-initiated</div>
-        </div>
-        <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6.5h9m0 0l-2.5-2.5M12 6.5L9.5 9M17 13.5H8m0 0l2.5-2.5M8 13.5L10.5 16"/></svg></div>
-      </div>
-      <div class="state-block state-empty">
-        <span class="sb-title">No transfers in this period</span>
-        <span class="sb-text">Every call was handled without reaching an agent.</span>
-      </div>
-      <div class="state-block state-error">
-        <span class="sb-title">Transfer data unavailable</span>
-        <span class="sb-text">The routing service did not respond.</span>
-      </div>
-    </div>
-  </div>
   <div class="footer-note">
     <span class="footer-left">Data refreshed every 15 minutes · Last updated 11:42 AM</span>
     <span class="footer-right"><span class="footer-dot"></span>AiMY Operations Hub · Apr 2025</span>
@@ -1225,14 +771,17 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 
 <!-- ===== DETAIL MODALS =====
      One owner per count. Two taxonomies, two denominators, two owners:
-       callsModal       owns the call scenarios — what happened to each of the 3,840 calls
-                        (continued with AiMY / customer-requested transfer / timed out /
-                        analysis pending), plus why calls timed out and what is pending.
-       performanceModal owns how well AiMY did on the 2,995 it continued — coverage rate,
-                        identification quality, assistance outcomes, caller recognition.
+       callsModal       owns the call population — what happened to each of the 3,840 calls
+                        (end to end / human requested / timed out / not analysed).
+       performanceModal owns the seven outcome categories over the 3,636 analysed calls
+                        (full resolution / clean handoff / human requested / L2 scope /
+                        timed out / out of scope / data gap), plus handoffs, context
+                        passed, identification and caller memory.
+     Note "end to end" is the 2,995 calls AiMY saw through; "full resolution" is the
+     1,438 it fully resolved. One name, one number.
      Other modals may name a scenario or outcome, but only beside a metric they own
-     themselves (minutesModal: minutes and call length, ticketsModal: tickets,
-     transfersModal: transfer reasons and handover) — never as a tabulated count.
+     themselves (minutesModal: minutes and call length, ticketsModal: tickets)
+     — never as a tabulated count.
      Stating a total as a denominator, or naming one in prose, is fine.
 -->
 
@@ -1243,12 +792,12 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
     <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Minutes Handled</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-3">
-        <div class="m-stat"><div class="m-stat-value">18,420</div><div class="m-stat-label">total minutes</div><div class="m-stat-delta up">+12% vs prev</div></div>
-        <div class="m-stat"><div class="m-stat-value">614</div><div class="m-stat-label">daily average</div></div>
-        <div class="m-stat"><div class="m-stat-value">4m 48s</div><div class="m-stat-label">average call</div><div class="m-stat-delta neutral">+6% vs prev</div></div>
+        <div class="m-stat"><div class="m-stat-value">18,420</div><div class="m-stat-label">total minutes</div><div class="m-stat-delta up">+12% vs prev period</div></div>
+        <div class="m-stat"><div class="m-stat-value">614</div><div class="m-stat-label">per day</div></div>
+        <div class="m-stat"><div class="m-stat-value">4m 48s</div><div class="m-stat-label">avg call</div><div class="m-stat-delta neutral">+6% vs prev period</div></div>
       </div></div>
 
-      <div class="modal-section"><div class="modal-section-title">Call length spread</div>
+      <div class="modal-section"><div class="modal-section-title">Call length</div>
         <div class="modal-grid-3">
           <div class="m-stat"><div class="m-stat-value">742</div><div class="m-stat-label">under 2 min</div><div class="m-stat-delta neutral">19.3%</div></div>
           <div class="m-stat"><div class="m-stat-value">1,858</div><div class="m-stat-label">2–5 min</div><div class="m-stat-delta neutral">48.4%</div></div>
@@ -1268,13 +817,13 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
     <div class="modal-body">
       <div class="modal-section">
         <div class="modal-grid-3">
-          <div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev</div></div>
-          <div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">daily average</div></div>
-          <div class="m-stat"><div class="m-stat-value">31%</div><div class="m-stat-label">raised a ticket</div></div>
+          <div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev period</div></div>
+          <div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">per day</div></div>
+          <div class="m-stat"><div class="m-stat-value">1,205</div><div class="m-stat-label">tickets raised</div></div>
         </div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">The complete call population</div>
+      <div class="modal-section"><div class="modal-section-title">Where calls went</div>
         <div class="dist-bar" style="margin-bottom:14px">
           <span class="dist-seg is-aimy" style="flex:78"></span>
           <span class="dist-seg is-transfer" style="flex:13"></span>
@@ -1282,24 +831,12 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
           <span class="dist-seg is-pending" style="flex:5.3"></span>
         </div>
         <div class="dist-legend">
-          <div class="dist-row"><span class="dist-glyph is-aimy" aria-hidden="true">AI</span><span class="dist-name">Continued with AiMY</span><span class="dist-count">2,995</span><span class="dist-pct">78.0%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-transfer" aria-hidden="true">&#8594;</span><span class="dist-name">Customer-requested direct transfer</span><span class="dist-count">499</span><span class="dist-pct">13.0%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-aimy" aria-hidden="true">AI</span><span class="dist-name"><span class="brand-name">AiMY</span> end to end</span><span class="dist-count">2,995</span><span class="dist-pct">78.0%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-transfer" aria-hidden="true">&#8594;</span><span class="dist-name">Human requested</span><span class="dist-count">499</span><span class="dist-pct">13.0%</span></div>
           <div class="dist-row"><span class="dist-glyph is-timeout" aria-hidden="true">&#9201;</span><span class="dist-name">Timed out</span><span class="dist-count">142</span><span class="dist-pct">3.7%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-pending" aria-hidden="true">&#8943;</span><span class="dist-name">Analysis not yet available</span><span class="dist-count">204</span><span class="dist-pct">5.3%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-pending" aria-hidden="true">&#8943;</span><span class="dist-name">Not analysed</span><span class="dist-count">204</span><span class="dist-pct">5.3%</span></div>
         </div>
       </div>
-
-      <div class="modal-section"><div class="modal-grid-2">
-        <div><div class="modal-section-title">Timed out — top reasons of 142</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">53</span><span class="reason-pct">37%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">41</span><span class="reason-pct">29%</span></div>
-        </div>
-        <div><div class="modal-section-title">Analysis not yet available — 204 calls</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Pending — queued for analysis</span><span class="reason-count">168</span><span class="reason-pct">82%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Partial — some fields missing</span><span class="reason-count">24</span><span class="reason-pct">12%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Failed — analysis errored</span><span class="reason-count">12</span><span class="reason-pct">6%</span></div>
-        </div>
-      </div></div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>The +8% rise is sustained, not a spike.</strong> Every week of the month came in above the equivalent week last period, with the largest gain on Fridays (+13%).</div></div>
     </div>
@@ -1312,333 +849,152 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
     <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Ticket Activity</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section"><div class="modal-grid-4">
-        <div class="m-stat"><div class="m-stat-value">1,817</div><div class="m-stat-label">total activity</div><div class="m-stat-delta info">created + comments</div></div>
+        <div class="m-stat"><div class="m-stat-value">1,817</div><div class="m-stat-label">total activity</div><div class="m-stat-delta info">created + updated</div></div>
         <div class="m-stat"><div class="m-stat-value">1,205</div><div class="m-stat-label">tickets created</div></div>
-        <div class="m-stat"><div class="m-stat-value">612</div><div class="m-stat-label">comments added</div></div>
-        <div class="m-stat"><div class="m-stat-value">1,178</div><div class="m-stat-label">currently in TeamSupport</div><div class="m-stat-delta down">27 fewer</div></div>
+        <div class="m-stat"><div class="m-stat-value">612</div><div class="m-stat-label">tickets updated</div></div>
+        <div class="m-stat"><div class="m-stat-value">1,178</div><div class="m-stat-label">in TeamSupport</div><div class="m-stat-delta down">27 failed</div></div>
       </div></div>
 
       <div class="alert-strip">
         <div class="alert-strip-title">
-          <span class="transfer-followup-note-icon" aria-hidden="true">i</span>
-          27 fewer tickets in TeamSupport than <span class="brand-name">AiMY</span> recorded
+          <span class="notice-icon" aria-hidden="true">i</span>
+          27 tickets failed to create
         </div>
-        <div class="alert-strip-body">AiMY created 1,205 tickets this period; TeamSupport currently holds 1,178. Tickets can be merged into an existing case or deleted in TeamSupport after AiMY creates them, so the current count can be lower than the number AiMY recorded. This is expected and does not mean tickets were lost.</div>
+        <div class="alert-strip-body">AiMY attempted 1,205 tickets this period and 27 did not reach TeamSupport, leaving 1,178. Failed tickets keep their call context and can be re-sent.</div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">What the comments were on</div>
-        <div class="bk-row"><span class="bk-label">Tickets AiMY created</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:63.4%"></div></div><span class="bk-val">388</span><span class="bk-pct">63.4%</span></div>
-        <div class="bk-row"><span class="bk-label">Pre-existing tickets</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:36.6%"></div></div><span class="bk-val">224</span><span class="bk-pct">36.6%</span></div>
+      <div class="modal-section"><div class="modal-section-title">Updates</div>
+        <div class="bk-row"><span class="bk-label">Tickets <span class="brand-name">AiMY</span> created</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:63.4%"></div></div><span class="bk-val">388</span><span class="bk-pct">63.4%</span></div>
+        <div class="bk-row"><span class="bk-label">Tickets <span class="brand-name">AiMY</span> updated</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:36.6%"></div></div><span class="bk-val">224</span><span class="bk-pct">36.6%</span></div>
       </div>
 
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>1,817 tracked actions from 3,840 calls.</strong> 224 of those were comments on tickets that already existed, which is 224 duplicate cases TeamSupport did not have to merge later.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- Transfers -->
-<div class="modal-backdrop" id="transfersModal">
-  <div class="modal transfers-modal transfers-modal-redesign" role="dialog" aria-modal="true" aria-labelledby="transfersModalTitle">
-    <div class="modal-header transfers-sticky-header">
-      <div class="modal-title-group">
-        <span class="modal-title" id="transfersModalTitle">Transfers</span>
-      </div>
-      <button class="modal-close" aria-label="Close Transfers">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
-      </button>
-    </div>
-
-    <div class="modal-body transfers-modal-body">
-      <section aria-label="Transfer summary">
-        <div class="transfer-summary-grid">
-          <div class="m-stat">
-            <div class="m-stat-value">984</div>
-            <div class="m-stat-label">total transfers</div>
-            <div class="m-stat-delta neutral">25.6% of all calls</div>
-          </div>
-          <div class="m-stat">
-            <div class="m-stat-value" style="color:var(--ok)">94%</div>
-            <div class="m-stat-label">handover success</div>
-          </div>
-        </div>
-      </section>
-
-      <div class="transfer-workspace">
-        <section class="transfer-analysis-section" aria-labelledby="topTransferReasonsTitle">
-          <div class="transfer-analysis-head">
-            <div class="transfer-analysis-heading">
-              <div class="transfer-analysis-title" id="topTransferReasonsTitle">Why the transfer happened</div>
-            </div>
-            <div class="transfer-analysis-total">984 transfers</div>
-          </div>
-
-          <div class="transfer-analysis-subhead">Customer-requested · 499</div>
-
-          <div class="transfer-overview-list">
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--d400)"></span>
-              <span class="transfer-overview-name">Asked for a specific agent or department</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:37%"></span></span>
-              <span class="transfer-overview-count">184</span>
-              <span class="transfer-overview-pct">37%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--d400)"></span>
-              <span class="transfer-overview-name">Asked for a supervisor</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:24%"></span></span>
-              <span class="transfer-overview-count">121</span>
-              <span class="transfer-overview-pct">24%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--d400)"></span>
-              <span class="transfer-overview-name">Declined automated assistance</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:24%"></span></span>
-              <span class="transfer-overview-count">120</span>
-              <span class="transfer-overview-pct">24%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <button class="transfer-overview-row" id="toggleOtherReasons" type="button" aria-expanded="false" aria-controls="otherReasonsPanel">
-              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
-              <span class="transfer-overview-name">Other</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:15%"></span></span>
-              <span class="transfer-overview-count">74</span>
-              <span class="transfer-overview-pct">15%</span>
-              <svg class="transfer-overview-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
-            </button>
-
-            <div class="transfer-expanded-panel" id="otherReasonsPanel" hidden>
-              <div class="transfer-expanded-inner">
-                <div class="transfer-expanded-head">
-                  <div class="transfer-expanded-count">74 transfers</div>
-                </div>
-
-                <div class="transfer-ai-list">
-                  <div class="transfer-ai-item">
-                    <div>
-                      <div class="transfer-ai-reason">Customer requested to speak with a supervisor</div>
-                      <div class="transfer-ai-meta">Session S-2941 · Apr 24, 10:42 AM</div>
-                    </div>
-                    <a class="transfer-ai-ref" href="#/interactions/CONV-18492" aria-label="Open conversation CONV-18492 in AiMY Connect">CONV-18492<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5H3.5v9h9V9"/><path d="M9.5 3.5h3v3"/><path d="M12.5 3.5 7.5 8.5"/></svg></a>
-                  </div>
-                  <div class="transfer-ai-item">
-                    <div>
-                      <div class="transfer-ai-reason">The requested refund required manual authorization</div>
-                      <div class="transfer-ai-meta">Customer C-8821 · Apr 24, 10:18 AM</div>
-                    </div>
-                    <a class="transfer-ai-ref" href="#/interactions/CONV-18471" aria-label="Open conversation CONV-18471 in AiMY Connect">CONV-18471<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5H3.5v9h9V9"/><path d="M9.5 3.5h3v3"/><path d="M12.5 3.5 7.5 8.5"/></svg></a>
-                  </div>
-                  <div class="transfer-ai-item">
-                    <div>
-                      <div class="transfer-ai-reason">Account ownership could not be verified by the AI</div>
-                      <div class="transfer-ai-meta">Session S-2874 · Apr 23, 4:31 PM</div>
-                    </div>
-                    <a class="transfer-ai-ref" href="#/interactions/CONV-18396" aria-label="Open conversation CONV-18396 in AiMY Connect">CONV-18396<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5H3.5v9h9V9"/><path d="M9.5 3.5h3v3"/><path d="M12.5 3.5 7.5 8.5"/></svg></a>
-                  </div>
-                  <div class="transfer-ai-item">
-                    <div>
-                      <div class="transfer-ai-reason">The customer requested a policy exception</div>
-                      <div class="transfer-ai-meta">Apr 23, 1:06 PM</div>
-                    </div>
-                    <a class="transfer-ai-ref" href="#/interactions/CONV-18341" aria-label="Open conversation CONV-18341 in AiMY Connect">CONV-18341<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5H3.5v9h9V9"/><path d="M9.5 3.5h3v3"/><path d="M12.5 3.5 7.5 8.5"/></svg></a>
-                  </div>
-                </div>
-
-                <div class="transfer-expanded-footer">
-                  <span>Showing 1–4 of 74</span>
-                  <span class="transfer-pagination">
-                    <span class="transfer-pagination-disabled">Previous</span>
-                    <span>1 of 19</span>
-                    <span class="transfer-pagination-next">Next</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transfer-analysis-subhead"><span class="brand-name">AiMY</span>-initiated · 485</div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:#8aabff"></span>
-              <span class="transfer-overview-name">Identified as L2 scope — routed to L2</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:62%"></span></span>
-              <span class="transfer-overview-count">62%</span>
-              <span class="transfer-overview-pct">of 485</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--err)"></span>
-              <span class="transfer-overview-name">Unable to troubleshoot — routed to L1</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:38%"></span></span>
-              <span class="transfer-overview-count">38%</span>
-              <span class="transfer-overview-pct">of 485</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-          </div>
-        </section>
-
-        <section class="transfer-analysis-section" aria-labelledby="transferOutcomesTitle">
-          <div class="transfer-analysis-head">
-            <div class="transfer-analysis-heading">
-              <div class="transfer-analysis-title" id="transferOutcomesTitle">Did the handover work</div>
-            </div>
-            <div class="transfer-analysis-total">984 handovers</div>
-          </div>
-
-          <div class="transfer-overview-list">
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--ok)"></span>
-              <span class="transfer-overview-name">Connected to an agent</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:94%"></span></span>
-              <span class="transfer-overview-count">921</span>
-              <span class="transfer-overview-pct">94%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--d400)"></span>
-              <span class="transfer-overview-name">Agent unavailable — callback scheduled</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:4%"></span></span>
-              <span class="transfer-overview-count">41</span>
-              <span class="transfer-overview-pct">4%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--warn)"></span>
-              <span class="transfer-overview-name">Caller dropped before connection</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:2%"></span></span>
-              <span class="transfer-overview-count">22</span>
-              <span class="transfer-overview-pct">2%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-          </div>
-
-          <div class="transfer-analysis-subhead">What <span class="brand-name">AiMY</span> passed across · of the 921 connected</div>
-
-          <div class="transfer-overview-list">
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
-              <span class="transfer-overview-name">Reason captured for the agent</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:94%"></span></span>
-              <span class="transfer-overview-count">867</span>
-              <span class="transfer-overview-pct">94%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
-              <span class="transfer-overview-name">Caller identified before handover</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:86%"></span></span>
-              <span class="transfer-overview-count">793</span>
-              <span class="transfer-overview-pct">86%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <div class="transfer-overview-row">
-              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
-              <span class="transfer-overview-name">Context note attached</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:81%"></span></span>
-              <span class="transfer-overview-count">746</span>
-              <span class="transfer-overview-pct">81%</span>
-              <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
-            </div>
-
-            <button class="transfer-overview-row" id="toggleFollowupInsights" type="button" aria-expanded="false" aria-controls="followupInsightsPanel">
-              <span class="transfer-overview-dot" style="background:var(--teal)"></span>
-              <span class="transfer-overview-name">AiMY follow-up actions</span>
-              <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:14%"></span></span>
-              <span class="transfer-overview-count">142</span>
-              <span class="transfer-overview-pct">14%</span>
-              <svg class="transfer-overview-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
-            </button>
-
-            <div class="transfer-expanded-panel" id="followupInsightsPanel" hidden>
-              <div class="transfer-expanded-inner">
-                <div class="transfer-expanded-head">
-                  <div class="transfer-expanded-count">142 actions</div>
-                </div>
-
-                <div class="transfer-followup-grid">
-                  <div class="transfer-followup-card">
-                    <div class="transfer-followup-head">
-                      <div class="transfer-followup-name">Callback scheduled</div>
-                      <div class="transfer-followup-value">62<span>44%</span></div>
-                    </div>
-                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:44%"></div></div>
-                  </div>
-
-                  <div class="transfer-followup-card">
-                    <div class="transfer-followup-head">
-                      <div class="transfer-followup-name">Email or SMS sent</div>
-                      <div class="transfer-followup-value">41<span>29%</span></div>
-                    </div>
-                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:29%"></div></div>
-                  </div>
-
-                  <div class="transfer-followup-card">
-                    <div class="transfer-followup-head">
-                      <div class="transfer-followup-name">Case or ticket created</div>
-                      <div class="transfer-followup-value">23<span>16%</span></div>
-                    </div>
-                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:16%"></div></div>
-                  </div>
-
-                  <div class="transfer-followup-card">
-                    <div class="transfer-followup-head">
-                      <div class="transfer-followup-name">Awaiting customer response</div>
-                      <div class="transfer-followup-value">16<span>11%</span></div>
-                    </div>
-                    <div class="transfer-followup-track"><div class="transfer-followup-fill" style="width:11%"></div></div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="insight-banner">
-        <div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div>
-        <div class="insight-text">
-          <strong>Handover success is not a resolution rate.</strong> 94% means an agent was reached and the caller's reason and context were passed across — it makes no claim about whether the agent resolved the issue, and customer-requested transfers carry no resolution measure at all. Of the 485 AiMY routed itself, 300 were correctly scoped to L2 before handover, so the agent started with the problem already identified.
-        </div>
-      </div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>1,817 tracked actions from 3,840 calls.</strong> 224 landed on tickets that already existed, which is 224 duplicate cases TeamSupport did not have to merge later.</div></div>
     </div>
   </div>
 </div>
 
 <!-- AiMY Performance -->
 <div class="modal-backdrop" id="performanceModal">
-  <div class="modal transfers-modal">
+  <div class="modal">
     <div class="modal-header">
       <div class="modal-title-group">
-        <span class="modal-title">AiMY Performance</span>
+        <span class="modal-title"><span class="brand-name">AiMY</span> Performance</span>
       </div>
       <button class="modal-close" aria-label="Close AiMY Performance"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
     </div>
     <div class="modal-body">
-      <div class="modal-section"><div class="modal-grid-4">
-        <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">93.8%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">2,810 of 2,995 assisted</div></div>
-        <div class="m-stat"><div class="m-stat-value">69.0%</div><div class="m-stat-label">coverage rate</div><div class="m-stat-delta info">2,510 of 3,636 analysed</div></div>
-        <div class="m-stat"><div class="m-stat-value">92.3%</div><div class="m-stat-label">customer identified</div></div>
-        <div class="m-stat"><div class="m-stat-value">48.0%</div><div class="m-stat-label">resolved end to end</div></div>
+      <div class="modal-section"><div class="modal-grid-3">
+        <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">80.0%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">2,510 of 3,137</div></div>
+        <div class="m-stat"><div class="m-stat-value">1,438</div><div class="m-stat-label">calls full resolution</div></div>
+        <div class="m-stat"><div class="m-stat-value">1,072</div><div class="m-stat-label">calls clean handoff</div></div>
       </div></div>
 
-      <div class="modal-section"><div class="modal-section-title">Identification quality — of the 2,995 calls that continued with <span class="brand-name">AiMY</span></div>
-        <div class="modal-grid-2">
+      <div class="modal-section"><div class="modal-section-title">Outcomes</div>
+
+        <div class="outcome-row">
+          <span class="outcome-glyph pos" aria-hidden="true">&#10003;</span>
+          <span class="outcome-name">Full resolution</span>
+          <span class="outcome-count">1,438</span>
+          <span class="outcome-pct">39.5%</span>
+          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleCleanHandoff" aria-expanded="false" aria-controls="cleanHandoffPanel">
+          <span class="outcome-glyph part" aria-hidden="true">&#9686;</span>
+          <span class="outcome-name">Clean handoff</span>
+          <span class="outcome-count">1,072</span>
+          <span class="outcome-pct">29.5%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="cleanHandoffPanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">Initial troubleshooting</span><span class="reason-count">620</span><span class="reason-pct">58%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">L1 scope</span><span class="reason-count">452</span><span class="reason-pct">42%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleHumanRequested" aria-expanded="false" aria-controls="humanRequestedPanel">
+          <span class="outcome-glyph neutral" aria-hidden="true">&#8594;</span>
+          <span class="outcome-name">Human requested</span>
+          <span class="outcome-count">499</span>
+          <span class="outcome-pct">13.7%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="humanRequestedPanel" hidden>
+          <div class="panel-caption">Top reasons</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for an agent or department</span><span class="reason-count">184</span><span class="reason-pct">37%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for a supervisor</span><span class="reason-count">121</span><span class="reason-pct">24%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Declined automation</span><span class="reason-count">120</span><span class="reason-pct">24%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleL2Scope" aria-expanded="false" aria-controls="l2ScopePanel">
+          <span class="outcome-glyph info" aria-hidden="true">L2</span>
+          <span class="outcome-name">L2 scope</span>
+          <span class="outcome-count">300</span>
+          <span class="outcome-pct">8.3%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="l2ScopePanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Diagnosis captured</span><span class="reason-count">300</span><span class="reason-pct">100%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Specialist queue assigned</span><span class="reason-count">300</span><span class="reason-pct">100%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Evidence attached</span><span class="reason-count">274</span><span class="reason-pct">91%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Picked up by L2</span><span class="reason-count">241</span><span class="reason-pct">80%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleTimedOut" aria-expanded="false" aria-controls="timedOutPanel">
+          <span class="outcome-glyph warn" aria-hidden="true">&#9201;</span>
+          <span class="outcome-name">Timed out</span>
+          <span class="outcome-count">142</span>
+          <span class="outcome-pct">3.9%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="timedOutPanel" hidden>
+          <div class="panel-caption">Top reasons</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">53</span><span class="reason-pct">37%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">41</span><span class="reason-pct">29%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleOutOfScope" aria-expanded="false" aria-controls="outOfScopePanel">
+          <span class="outcome-glyph info" aria-hidden="true">&#8599;</span>
+          <span class="outcome-name">Out of scope</span>
+          <span class="outcome-count">120</span>
+          <span class="outcome-pct">3.3%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="outOfScopePanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Outside known catalogue</span><span class="reason-count">68</span><span class="reason-pct">57%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No system access</span><span class="reason-count">52</span><span class="reason-pct">43%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleDataGap" aria-expanded="false" aria-controls="dataGapPanel">
+          <span class="outcome-glyph neg" aria-hidden="true">&#10005;</span>
+          <span class="outcome-name">Data gap</span>
+          <span class="outcome-count">65</span>
+          <span class="outcome-pct">1.8%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="dataGapPanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Detail missing</span><span class="reason-count">39</span><span class="reason-pct">60%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple issues</span><span class="reason-count">26</span><span class="reason-pct">40%</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section"><div class="modal-section-title">Handoffs</div>
+        <div class="modal-grid-2" style="margin-bottom:14px">
+          <div class="m-stat"><div class="m-stat-value">984</div><div class="m-stat-label">handoffs</div><div class="m-stat-delta neutral">25.6% of calls</div></div>
+          <div class="m-stat"><div class="m-stat-value">38s</div><div class="m-stat-label">avg wait to connect</div></div>
+        </div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Connected</span><span class="reason-count">921</span><span class="reason-pct">94%</span></div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Not connected</span><span class="reason-count">63</span><span class="reason-pct">6%</span></div>
+      </div>
+
+      <div class="modal-section"><div class="modal-section-title">Identification</div>
+        <div class="ident-stack">
           <div>
             <div class="ident-block">
               <div class="ident-head"><span class="ident-name">Customer identified</span><span class="ident-value">92.3%</span></div>
               <div class="ident-track"><div class="ident-fill" style="width:92.3%"></div></div>
               <div class="ident-meta"><span><strong>2,764</strong> identified</span><span><strong>231</strong> not identified</span></div>
             </div>
-            <div class="modal-section-title" style="margin-top:16px">Why the 231 failed</div>
+            <div class="modal-section-title" style="margin-top:16px">Customer not identified</div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">No match on the calling number</span><span class="reason-count">98</span><span class="reason-pct">42%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller declined to confirm identity</span><span class="reason-count">62</span><span class="reason-pct">27%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple accounts matched</span><span class="reason-count">44</span><span class="reason-pct">19%</span></div>
@@ -1650,7 +1006,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
               <div class="ident-track"><div class="ident-fill" style="width:87.2%"></div></div>
               <div class="ident-meta"><span><strong>2,612</strong> identified</span><span><strong>383</strong> not identified</span></div>
             </div>
-            <div class="modal-section-title" style="margin-top:16px">Why the 383 failed</div>
+            <div class="modal-section-title" style="margin-top:16px">Problem not identified</div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Description too vague to classify</span><span class="reason-count">147</span><span class="reason-pct">38%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Multiple unrelated issues in one call</span><span class="reason-count">111</span><span class="reason-pct">29%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Audio quality prevented understanding</span><span class="reason-count">73</span><span class="reason-pct">19%</span></div>
@@ -1659,60 +1015,15 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
         </div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">Assistance outcomes — and where each one goes next</div>
-        <div class="outcome-row">
-          <span class="outcome-glyph pos" aria-hidden="true">&#10003;</span>
-          <span class="outcome-name">Resolved end to end<span class="outcome-tag">Resolved · no ticket, no transfer</span></span>
-          <span class="outcome-count">1,438</span>
-          <span class="outcome-pct">48.0%</span>
-          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
-        </div>
-        <div class="outcome-row">
-          <span class="outcome-glyph part" aria-hidden="true">&#9686;</span>
-          <span class="outcome-name">Initial troubleshooting completed<span class="outcome-tag">Partial · ticket raised where needed</span></span>
-          <span class="outcome-count">620</span>
-          <span class="outcome-pct">20.7%</span>
-          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
-        </div>
-        <div class="outcome-row">
-          <span class="outcome-glyph info" aria-hidden="true">L1</span>
-          <span class="outcome-name">Identified as L1 scope<span class="outcome-tag">Scoped · ticket raised for a first-line agent</span></span>
-          <span class="outcome-count">452</span>
-          <span class="outcome-pct">15.1%</span>
-          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
-        </div>
-        <div class="outcome-row">
-          <span class="outcome-glyph info" aria-hidden="true">L2</span>
-          <span class="outcome-name">Identified as L2 scope<span class="outcome-tag">Scoped · transferred to L2 with context</span></span>
-          <span class="outcome-count">300</span>
-          <span class="outcome-pct">10.0%</span>
-          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
-        </div>
-        <button class="outcome-row" type="button" id="toggleUnableReasons" aria-expanded="false" aria-controls="unableReasonsPanel">
-          <span class="outcome-glyph neg" aria-hidden="true">&#10005;</span>
-          <span class="outcome-name">Unable to troubleshoot<span class="outcome-tag">Not assisted · transferred to L1</span></span>
-          <span class="outcome-count">185</span>
-          <span class="outcome-pct">6.2%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="unableReasonsPanel" hidden>
-          <div class="modal-section-title">Why the 185 failed</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Issue outside AiMY's current knowledge</span><span class="reason-count">68</span><span class="reason-pct">37%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Needed system access AiMY does not have</span><span class="reason-count">52</span><span class="reason-pct">28%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Caller could not provide a required detail</span><span class="reason-count">39</span><span class="reason-pct">21%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple issues, none resolvable</span><span class="reason-count">26</span><span class="reason-pct">14%</span></div>
-        </div>
-      </div>
-
-      <div class="modal-section"><div class="modal-section-title">Caller recognition — what <span class="brand-name">AiMY</span> remembered</div>
+      <div class="modal-section"><div class="modal-section-title">Caller memory</div>
           <div class="bk-row"><span class="bk-label">Known caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:57.2%"></div></div><span class="bk-val">1,712</span><span class="bk-pct">57.2%</span></div>
           <div class="bk-row"><span class="bk-label">Name recalled</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:49.7%"></div></div><span class="bk-val">1,489</span><span class="bk-pct">49.7%</span></div>
           <div class="bk-row"><span class="bk-label">Office confirmed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:40.2%"></div></div><span class="bk-val">1,204</span><span class="bk-pct">40.2%</span></div>
           <div class="bk-row"><span class="bk-label">Title applied</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:12.9%"></div></div><span class="bk-val">386</span><span class="bk-pct">12.9%</span></div>
-          <div class="bk-row"><span class="bk-label">New caller — no memory match</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42.8%;background:var(--d600)"></div></div><span class="bk-val">1,283</span><span class="bk-pct">42.8%</span></div>
+          <div class="bk-row"><span class="bk-label">New caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42.8%;background:var(--d600)"></div></div><span class="bk-val">1,283</span><span class="bk-pct">42.8%</span></div>
       </div>
 
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Success and coverage answer different questions.</strong> Success is how often AiMY assisted at all — every outcome except the 185 it could not troubleshoot, measured against the 2,995 calls it continued. Coverage is the narrower question of how often it closed a call without a live agent, measured against all analysed calls. Correctly scoping a problem to L1 or L2 counts as success but not as coverage, which is why the two differ. Within the AiMY-continued calls, it identifies the customer more reliably than the problem — 92.3% against 87.2% — and the biggest single cause is vague descriptions, at 147 calls.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Four in five calls end in success.</strong> That is every call AiMY resolved end to end or handed off cleanly, measured against the calls it was given — the 499 where the customer asked for a person up front are excluded, because AiMY never engaged. Out of scope is the largest gap at 420 calls, and L2 scope is most of it.</div></div>
     </div>
   </div>
 </div>
@@ -2038,43 +1349,21 @@ function closeModal(id){document.getElementById(id).classList.remove('open');if(
 window.openModal=openModal; window.closeModal=closeModal;
 
 
-// Transfers modal accordions. Keep only one detail panel open at a time.
-const toggleOtherReasons = document.getElementById('toggleOtherReasons');
-const otherReasonsPanel = document.getElementById('otherReasonsPanel');
-const toggleFollowupInsights = document.getElementById('toggleFollowupInsights');
-const followupInsightsPanel = document.getElementById('followupInsightsPanel');
-
 function setTransferPanel(toggle, panel, shouldOpen) {
   if (!toggle || !panel) return;
   toggle.setAttribute('aria-expanded', String(shouldOpen));
   panel.hidden = !shouldOpen;
 }
 
-if (toggleOtherReasons && otherReasonsPanel) {
-  toggleOtherReasons.addEventListener('click', () => {
-    const shouldOpen = toggleOtherReasons.getAttribute('aria-expanded') !== 'true';
-    setTransferPanel(toggleFollowupInsights, followupInsightsPanel, false);
-    setTransferPanel(toggleOtherReasons, otherReasonsPanel, shouldOpen);
+// Outcome categories. Each expandable row points at its panel via aria-controls,
+// so one handler covers them all. Several categories can be open at once.
+document.querySelectorAll('button.outcome-row[aria-controls]').forEach(toggle => {
+  const panel = document.getElementById(toggle.getAttribute('aria-controls'));
+  if (!panel) return;
+  toggle.addEventListener('click', () => {
+    setTransferPanel(toggle, panel, toggle.getAttribute('aria-expanded') !== 'true');
   });
-}
-
-if (toggleFollowupInsights && followupInsightsPanel) {
-  toggleFollowupInsights.addEventListener('click', () => {
-    const shouldOpen = toggleFollowupInsights.getAttribute('aria-expanded') !== 'true';
-    setTransferPanel(toggleOtherReasons, otherReasonsPanel, false);
-    setTransferPanel(toggleFollowupInsights, followupInsightsPanel, shouldOpen);
-  });
-}
-
-// Performance modal: the failure reasons behind "Unable to troubleshoot".
-const toggleUnableReasons = document.getElementById('toggleUnableReasons');
-const unableReasonsPanel = document.getElementById('unableReasonsPanel');
-if (toggleUnableReasons && unableReasonsPanel) {
-  toggleUnableReasons.addEventListener('click', () => {
-    setTransferPanel(toggleUnableReasons, unableReasonsPanel,
-      toggleUnableReasons.getAttribute('aria-expanded') !== 'true');
-  });
-}
+});
 
 // [6] Modal backdrops
 document.querySelectorAll('.modal-backdrop').forEach(backdrop=>{
@@ -2330,7 +1619,7 @@ window.addEventListener('load',()=>{
 // Tiles render populated by default. setCardState swaps one into any of the
 // states AIMY-1239 requires, without a backend. Takes the tile's modal id:
 //   setCardState('performanceModal','loading')  setCardState('ticketsModal','empty')
-//   setCardState('transfersModal','error')      setCardState('performanceModal','ready')
+//   setCardState('callsModal','error')          setCardState('performanceModal','ready')
 // Omit the id to set every tile at once.
 function setCardState(modalId,state){
   const sel=modalId?`.main .stat-card[data-modal="${modalId}"]`:'.main .stat-card';
