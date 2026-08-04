@@ -112,6 +112,8 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .stat-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
 .stat-card-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .stat-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:10px}
+/* The brand is always "AiMY" — exempt it from the uppercase label treatment. */
+.brand-name{text-transform:none}
 .stat-value{font-size:34px;font-weight:800;letter-spacing:-.045em;color:var(--d50);line-height:1}
 .stat-unit{font-size:16px;font-weight:600;color:var(--d400);margin-left:2px}
 .stat-delta{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;margin-top:10px}
@@ -124,7 +126,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .stat-icon{width:38px;height:38px;border-radius:10px;background:var(--d750);border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;color:var(--d400);flex-shrink:0}
 .stat-icon svg{width:18px;height:18px}
 /* ── Operations tile grid ── */
-.ops-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}
+.ops-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0}
 
 /* ── Distribution bar + legend (coverage modal, transfers modal) ── */
 .dist-bar{display:flex;gap:2px;width:100%;height:12px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.05)}
@@ -428,7 +430,6 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 }
 @media(max-width:900px){
   .hero-row{grid-template-columns:1fr}
-  .ops-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:760px){
   .transfers-layout{grid-template-columns:1fr}
@@ -750,16 +751,7 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
   border-radius:99px;
   background:var(--ai);
 }
-.transfer-followup-note{
-  display:flex;
-  align-items:flex-start;
-  gap:9px;
-  margin-top:12px;
-  padding:10px 11px;
-  border:1px solid rgba(111,223,226,.14);
-  border-radius:9px;
-  background:rgba(111,223,226,.04);
-}
+/* Info icon — AIMY-852 requires one on the TeamSupport discrepancy notice. */
 .transfer-followup-note-icon{
   width:19px;
   height:19px;
@@ -773,15 +765,6 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
   font-size:10px;
   font-weight:800;
   line-height:1;
-}
-.transfer-followup-note-text{
-  font-size:10px;
-  line-height:1.5;
-  color:var(--d500);
-}
-.transfer-followup-note-text strong{
-  color:var(--teal);
-  font-weight:700;
 }
 @media(max-width:780px){
   .transfer-overview-row{
@@ -835,7 +818,6 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
 .m-stat-delta.down{color:var(--err)}
 .m-stat-delta.neutral{color:var(--d500)}
 .m-stat-delta.info{color:var(--teal)}
-.m-stat-note{font-size:11px;color:var(--d500);font-weight:500;margin-top:5px;line-height:1.4}
 .bk-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--card-border)}
 .bk-row:last-child{border-bottom:none}
 /* label takes what it needs; the bar yields, so labels stop wrapping in 2-col grids */
@@ -844,10 +826,12 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
 .bk-bar{height:100%;border-radius:99px;background:var(--ai)}
 .bk-val{font-size:13px;font-weight:700;color:var(--d100);min-width:52px;text-align:right}
 .bk-pct{font-size:11px;color:var(--d500);min-width:36px;text-align:right}
-.day-tags{display:flex;gap:7px;flex-wrap:wrap}
-.day-tag{padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;background:var(--d800);color:var(--d400);border:1px solid var(--card-border)}
-.day-tag.hi{background:rgba(0,102,255,.12);color:var(--teal);border-color:rgba(97,173,241,.2)}
-.day-tag.lo{background:var(--err-bg);color:var(--err);border-color:rgba(240,68,56,.2)}
+/* closing row: the figures above must add up to this */
+.bk-total{border-top:1px solid var(--card-border-hover);border-bottom:none;margin-top:2px}
+.bk-total .bk-label{color:var(--d100);font-weight:700}
+.bk-total .bk-val{color:var(--d50)}
+.bk-total .bk-pct{color:var(--d300);font-weight:700}
+.bk-total .bk-bar-wrap{background:transparent}
 /* AiMY summary block — shared treatment, matches sales.html */
 .insight-banner{display:flex;align-items:flex-start;gap:12px;background:rgba(var(--qa-accent-rgb),.07);border:1px solid rgba(var(--qa-accent-rgb),.2);border-radius:10px;padding:13px 15px;margin-top:20px}
 .insight-aimark{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,rgba(111,223,226,.24),rgba(51,105,255,.13));border:1px solid rgba(111,223,226,.62);box-shadow:0 0 0 3px rgba(111,223,226,.06),0 8px 20px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -871,7 +855,8 @@ button.transfer-overview-row[aria-expanded="true"] .transfer-overview-chevron{
 /* sits as a direct child of .modal-body, so it carries .modal-section's 22px rhythm itself */
 .alert-strip{border-radius:10px;padding:12px 15px;border:1px solid;margin:16px 0 22px;background:var(--warn-bg);border-color:rgba(247,144,9,.25)}
 .alert-strip-title{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;color:var(--warn)}
-.alert-strip-title .transfer-followup-note-icon{color:var(--warn);border-color:rgba(247,144,9,.4)}
+.alert-strip-title /* Info icon — AIMY-852 requires one on the TeamSupport discrepancy notice. */
+.transfer-followup-note-icon{color:var(--warn);border-color:rgba(247,144,9,.4)}
 .alert-strip-body{font-size:12px;color:var(--d300);line-height:1.5}
 /* Credits modal */
 .credits-modal{max-width:580px}
@@ -1170,7 +1155,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
             <div class="stat-label">Minutes Handled</div>
             <div class="stat-value">18,420<span class="stat-unit">min</span></div>
             <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>+12% <span class="stat-delta-label">vs prev period</span></div>
-            <div class="stat-sub">614 per day · 86% on AiMY-worked calls</div>
+            <div class="stat-sub">614 per day · 90% on AiMY-worked calls</div>
           </div>
           <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.5 2.5"/></svg></div>
         </div>
@@ -1201,26 +1186,26 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
   </div>
 
 
-  <!-- Operations tiles: coverage, transfers, identification, assistance -->
+  <!-- Operations tiles: AiMY performance (coverage + identification + assistance), transfers -->
   <div class="ops-grid">
 
-    <div class="stat-card" data-modal="coverageModal">
+    <div class="stat-card" data-modal="performanceModal">
       <div class="stat-card-inner">
         <div>
-          <div class="stat-label">AiMY Call Coverage</div>
-          <div class="stat-value skel">69.0<span class="stat-unit">%</span></div>
-          <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>2,510 <span class="stat-delta-label">of 3,636 analysed</span></div>
-            <div class="stat-sub">204 calls awaiting analysis</div>
+          <div class="stat-label"><span class="brand-name">AiMY</span> Performance</div>
+          <div class="stat-value skel">93.8<span class="stat-unit">% success</span></div>
+          <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>2,810 <span class="stat-delta-label">of 2,995 calls assisted</span></div>
+          <div class="stat-sub">185 could not be troubleshot</div>
         </div>
         <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2.5l6 2.5v5c0 3.4-2.4 6.5-6 7.5-3.6-1-6-4.1-6-7.5V5z"/><path d="M7.5 10l1.8 1.8L13 8"/></svg></div>
       </div>
       <div class="state-block state-empty">
-        <span class="sb-title">No calls in this period</span>
-        <span class="sb-text">Nothing was routed to AiMY between Apr 1 and Apr 30.</span>
+        <span class="sb-title">No analysed calls</span>
+        <span class="sb-text">Coverage, identification and assistance are only measured once a call has been analysed.</span>
       </div>
       <div class="state-block state-error">
-        <span class="sb-title">Coverage unavailable</span>
-        <span class="sb-text">The call analysis service did not respond.</span>
+        <span class="sb-title">Performance data unavailable</span>
+        <span class="sb-text">The voice analysis service did not respond.</span>
       </div>
     </div>
 
@@ -1230,7 +1215,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
           <div class="stat-label">Transfers</div>
           <div class="stat-value skel">984</div>
           <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>94% <span class="stat-delta-label">handover success</span></div>
-            <div class="stat-sub">25.6% of all calls</div>
+          <div class="stat-sub">51% customer-requested · 49% AiMY-initiated</div>
         </div>
         <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6.5h9m0 0l-2.5-2.5M12 6.5L9.5 9M17 13.5H8m0 0l2.5-2.5M8 13.5L10.5 16"/></svg></div>
       </div>
@@ -1243,46 +1228,6 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
         <span class="sb-text">The routing service did not respond.</span>
       </div>
     </div>
-
-    <div class="stat-card" data-modal="performanceModal">
-      <div class="stat-card-inner">
-        <div>
-          <div class="stat-label">Identification</div>
-          <div class="stat-value skel">92.3<span class="stat-unit">% customer</span></div>
-          <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>87.2% <span class="stat-delta-label">problem identified</span></div>
-            <div class="stat-sub">2,764 of 2,995 calls</div>
-        </div>
-        <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="7.5" r="3"/><path d="M4 16.5c0-3 2.7-4.5 6-4.5s6 1.5 6 4.5"/></svg></div>
-      </div>
-      <div class="state-block state-empty">
-        <span class="sb-title">No analysed calls</span>
-        <span class="sb-text">Identification is only measured once a call has been analysed.</span>
-      </div>
-      <div class="state-block state-error">
-        <span class="sb-title">Identification unavailable</span>
-        <span class="sb-text">The voice analysis service did not respond.</span>
-      </div>
-    </div>
-
-    <div class="stat-card" data-modal="performanceModal">
-      <div class="stat-card-inner">
-        <div>
-          <div class="stat-label">Assistance</div>
-          <div class="stat-value skel">1,438</div>
-          <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>48.0% <span class="stat-delta-label">resolved end to end</span></div>
-            <div class="stat-sub">of 2,995 AiMY calls</div>
-        </div>
-        <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10.5l3.5 3.5L16 5.5"/><path d="M4 5.5h5"/></svg></div>
-      </div>
-      <div class="state-block state-empty">
-        <span class="sb-title">No analysed calls</span>
-        <span class="sb-text">Assistance outcomes are only measured once a call has been analysed.</span>
-      </div>
-      <div class="state-block state-error">
-        <span class="sb-title">Assistance data unavailable</span>
-        <span class="sb-text">The voice analysis service did not respond.</span>
-      </div>
-    </div>
   </div>
   <div class="footer-note">
     <span class="footer-left">Data refreshed every 15 minutes · Last updated 11:42 AM</span>
@@ -1290,7 +1235,19 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
   </div>
 </main>
 
-<!-- ===== DETAIL MODALS ===== -->
+<!-- ===== DETAIL MODALS =====
+     One owner per count. Two taxonomies, two denominators, two owners:
+       callsModal       owns the call scenarios — what happened to each of the 3,840 calls
+                        (continued with AiMY / customer-requested transfer / timed out /
+                        analysis pending), plus why calls timed out and what is pending.
+       performanceModal owns how well AiMY did on the 2,995 it continued — coverage rate,
+                        identification quality, assistance outcomes, caller recognition.
+     Other modals may name a scenario or outcome, but only beside a metric they own
+     themselves (avgCallModal: durations, minutesModal: minutes, ticketsModal: tickets,
+     transfersModal: transfer reasons and handover) — never as a tabulated count.
+     Stating a total as a denominator, or naming one in prose, is fine.
+-->
+
 
 <!-- Minutes -->
 <div class="modal-backdrop" id="minutesModal">
@@ -1301,9 +1258,10 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 
       <div class="modal-section"><div class="modal-grid-2">
         <div><div class="modal-section-title">Where the minutes went</div>
-          <div class="bk-row"><span class="bk-label">Continued with AiMY</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:86%"></div></div><span class="bk-val">15,842</span><span class="bk-pct">86.0%</span></div>
-          <div class="bk-row"><span class="bk-label">Before direct transfer</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:10.4%;background:var(--d400)"></div></div><span class="bk-val">1,914</span><span class="bk-pct">10.4%</span></div>
-          <div class="bk-row"><span class="bk-label">Timed out</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:3.6%;background:var(--warn)"></div></div><span class="bk-val">664</span><span class="bk-pct">3.6%</span></div>
+          <div class="bk-row"><span class="bk-label">Continued with AiMY</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%"></div></div><span class="bk-val">16,590</span><span class="bk-pct">90.1%</span></div>
+          <div class="bk-row"><span class="bk-label">Analysis pending</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:6%;background:var(--d600)"></div></div><span class="bk-val">959</span><span class="bk-pct">5.2%</span></div>
+          <div class="bk-row"><span class="bk-label">Before direct transfer</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:4%;background:var(--d400)"></div></div><span class="bk-val">649</span><span class="bk-pct">3.5%</span></div>
+          <div class="bk-row"><span class="bk-label">Timed out</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:1%;background:var(--warn)"></div></div><span class="bk-val">222</span><span class="bk-pct">1.2%</span></div>
         </div>
         <div><div class="modal-section-title">By Time of Day</div>
           <div class="bk-row"><span class="bk-label">Morning (8–12)</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:41%"></div></div><span class="bk-val">7,480</span><span class="bk-pct">41%</span></div>
@@ -1312,7 +1270,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
         </div>
       </div></div>
 
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>86% of all minutes were spent on calls AiMY actually worked.</strong> Only 1,914 minutes went to calls the customer asked to hand over, because they state that preference early.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>90% of all minutes were spent on calls AiMY actually worked.</strong> Only 649 minutes went to calls the customer asked to hand over, because they state that preference early.</div></div>
     </div>
   </div>
 </div>
@@ -1322,12 +1280,42 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
   <div class="modal">
     <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Calls Handled</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
-      <div class="modal-section"><div class="modal-grid-2"><div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev</div></div><div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">daily average</div></div></div></div>
-
-      <div class="modal-section"><div class="modal-section-title">Call volume by day</div>
-        <div class="day-tags"><span class="day-tag">Mon 542</span><span class="day-tag">Tue 558</span><span class="day-tag hi">Wed 584</span><span class="day-tag">Thu 561</span><span class="day-tag hi">Fri 616</span><span class="day-tag">Sat 512</span><span class="day-tag lo">Sun 467</span></div>
-        <div class="m-stat-note">Busiest hour window: <strong>10AM–12PM</strong>, carrying 24% of the month's calls. Sunday is the quietest day at 467 calls. For where these calls went — AiMY, direct transfer, timed out or awaiting analysis — open AiMY Call Coverage.</div>
+      <div class="modal-section">
+        <div class="modal-grid-3">
+          <div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev</div></div>
+          <div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">daily average</div></div>
+          <div class="m-stat"><div class="m-stat-value">31%</div><div class="m-stat-label">raised a ticket</div></div>
+        </div>
       </div>
+
+      <div class="modal-section"><div class="modal-section-title">The complete call population</div>
+        <div class="dist-bar" style="margin-bottom:14px">
+          <span class="dist-seg is-aimy" style="flex:78"></span>
+          <span class="dist-seg is-transfer" style="flex:13"></span>
+          <span class="dist-seg is-timeout" style="flex:3.7"></span>
+          <span class="dist-seg is-pending" style="flex:5.3"></span>
+        </div>
+        <div class="dist-legend">
+          <div class="dist-row"><span class="dist-glyph is-aimy" aria-hidden="true">AI</span><span class="dist-name">Continued with AiMY</span><span class="dist-count">2,995</span><span class="dist-pct">78.0%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-transfer" aria-hidden="true">&#8594;</span><span class="dist-name">Customer-requested direct transfer</span><span class="dist-count">499</span><span class="dist-pct">13.0%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-timeout" aria-hidden="true">&#9201;</span><span class="dist-name">Timed out</span><span class="dist-count">142</span><span class="dist-pct">3.7%</span></div>
+          <div class="dist-row"><span class="dist-glyph is-pending" aria-hidden="true">&#8943;</span><span class="dist-name">Analysis not yet available</span><span class="dist-count">204</span><span class="dist-pct">5.3%</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section"><div class="modal-grid-2">
+        <div><div class="modal-section-title">Timed out — 142 calls</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">53</span><span class="reason-pct">37%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">41</span><span class="reason-pct">29%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Network drop mid-call</span><span class="reason-count">30</span><span class="reason-pct">21%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">IVR loop timeout</span><span class="reason-count">18</span><span class="reason-pct">13%</span></div>
+        </div>
+        <div><div class="modal-section-title">Analysis not yet available — 204 calls</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Pending — queued for analysis</span><span class="reason-count">168</span><span class="reason-pct">82%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Partial — some fields missing</span><span class="reason-count">24</span><span class="reason-pct">12%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Failed — analysis errored</span><span class="reason-count">12</span><span class="reason-pct">6%</span></div>
+        </div>
+      </div></div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>The +8% rise is sustained, not a spike.</strong> Every week of the month came in above the equivalent week last period, with the largest gain on Fridays (+13%).</div></div>
     </div>
@@ -1349,25 +1337,15 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
       <div class="alert-strip">
         <div class="alert-strip-title">
           <span class="transfer-followup-note-icon" aria-hidden="true">i</span>
-          27 fewer tickets in TeamSupport than AiMY recorded
+          27 fewer tickets in TeamSupport than <span class="brand-name">AiMY</span> recorded
         </div>
         <div class="alert-strip-body">AiMY created 1,205 tickets this period; TeamSupport currently holds 1,178. Tickets can be merged into an existing case or deleted in TeamSupport after AiMY creates them, so the current count can be lower than the number AiMY recorded. This is expected and does not mean tickets were lost.</div>
       </div>
 
-      <div class="modal-section"><div class="modal-grid-2">
-        <div><div class="modal-section-title">Which calls produced tickets</div>
-          <div class="bk-row"><span class="bk-label">Identified as L1 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:37.5%"></div></div><span class="bk-val">452</span><span class="bk-pct">37.5%</span></div>
-          <div class="bk-row"><span class="bk-label">Identified as L2 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:24.9%"></div></div><span class="bk-val">300</span><span class="bk-pct">24.9%</span></div>
-          <div class="bk-row"><span class="bk-label">Initial troubleshooting</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:22.2%"></div></div><span class="bk-val">268</span><span class="bk-pct">22.2%</span></div>
-          <div class="bk-row"><span class="bk-label">Unable to troubleshoot</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:15.4%;background:var(--err)"></div></div><span class="bk-val">185</span><span class="bk-pct">15.4%</span></div>
-          <div class="m-stat-note">Calls resolved end to end create no ticket — the issue was closed on the call.</div>
-        </div>
-        <div><div class="modal-section-title">What the comments were on</div>
-          <div class="bk-row"><span class="bk-label">Tickets AiMY created</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:63.4%"></div></div><span class="bk-val">388</span><span class="bk-pct">63.4%</span></div>
-          <div class="bk-row"><span class="bk-label">Pre-existing tickets</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:36.6%"></div></div><span class="bk-val">224</span><span class="bk-pct">36.6%</span></div>
-          <div class="m-stat-note">A comment on a pre-existing ticket means a return caller rang about an issue already tracked — AiMY appended the new context rather than opening a duplicate.</div>
-        </div>
-      </div></div>
+      <div class="modal-section"><div class="modal-section-title">What the comments were on</div>
+        <div class="bk-row"><span class="bk-label">Tickets AiMY created</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:63.4%"></div></div><span class="bk-val">388</span><span class="bk-pct">63.4%</span></div>
+        <div class="bk-row"><span class="bk-label">Pre-existing tickets</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:36.6%"></div></div><span class="bk-val">224</span><span class="bk-pct">36.6%</span></div>
+      </div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>1,817 tracked actions from 3,840 calls.</strong> 224 of those were comments on tickets that already existed, which is 224 duplicate cases TeamSupport did not have to merge later.</div></div>
     </div>
@@ -1386,20 +1364,19 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
         <div class="m-stat"><div class="m-stat-value">1,240</div><div class="m-stat-label">over 5 min</div><div class="m-stat-delta neutral">32.3%</div></div>
       </div></div>
 
-      <div class="modal-section"><div class="modal-section-title">Why the average moved — by outcome</div>
-        <div class="bk-row"><span class="bk-label">Resolved end to end</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%;background:var(--ok)"></div></div><span class="bk-val">5m 12s</span></div>
-        <div class="bk-row"><span class="bk-label">Initial troubleshooting</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:95%"></div></div><span class="bk-val">4m 58s</span></div>
-        <div class="bk-row"><span class="bk-label">Unable to troubleshoot</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:79%;background:var(--err)"></div></div><span class="bk-val">4m 06s</span></div>
-        <div class="bk-row"><span class="bk-label">Identified as L1 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:72%"></div></div><span class="bk-val">3m 44s</span></div>
-        <div class="bk-row"><span class="bk-label">Identified as L2 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:64%"></div></div><span class="bk-val">3m 21s</span></div>
-        <div class="bk-row"><span class="bk-label">Customer-requested transfer</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:23%;background:var(--d400)"></div></div><span class="bk-val">1m 12s</span></div>
+      <div class="modal-section"><div class="modal-section-title">Why the average moved — average per call, and the share of call time it drives</div>
+        <div class="bk-row"><span class="bk-label">Resolved end to end</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%;background:var(--ok)"></div></div><span class="bk-val">6m 12s</span><span class="bk-pct">48%</span></div>
+        <div class="bk-row"><span class="bk-label">Initial troubleshooting</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:41%"></div></div><span class="bk-val">5m 48s</span><span class="bk-pct">20%</span></div>
+        <div class="bk-row"><span class="bk-label">Identified as L1 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:21%"></div></div><span class="bk-val">4m 01s</span><span class="bk-pct">10%</span></div>
+        <div class="bk-row"><span class="bk-label">Identified as L2 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:15%"></div></div><span class="bk-val">4m 23s</span><span class="bk-pct">7%</span></div>
+        <div class="bk-row"><span class="bk-label">Unable to troubleshoot</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:11%;background:var(--err)"></div></div><span class="bk-val">5m 07s</span><span class="bk-pct">5%</span></div>
+        <div class="bk-row"><span class="bk-label">Analysis pending</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:11%;background:var(--d600)"></div></div><span class="bk-val">4m 42s</span><span class="bk-pct">5%</span></div>
+        <div class="bk-row"><span class="bk-label">Customer-requested transfer</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:7%;background:var(--d400)"></div></div><span class="bk-val">1m 18s</span><span class="bk-pct">4%</span></div>
+        <div class="bk-row"><span class="bk-label">Timed out</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:2%;background:var(--warn)"></div></div><span class="bk-val">1m 34s</span><span class="bk-pct">1%</span></div>
+        <div class="bk-row bk-total"><span class="bk-label">All 3,840 calls</span><div class="bk-bar-wrap"></div><span class="bk-val">4m 48s</span><span class="bk-pct">100%</span></div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">Average by day</div>
-        <div class="day-tags"><span class="day-tag">Mon 3m 12s</span><span class="day-tag">Tue 4m 21s</span><span class="day-tag">Wed 4m 44s</span><span class="day-tag">Thu 4m 58s</span><span class="day-tag hi">Fri 6m 02s</span><span class="day-tag">Sat 5m 10s</span><span class="day-tag">Sun 4m 46s</span></div>
-      </div>
-
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Shorter is not better — there is no call-time target.</strong> The calls AiMY resolves end to end run longest at 5m 12s, and customer-requested transfers shortest at 1m 12s. Friday's 6m 02s is 25% above the monthly average and also carries the highest end-to-end resolution share: the longer calls are AiMY finishing the job, not stalling on it.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Shorter is not better — there is no call-time target.</strong> Calls AiMY resolves end to end run longest at 6m 12s and drive 48% of all call time; customer-requested transfers run shortest at 1m 18s because the caller states their preference early. The 4m 48s average is high precisely because AiMY finishes most of the calls it takes on.</div></div>
     </div>
   </div>
 </div>
@@ -1527,14 +1504,14 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
               </div>
             </div>
 
-            <div class="transfer-analysis-subhead">AiMY-initiated · 485</div>
+            <div class="transfer-analysis-subhead"><span class="brand-name">AiMY</span>-initiated · 485</div>
 
             <div class="transfer-overview-row">
               <span class="transfer-overview-dot" style="background:#8aabff"></span>
               <span class="transfer-overview-name">Identified as L2 scope — routed to L2</span>
               <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:62%"></span></span>
-              <span class="transfer-overview-count">300</span>
-              <span class="transfer-overview-pct">62%</span>
+              <span class="transfer-overview-count">62%</span>
+              <span class="transfer-overview-pct">of 485</span>
               <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
             </div>
 
@@ -1542,8 +1519,8 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
               <span class="transfer-overview-dot" style="background:var(--err)"></span>
               <span class="transfer-overview-name">Unable to troubleshoot — routed to L1</span>
               <span class="transfer-overview-track"><span class="transfer-overview-fill" style="display:block;width:38%"></span></span>
-              <span class="transfer-overview-count">185</span>
-              <span class="transfer-overview-pct">38%</span>
+              <span class="transfer-overview-count">38%</span>
+              <span class="transfer-overview-pct">of 485</span>
               <span class="transfer-chevron-placeholder" aria-hidden="true"></span>
             </div>
           </div>
@@ -1586,7 +1563,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
             </div>
           </div>
 
-          <div class="transfer-analysis-subhead">What AiMY passed across · of the 921 connected</div>
+          <div class="transfer-analysis-subhead">What <span class="brand-name">AiMY</span> passed across · of the 921 connected</div>
 
           <div class="transfer-overview-list">
             <div class="transfer-overview-row">
@@ -1665,10 +1642,6 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
                   </div>
                 </div>
 
-                <div class="transfer-followup-note">
-                  <div class="transfer-followup-note-icon" aria-hidden="true">i</div>
-                  <div class="transfer-followup-note-text"><strong>Callbacks are the most common follow-up.</strong> They account for 44% of follow-up actions after a transfer. These are actions AiMY took itself — they say nothing about whether the agent resolved the issue.</div>
-                </div>
               </div>
             </div>
           </div>
@@ -1685,73 +1658,6 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
   </div>
 </div>
 
-<!-- Coverage -->
-<div class="modal-backdrop" id="coverageModal">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title-group"><span class="modal-title">AiMY Call Coverage</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
-    <div class="modal-body">
-      <div class="modal-section"><div class="modal-grid-4">
-        <div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev</div></div>
-        <div class="m-stat"><div class="m-stat-value">3,636</div><div class="m-stat-label">analysed</div><div class="m-stat-delta neutral">204 still pending</div></div>
-        <div class="m-stat"><div class="m-stat-value">2,510</div><div class="m-stat-label">handled without a live agent</div></div>
-        <div class="m-stat"><div class="m-stat-value" style="color:var(--teal)">69.0%</div><div class="m-stat-label">coverage rate</div></div>
-      </div></div>
-
-      <div class="modal-section"><div class="modal-section-title">The complete call population</div>
-        <div class="dist-bar" style="margin-bottom:14px">
-          <span class="dist-seg is-aimy" style="flex:78"></span>
-          <span class="dist-seg is-transfer" style="flex:13"></span>
-          <span class="dist-seg is-timeout" style="flex:3.7"></span>
-          <span class="dist-seg is-pending" style="flex:5.3"></span>
-        </div>
-        <div class="dist-legend">
-          <div class="dist-row"><span class="dist-glyph is-aimy" aria-hidden="true">AI</span><span class="dist-name">Continued with AiMY</span><span class="dist-count">2,995</span><span class="dist-pct">78.0%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-transfer" aria-hidden="true">&#8594;</span><span class="dist-name">Customer-requested direct transfer</span><span class="dist-count">499</span><span class="dist-pct">13.0%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-timeout" aria-hidden="true">&#9201;</span><span class="dist-name">Timed out</span><span class="dist-count">142</span><span class="dist-pct">3.7%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-pending" aria-hidden="true">&#8943;</span><span class="dist-name">Analysis not yet available</span><span class="dist-count">204</span><span class="dist-pct">5.3%</span></div>
-        </div>
-      </div>
-
-      <div class="modal-section"><div class="modal-grid-2">
-        <div><div class="modal-section-title">Timed out — 142 calls</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">53</span><span class="reason-pct">37%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">41</span><span class="reason-pct">29%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Network drop mid-call</span><span class="reason-count">30</span><span class="reason-pct">21%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">IVR loop timeout</span><span class="reason-count">18</span><span class="reason-pct">13%</span></div>
-        </div>
-        <div><div class="modal-section-title">Analysis not yet available — 204 calls</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Pending — queued for analysis</span><span class="reason-count">168</span><span class="reason-pct">82%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Partial — some fields missing</span><span class="reason-count">24</span><span class="reason-pct">12%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Failed — analysis errored</span><span class="reason-count">12</span><span class="reason-pct">6%</span></div>
-          <div class="m-stat-note">Coverage will move once these complete. The 12 failed analyses are re-queued automatically.</div>
-        </div>
-      </div></div>
-
-      <div class="modal-section"><div class="modal-section-title">Coverage by day</div>
-        <div class="handle-grid">
-          <div class="handle-pill"><span class="handle-name">Monday</span><span class="handle-pct">70%</span></div>
-          <div class="handle-pill"><span class="handle-name">Tuesday</span><span class="handle-pct">72%</span></div>
-          <div class="handle-pill"><span class="handle-name">Wednesday</span><span class="handle-pct">74%</span></div>
-          <div class="handle-pill"><span class="handle-name">Thursday</span><span class="handle-pct">71%</span></div>
-          <div class="handle-pill"><span class="handle-name">Friday</span><span class="handle-pct">72%</span></div>
-          <div class="handle-pill"><span class="handle-name">Saturday</span><span class="handle-pct">64%</span></div>
-          <div class="handle-pill danger"><span class="handle-name">Sunday</span><span class="handle-pct">55%</span></div>
-        </div>
-        <div class="m-stat-note">Lowest hour window: <strong>6PM–7PM at 58%</strong>. Extending AiMY hours or adding agent cover in that window is the single largest lever.</div>
-      </div>
-
-      <div class="modal-section"><div class="modal-section-title">What makes up the 69% — and what is left</div>
-        <div class="bk-row"><span class="bk-label">Resolved end to end</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:100%;background:var(--ok)"></div></div><span class="bk-val">1,438</span><span class="bk-pct">39.5 pts</span></div>
-        <div class="bk-row"><span class="bk-label">Initial troubleshooting completed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:43%;background:var(--teal)"></div></div><span class="bk-val">620</span><span class="bk-pct">17.1 pts</span></div>
-        <div class="bk-row"><span class="bk-label">Identified as L1 scope</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:31%;background:var(--teal)"></div></div><span class="bk-val">452</span><span class="bk-pct">12.4 pts</span></div>
-        <div class="m-stat-note">Those three add up to the 69.0% rate. The headroom sits in the <strong>485 calls AiMY routed on</strong> — 300 correctly scoped to L2, and 185 it could not troubleshoot. Converting the 185 is the fastest available gain, worth 5.1 points.</div>
-      </div>
-
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>A customer-requested direct transfer is not a coverage miss</strong> — the customer chose an agent before AiMY engaged, which is why those 499 calls carry no resolution measure. The real headroom is Sunday at 55% and the 6PM–7PM window at 58%, where AiMY hands over most often.</div></div>
-    </div>
-  </div>
-</div>
-
 <!-- AiMY Performance -->
 <div class="modal-backdrop" id="performanceModal">
   <div class="modal transfers-modal">
@@ -1762,8 +1668,26 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
       <button class="modal-close" aria-label="Close AiMY Performance"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
     </div>
     <div class="modal-body">
+      <div class="modal-section"><div class="modal-grid-4">
+        <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">93.8%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">2,810 of 2,995 assisted</div></div>
+        <div class="m-stat"><div class="m-stat-value">69.0%</div><div class="m-stat-label">coverage rate</div><div class="m-stat-delta info">2,510 of 3,636 analysed</div></div>
+        <div class="m-stat"><div class="m-stat-value">92.3%</div><div class="m-stat-label">customer identified</div></div>
+        <div class="m-stat"><div class="m-stat-value">48.0%</div><div class="m-stat-label">resolved end to end</div></div>
+      </div></div>
 
-      <div class="modal-section"><div class="modal-section-title">Identification quality — of the 2,995 calls that continued with AiMY</div>
+      <div class="modal-section"><div class="modal-section-title">Coverage — calls closed without a live agent</div>
+        <div class="handle-grid">
+          <div class="handle-pill"><span class="handle-name">Monday</span><span class="handle-pct">70%</span></div>
+          <div class="handle-pill"><span class="handle-name">Tuesday</span><span class="handle-pct">72%</span></div>
+          <div class="handle-pill"><span class="handle-name">Wednesday</span><span class="handle-pct">74%</span></div>
+          <div class="handle-pill"><span class="handle-name">Thursday</span><span class="handle-pct">71%</span></div>
+          <div class="handle-pill"><span class="handle-name">Friday</span><span class="handle-pct">72%</span></div>
+          <div class="handle-pill"><span class="handle-name">Saturday</span><span class="handle-pct">64%</span></div>
+          <div class="handle-pill danger"><span class="handle-name">Sunday</span><span class="handle-pct">55%</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section"><div class="modal-section-title">Identification quality — of the 2,995 calls that continued with <span class="brand-name">AiMY</span></div>
         <div class="modal-grid-2">
           <div>
             <div class="ident-block">
@@ -1790,7 +1714,6 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
             <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Issue outside the known catalogue</span><span class="reason-count">52</span><span class="reason-pct">14%</span></div>
           </div>
         </div>
-        <div class="m-stat-note">These are independent. AiMY can identify the customer and still fail to identify the problem, and the reverse — combining them into a single &ldquo;identification&rdquo; score would hide which half needs work.</div>
       </div>
 
       <div class="modal-section"><div class="modal-section-title">Assistance outcomes — and where each one goes next</div>
@@ -1802,7 +1725,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
         </div>
         <div class="outcome-row">
           <span class="outcome-glyph part" aria-hidden="true">&#9686;</span>
-          <span class="outcome-name">Initial troubleshooting completed<span class="outcome-tag">Partial · 268 produced a ticket</span></span>
+          <span class="outcome-name">Initial troubleshooting completed<span class="outcome-tag">Partial · ticket raised where needed</span></span>
           <span class="outcome-count">620</span>
           <span class="outcome-pct">20.7%</span>
         </div>
@@ -1824,19 +1747,17 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
           <span class="outcome-count">185</span>
           <span class="outcome-pct">6.2%</span>
         </div>
-        <div class="m-stat-note"><strong>L1 scope</strong> means the problem is solvable by a first-line agent with standard tooling. <strong>L2 scope</strong> means it needs specialist access or a systems change. Correctly scoping either is a good result — the agent starts with the diagnosis already done. The 300 L2 and 185 unable-to-troubleshoot calls together make up the 485 AiMY-initiated transfers.</div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">Caller recognition — what AiMY remembered</div>
+      <div class="modal-section"><div class="modal-section-title">Caller recognition — what <span class="brand-name">AiMY</span> remembered</div>
           <div class="bk-row"><span class="bk-label">Known caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:57.2%"></div></div><span class="bk-val">1,712</span><span class="bk-pct">57.2%</span></div>
           <div class="bk-row"><span class="bk-label">Name recalled</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:49.7%"></div></div><span class="bk-val">1,489</span><span class="bk-pct">49.7%</span></div>
           <div class="bk-row"><span class="bk-label">Office confirmed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:40.2%"></div></div><span class="bk-val">1,204</span><span class="bk-pct">40.2%</span></div>
           <div class="bk-row"><span class="bk-label">Title applied</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:12.9%"></div></div><span class="bk-val">386</span><span class="bk-pct">12.9%</span></div>
           <div class="bk-row"><span class="bk-label">New caller — no memory match</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42.8%;background:var(--d600)"></div></div><span class="bk-val">1,283</span><span class="bk-pct">42.8%</span></div>
-          <div class="m-stat-note">Signals overlap — a known caller can also have a name recalled and a title applied — so these do not sum to 100%. Known caller and New caller are the only pair that do.</div>
       </div>
 
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Everything here is measured against the 2,995 calls that continued with AiMY</strong> — direct transfers, timed-out calls and calls awaiting analysis are excluded, because including work AiMY was never given would understate it. Within that population AiMY identifies the customer far more reliably than the problem, 92.3% against 87.2%, and the single biggest cause is vague descriptions at 147 calls.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Success and coverage answer different questions.</strong> Success is how often AiMY assisted at all — every outcome except the 185 it could not troubleshoot, measured against the 2,995 calls it continued. Coverage is the narrower question of how often it closed a call without a live agent, measured against all analysed calls. Correctly scoping a problem to L1 or L2 counts as success but not as coverage, which is why the two differ. Within the AiMY-continued calls, it identifies the customer more reliably than the problem — 92.3% against 87.2% — and the biggest single cause is vague descriptions, at 147 calls.</div></div>
     </div>
   </div>
 </div>
@@ -2443,8 +2364,8 @@ window.addEventListener('load',()=>{
 // ── Card states: loading / empty / error ──────────────────────
 // Tiles render populated by default. setCardState swaps one into any of the
 // states AIMY-1239 requires, without a backend. Takes the tile's modal id:
-//   setCardState('coverageModal','loading')   setCardState('ticketsModal','empty')
-//   setCardState('transfersModal','error')    setCardState('coverageModal','ready')
+//   setCardState('performanceModal','loading')  setCardState('ticketsModal','empty')
+//   setCardState('transfersModal','error')      setCardState('performanceModal','ready')
 // Omit the id to set every tile at once.
 function setCardState(modalId,state){
   const sel=modalId?`.main .stat-card[data-modal="${modalId}"]`:'.main .stat-card';
