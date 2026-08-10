@@ -633,6 +633,15 @@ button.aimy-float-icon{cursor:pointer}
 .msg-bubble{padding:10px 14px;border-radius:var(--r-xl);font-size:13px;font-weight:500;line-height:1.55}
 .chat-msg.aimy .msg-bubble{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--d50);border-radius:4px 16px 16px 16px}
 .chat-msg.user .msg-bubble{background:var(--accent-dim);border:1px solid rgba(var(--accent-rgb),.2);color:var(--d100);border-radius:16px 4px 16px 16px}
+/* An answer carrying figures needs more room than a sentence does, so the
+   640px conversational cap is released for those and those only. */
+.chat-msg.aimy:has(.answer-list){max-width:100%}
+.msg-bubble b{color:#fff;font-weight:700}
+.answer-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:1px}
+.answer-list li{display:flex;align-items:baseline;justify-content:space-between;gap:18px;font-size:12.5px;color:var(--d300);padding:5px 0;border-top:1px solid rgba(255,255,255,.06)}
+/* Figures right-aligned and tabular so they compare down the column. */
+.answer-list li span:last-child{color:var(--d50);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.answer-note{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);font-size:12px;line-height:1.5;color:var(--d400)}
 /* Thinking indicator — the DS component (2745-2751), rendered inside a bare
    bubble while the reply is pending. */
 .ai-thinking{display:inline-flex;align-items:center;gap:10px;padding:9px 15px;border-radius:var(--r-pill);background:var(--card-bg-raised);border:1px solid var(--card-border)}
@@ -1486,7 +1495,7 @@ button.aimy-float-icon{cursor:pointer}
       <svg width="19" height="18" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg>
     </button>
     <input class="aimy-float-input" id="floatInput" type="text"
-           placeholder="Ask AiMY about this month's operations…"
+           placeholder="Ask AiMY about this month's numbers…"
            autocomplete="off" spellcheck="false" aria-label="Ask AiMY" />
     <span class="aimy-float-hint">Enter to ask</span>
     <button class="aimy-float-send" id="floatSend" type="button" aria-label="Ask">
@@ -1512,9 +1521,9 @@ button.aimy-float-icon{cursor:pointer}
 
   <div class="overlay-thread" id="overlayThread" aria-live="polite">
     <div class="overlay-suggestions" id="overlaySuggestions">
-      <button class="overlay-sugg-chip" type="button">Why did committed minutes dip this period?</button>
-      <button class="overlay-sugg-chip" type="button">Which accounts drove the ticket spike?</button>
-      <button class="overlay-sugg-chip" type="button">Summarise QA performance this month</button>
+      <button class="overlay-sugg-chip" type="button">Am I going to run out of minutes?</button>
+      <button class="overlay-sugg-chip" type="button">How is the 80% success rate calculated?</button>
+      <button class="overlay-sugg-chip" type="button">Which calls is AiMY not finishing?</button>
     </div>
   </div>
 
@@ -1850,7 +1859,120 @@ window.setCardState=setCardState;
 // the orb is the way back, Escape unwinds one layer at a time, and the thread
 // scrolls to whatever just arrived.
 // ══════════════════════════════════════════════
-const AIMY_REPLY='I can see this period’s figures, but I’m not wired to the operations data yet — this canvas is a prototype shell. Once connected, I’ll answer from the same numbers the cards above are built on, and show which ones I used.';
+// ── What AiMY can see ─────────────────────────────────────────
+// Headline figures are read back out of the cards rather than restated here,
+// so an answer can never drift from what is on screen. The breakdowns that
+// only exist inside a modal are held below, next to the card that owns them.
+//
+// The denominators matter and are not interchangeable — the page is strict
+// about this and so are the answers:
+//   · 3,840  every call
+//   · 3,636  analysed calls — what the seven outcome categories divide
+//   · 3,137  analysed minus the 499 who asked for a person up front — the
+//            success-rate base, because AiMY never engaged on those
+//   · 2,995  calls AiMY took end to end (not the same as full resolution)
+const PERIOD_DAYS=30, DAYS_LEFT=22;
+
+function numFrom(text){
+  const m=String(text).replace(/,/g,'').match(/[\d.]+/);
+  return m?parseFloat(m[0]):null;
+}
+function cardValue(modalId){
+  const el=document.querySelector('.stat-card[data-modal="'+modalId+'"] .stat-value');
+  return el?numFrom(el.textContent):null;
+}
+function fmt(n){return Math.round(n).toLocaleString()}
+function rows(items){
+  return '<ul class="answer-list">'+items.map(i=>'<li><span>'+i[0]+'</span><span>'+i[1]+'</span></li>').join('')+'</ul>';
+}
+function note(t){return '<div class="answer-note">'+t+'</div>'}
+
+const CALL_ROUTES=[['AiMY end to end','2,995 · 78.0%'],['Human requested','499 · 13.0%'],['Timed out','142 · 3.7%'],['Not analysed','204 · 5.3%']];
+const LENGTHS=[['Under 2 min','742 · 19.3%'],['2–5 min','1,858 · 48.4%'],['Over 5 min','1,240 · 32.3%']];
+const OUTCOMES=[['Full resolution','1,438 · 39.5%'],['Clean handoff','1,072 · 29.5%'],['Human requested','499 · 13.7%'],['L2 scope','300 · 8.3%'],['Timed out','142 · 3.9%'],['Out of scope','120 · 3.3%'],['Data gap','65 · 1.8%']];
+
+function ansMinutes(){
+  const used=USED_MINUTES, quota=BASE_QUOTA, left=quota-used;
+  const pctUsed=(used/quota*100).toFixed(0);
+  const elapsed=PERIOD_DAYS-DAYS_LEFT;
+  const perDay=used/elapsed;
+  const daysCovered=left/perDay;
+  return '<b>'+fmt(used)+'</b> of <b>'+fmt(quota)+'</b> plan minutes used — '+pctUsed+'%, leaving <b>'+fmt(left)+'</b> with '+DAYS_LEFT+' of '+PERIOD_DAYS+' days still to run.'
+    +'<br><br>That is the part worth looking at: '+pctUsed+'% of the balance is gone with '+Math.round(DAYS_LEFT/PERIOD_DAYS*100)+'% of the period still ahead. Across the '+elapsed+' days elapsed that is about <b>'+fmt(perDay)+' minutes a day</b>, and at that rate what is left covers roughly <b>'+daysCovered.toFixed(1)+' more days</b>.'
+    +rows([['Used',fmt(used)+' min'],['Remaining',fmt(left)+' min'],['Days left',String(DAYS_LEFT)],['Implied rate','~'+fmt(perDay)+' min/day']])
+    +note('Add Minutes covers an immediate shortfall. If this pace holds it is a plan-size question, not a top-up one.');
+}
+function ansCalls(){
+  const calls=cardValue('callsModal');
+  return '<b>'+fmt(calls)+'</b> calls this period, <b>+8%</b> on the previous one — about <b>128</b> a day.'
+    +'<br><br>The rise is sustained rather than a spike: every week came in above the equivalent week last period, with the largest gain on Fridays (+13%).'
+    +rows(CALL_ROUTES)
+    +note('“End to end” is the 2,995 AiMY saw through. That is a different question from how many it fully resolved — ask about the success rate for that.');
+}
+function ansLength(){
+  const mins=cardValue('minutesModal');
+  return 'Average call is <b>4m 48s</b>, up 6%, across <b>'+fmt(mins)+'</b> minutes handled — about <b>614</b> a day.'
+    +rows(LENGTHS)
+    +note('There is no call-time target, so shorter is not better. Nearly half run 2–5 minutes, and the third that run past five are largely the ones AiMY sees through to a resolution — read the average alongside outcomes, not on its own.');
+}
+function ansTickets(){
+  const acts=cardValue('ticketsModal');
+  return '<b>'+fmt(acts)+'</b> tracked actions from 3,840 calls — <b>1,205</b> tickets created and <b>612</b> updated.'
+    +rows([['Reached TeamSupport','1,178'],['Failed to create','27'],['Updates on AiMY’s own tickets','388 · 63.4%'],['Updates on existing tickets','224 · 36.6%']])
+    +note('The 27 failures keep their call context and can be re-sent. The 224 updates that landed on tickets which already existed are 224 duplicate cases TeamSupport did not have to merge later.');
+}
+function ansPerformance(){
+  const pct=cardValue('performanceModal');
+  return '<b>'+pct.toFixed(1)+'%</b> success — <b>2,510</b> of <b>3,137</b> calls. That is full resolution (1,438) plus clean handoff (1,072).'
+    +'<br><br>The denominator is the 3,636 analysed calls minus the <b>499</b> where the caller asked for a person up front. AiMY never engaged on those, so they are excluded rather than counted against it.'
+    +rows(OUTCOMES)
+    +note('Those percentages are over the 3,636 analysed calls, which is why they do not add up against the 3,137 success base.');
+}
+function ansGaps(){
+  return 'Four things account for everything AiMY did not finish, and they are not the same kind of problem.'
+    +rows([['L2 scope','300 · 8.3%'],['Timed out','142 · 3.9%'],['Out of scope','120 · 3.3%'],['Data gap','65 · 1.8%']])
+    +'<br>Scope is the largest at <b>420</b> calls combined, and L2 is most of it — but L2 is working as intended: all 300 had a diagnosis captured and a specialist queue assigned, 274 carried evidence and 241 were picked up.'
+    +note('The genuinely addressable ones are out of scope (68 outside the known catalogue, 52 no system access) and the 142 timeouts, over half of which are silence — 53 no speech detected, 41 silent after the greeting.');
+}
+function ansHandoffs(){
+  return '<b>984</b> handoffs, <b>25.6%</b> of calls, averaging <b>38s</b> to connect.'
+    +rows([['Connected','921 · 94%'],['Not connected','63 · 6%'],['Asked for an agent or department','184 · 37%'],['Asked for a supervisor','121 · 24%'],['Declined automation','120 · 24%']])
+    +note('A handoff is not a failure — 1,072 of them were clean handoffs and count toward the success rate. The 63 that did not connect are the ones to chase.');
+}
+function ansIdentification(){
+  return 'Customer identified on <b>92.3%</b> of calls — <b>2,764</b> of the 2,995 AiMY took end to end, with <b>231</b> unidentified.'
+    +rows([['No match on the calling number','98 · 42%'],['Caller declined to confirm','62 · 27%']])
+    +note('Identification gates what AiMY can act on, so the 98 with no number match are the cheapest of these to fix.');
+}
+function ansOverview(){
+  return 'The shape of the month, from the cards above:'
+    +rows([['Calls handled',fmt(cardValue('callsModal'))+' · +8%'],['Minutes handled',fmt(cardValue('minutesModal'))+' · +12%'],['Success rate',cardValue('performanceModal').toFixed(1)+'%'],['Ticket activity',fmt(cardValue('ticketsModal'))],['Plan minutes left',fmt(BASE_QUOTA-USED_MINUTES)+' of '+fmt(BASE_QUOTA)]])
+    +note('Ask me about the balance, call volume, call length, tickets, outcomes, what AiMY did not finish, handoffs, or identification.');
+}
+
+// Keyword scoring, best match wins. Deliberately dumb — the point is that the
+// answers are grounded, not that the matching is clever.
+const TOPICS=[
+  {a:ansMinutes,       k:['minute','balance','quota','plan','run out','running out','remaining','left','overage','top up','add minutes','budget','burn','pace']},
+  {a:ansPerformance,   k:['success','80','performance','resolution','resolve','resolved','outcome','how well','denominator','calculated','measure']},
+  {a:ansGaps,          k:['not finish','fail','fails','failing','gap','out of scope','scope','miss','missed','wrong','problem','gone wrong','gaps','l2','gaps']},
+  {a:ansHandoffs,      k:['handoff','hand off','escalat','human','agent','supervisor','transfer','connect']},
+  {a:ansLength,        k:['long','length','duration','average call','4m','how long','minutes handled','talk time']},
+  {a:ansCalls,         k:['call volume','how many call','calls handled','volume','spike','busier','busy','traffic','8%','increase','rise','rose','drove','more calls']},
+  {a:ansTickets,       k:['ticket','teamsupport','duplicate','case','created','raised']},
+  {a:ansIdentification,k:['identif','identity','who the caller','recognis','recogniz','caller id']}
+];
+
+function answerFor(q){
+  const s=q.toLowerCase();
+  let best=null, bestScore=0;
+  for(const t of TOPICS){
+    let score=0;
+    for(const k of t.k) if(s.includes(k)) score+=k.length;
+    if(score>bestScore){bestScore=score;best=t}
+  }
+  return best?best.a():ansOverview();
+}
 
 const canvas={
   overlay:null, thread:null, sugg:null, input:null, floatBar:null, open:false, busy:false,
@@ -1917,7 +2039,9 @@ const canvas={
 
     setTimeout(()=>{
       const bubble=pending.querySelector('.msg-bubble');
-      if(bubble)bubble.innerHTML=escapeHtml(AIMY_REPLY);
+      // The answer is composed here, not typed by anyone, so it goes in as
+      // markup. Everything the user typed is still escaped on the way in.
+      if(bubble)bubble.innerHTML=answerFor(text);
       this.thread.scrollTop=this.thread.scrollHeight;
       this.setBusy(false);
     },900);
