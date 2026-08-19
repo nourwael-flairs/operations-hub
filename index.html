@@ -1128,16 +1128,20 @@ button.aimy-float-icon{cursor:pointer}
 
       <!-- Process stages, in the order AiMY runs them. All four divide the 2,995
            calls AiMY took end to end — they are not a surviving-population funnel.
-           Every troubleshooting count is an outcome category from the section
-           above, or a stated split of one:
+           Troubleshooting has two ways out, and every count below is an outcome
+           category from the section above or a stated split of one:
              resolved on the call         1,438  full resolution
-             diagnosed, handed to a human   620  clean handoff / initial troubleshooting
-             diagnosed, escalated to L2     222  part of L2 scope (300)
-             direct transfer                452  clean handoff / L1 scope
-             knowledge gap                  143  the other 78 of L2 scope, plus the 65 data gap
-             out of scope                   120  the out of scope outcome, same 120
-           2,280 completed + 715 not completed = 2,995. Stage 5, resolution and
-           handoff, is the Outcomes section above — pointed at, not restated. -->
+             escalated                    1,557  everything else, split three ways:
+               out of scope                 872  452 clean handoff / L1 scope, work that
+                                                 was never AiMY to do, plus 300 L2 scope
+                                                 and the 120 out of scope outcome
+               direct transfer              412  of the 620 clean handoffs that followed
+                                                 initial troubleshooting, the ones where
+                                                 the caller asked for a person mid call
+               knowledge gap                273  the other 208 of those 620, plus the
+                                                 65 data gap
+           1,438 + 1,557 = 2,995, and 872 + 412 + 273 = 1,557. Stage 5, resolution
+           and handoff, is the Outcomes section above — pointed at, not restated. -->
       <div class="modal-section"><div class="modal-section-title">AiMY process</div>
         <div class="ident-stack">
           <div>
@@ -1175,21 +1179,35 @@ button.aimy-float-icon{cursor:pointer}
           </div>
           <div>
             <div class="ident-block">
-              <div class="ident-head"><span class="ident-name"><span class="ident-step">4</span>Troubleshooting completed</span><span class="ident-value">76.1%</span></div>
-              <div class="ident-track"><div class="ident-fill" style="width:76.1%"></div></div>
-              <div class="ident-meta"><span><strong>2,280</strong> completed</span><span><strong>715</strong> not completed</span></div>
+              <div class="ident-head"><span class="ident-name"><span class="ident-step">4</span>Resolved by troubleshooting</span><span class="ident-value">48.0%</span></div>
+              <div class="ident-track"><div class="ident-fill" style="width:48.0%"></div></div>
+              <div class="ident-meta"><span><strong>1,438</strong> resolved on the call</span><span><strong>1,557</strong> escalated</span></div>
             </div>
+            <!-- Two ways out of troubleshooting, not a pass and a fail: it resolves
+                 the call or it escalates. The why sits under the escalation row, on
+                 the same expandable pattern the Outcomes section uses — the handler
+                 that binds button.outcome-row[aria-controls] picks this up for free. -->
             <div class="modal-section-title" style="margin-top:16px">What troubleshooting achieved</div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Resolved on the call</span><span class="reason-count">1,438</span><span class="reason-pct">63%</span></div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">Diagnosed, handed to a human</span><span class="reason-count">620</span><span class="reason-pct">27%</span></div>
-            <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Diagnosed, escalated to L2</span><span class="reason-count">222</span><span class="reason-pct">10%</span></div>
-            <!-- Ordered by count, as every other reason list is. Here the largest
-                 reason is the benign one, so colour carries the severity instead:
-                 neutral for the direct transfers, then the two worth acting on. -->
-            <div class="modal-section-title" style="margin-top:16px">Troubleshooting not completed</div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Direct transfer</span><span class="reason-count">452</span><span class="reason-pct">63%</span></div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Knowledge gap</span><span class="reason-count">143</span><span class="reason-pct">20%</span></div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Out of scope</span><span class="reason-count">120</span><span class="reason-pct">17%</span></div>
+            <div class="outcome-row">
+              <span class="outcome-glyph pos" aria-hidden="true">&#10003;</span>
+              <span class="outcome-name">Resolved on the call</span>
+              <span class="outcome-count">1,438</span>
+              <span class="outcome-pct">48%</span>
+              <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
+            </div>
+            <button class="outcome-row" type="button" id="toggleEscalated" aria-expanded="false" aria-controls="escalatedPanel">
+              <span class="outcome-glyph neutral" aria-hidden="true">&#8594;</span>
+              <span class="outcome-name">Escalated to a human agent</span>
+              <span class="outcome-count">1,557</span>
+              <span class="outcome-pct">52%</span>
+              <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="outcome-panel" id="escalatedPanel" hidden>
+              <div class="panel-caption">Why it was escalated</div>
+              <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Out of scope</span><span class="reason-count">872</span><span class="reason-pct">56%</span></div>
+              <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Direct transfer</span><span class="reason-count">412</span><span class="reason-pct">26%</span></div>
+              <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Knowledge gap</span><span class="reason-count">273</span><span class="reason-pct">18%</span></div>
+            </div>
           </div>
           <div class="ident-note"><span class="ident-step">5</span>Resolution and handoff is the last stage — it is the Outcomes section at the top of this modal.</div>
         </div>
@@ -1203,7 +1221,7 @@ button.aimy-float-icon{cursor:pointer}
           <div class="bk-row"><span class="bk-label">New caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42.8%;background:var(--d600)"></div></div><span class="bk-val">1,283</span><span class="bk-pct">42.8%</span></div>
       </div>
 
-      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Four in five calls end in success, but troubleshooting only runs on three in four.</strong> 452 calls went straight to a human queue with no diagnostic attempt. They still count as clean handoffs, which is why the 80.0% headline sits above the 76.1% troubleshooting rate — fine for the customer, but nothing was learned. The 143 knowledge gaps are the cheapest to close: each is a problem AiMY diagnosed correctly and had no procedure for.</div></div>
+      <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Troubleshooting resolves just under half of what it takes on — the other 1,557 calls go to a person.</strong> Most of that is scope rather than failure: 872 escalations were L1 or L2 work AiMY was never meant to do, and 412 were callers asking for a person mid call. The 273 knowledge gaps are the ones to act on, because AiMY named the problem correctly and had no procedure for it. Closing those alone would take 48.0% resolved to 57.1%.</div></div>
     </div>
   </div>
 </div>
@@ -1994,18 +2012,18 @@ function ansIdentification(){
     +rows([['No match on the calling number','98 · 42%'],['Caller declined to confirm','62 · 27%']])
     +note('Identification gates what AiMY can act on, so the 98 with no number match are the cheapest of these to fix. Those are the first two of five process stages — ask about troubleshooting for what happens next.');
 }
-// The three not-completed reasons are the ones the process names. Every count
-// here is an outcome category or a stated split of one — see the ledger comment
-// on the process section in the markup.
-const TS_DID=[['Resolved on the call','1,438 · 63%'],['Diagnosed, handed to a human','620 · 27%'],['Diagnosed, escalated to L2','222 · 10%']];
-const TS_STALLED=[['Direct transfer','452 · 63%'],['Knowledge gap','143 · 20%'],['Out of scope','120 · 17%']];
+// Troubleshooting resolves the call or escalates it — there is no third way out,
+// and escalating is not a failure. Every count is an outcome category or a stated
+// split of one; the ledger is on the process section in the markup.
+const TS_OUT=[['Resolved on the call','1,438 · 48%'],['Escalated to a human agent','1,557 · 52%']];
+const TS_WHY=[['Out of scope','872 · 56%'],['Direct transfer','412 · 26%'],['Knowledge gap','273 · 18%']];
 function ansTroubleshooting(){
-  return 'Troubleshooting completed on <b>76.1%</b> of calls — <b>2,280</b> of the 2,995 AiMY took end to end, with <b>715</b> where it did not run to a conclusion.'
-    +rows(TS_DID)
-    +'<br>Three things stop it, and only two of them are problems:'
-    +rows(TS_STALLED)
-    +'<br>Before troubleshooting, AiMY checks whether a ticket is already open for this customer on this problem. It found one on <b>224</b> calls — 7.5% — which is 224 duplicates it did not raise.'
-    +note('Direct transfers still count as clean handoffs, which is why the 80.0% headline sits above this 76.1%. The 143 knowledge gaps are the addressable ones — AiMY named the problem correctly and had no procedure for it. Out of scope is the same 120 as the outcome category.');
+  return 'Troubleshooting resolved <b>48.0%</b> of calls outright — <b>1,438</b> of the 2,995 AiMY took end to end. The other <b>1,557</b> went to a human agent.'
+    +rows(TS_OUT)
+    +'<br>Three things send a call to a person, and only one of them is a problem:'
+    +rows(TS_WHY)
+    +'<br>Before any of that, AiMY checks whether a ticket is already open for this customer on this problem. It found one on <b>224</b> calls — 7.5% — which is 224 duplicates it did not raise.'
+    +note('Out of scope is most of it and mostly routing working as designed: 452 were L1 work, 300 were L2 scope, 120 fell outside the catalogue entirely. The 273 knowledge gaps are the addressable ones — AiMY named the problem correctly and had no procedure for it. Closing those would take 48.0% to 57.1%.');
 }
 function ansOverview(){
   return 'The shape of the month, from the cards above:'
@@ -2027,7 +2045,7 @@ const TOPICS=[
   // Long keys on purpose: the scorer weights by match length, so 'direct transfer'
   // beats the bare 'transfer' that ansHandoffs owns, and 'open ticket' beats the
   // bare 'ticket' that ansTickets owns. Both incumbents keep their own word.
-  {a:ansTroubleshooting,k:['troubleshoot','troubleshooting','knowledge gap','direct transfer','diagnos','process','stages','steps','open ticket','what did aimy try']}
+  {a:ansTroubleshooting,k:['troubleshoot','troubleshooting','knowledge gap','direct transfer','diagnos','process','stages','steps','open ticket','what did aimy try','why escalated','why it was escalated','was it escalated','reason for escalation','why do calls escalate','escalation reason','resolved on the call']}
 ];
 
 function answerFor(q){
