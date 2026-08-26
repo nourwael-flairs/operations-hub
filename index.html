@@ -224,9 +224,16 @@ button.outcome-row:focus-visible{outline:2px solid var(--brand);outline-offset:-
 button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180deg);color:var(--teal)}
 .outcome-panel{padding:12px 14px 4px;border-bottom:1px solid var(--card-border);background:rgba(13,17,23,.28);border-radius:0 0 10px 10px}
 .outcome-panel .modal-section-title{margin-bottom:8px}
+/* A title that opens a section owns the 14px above -- it is separating sections.
+   A title partway down one is introducing the rows directly beneath it, so it
+   should sit close to them: the 16px above it does the separating instead, and
+   14px below just orphaned the heading from its own list. Every opening title
+   is its section's first child and every inner one is not, so the split needs
+   no marker class. */
+.modal-section-title:not(:first-child){margin-bottom:6px}
 
-/* ── Caller memory badges (performance modal) ── */
-/* the head already pads 14px below; adding a margin here stacked two gaps */
+/* ── bk-row: label, coverage bar, count, pct ── */
+/* Used by the tickets section and by "Recalled from memory" inside stage 1. */
 
 .other-pagination{display:flex;align-items:center;gap:12px}
 .other-page-disabled{opacity:.45}
@@ -372,6 +379,10 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
   .dist-row{grid-template-columns:auto minmax(0,1fr) auto;row-gap:2px}
   .outcome-row{grid-template-columns:auto minmax(0,1fr) auto 18px;row-gap:2px}
   .dist-pct,.outcome-pct{grid-column:2/-1;min-width:0;text-align:left}
+  /* Once the pct claims a row of its own the chevron is pushed to a third row at
+     the far left, where it reads as a stray control. Pin it to the last column
+     of the first row, against the row it actually opens. */
+  .outcome-chevron,.outcome-chevron-placeholder{grid-column:4;grid-row:1;align-self:center}
   .main{padding:16px 14px 108px}
 }
 
@@ -914,8 +925,10 @@ button.aimy-float-icon{cursor:pointer}
        performanceModal owns the seven outcome categories over the 3,636 analysed calls
                         (full resolution / clean handoff / human requested / L2 scope /
                         timed out / out of scope / data gap), plus handoffs, the four
-                        process stages (customer, problem, open ticket, troubleshooting)
-                        and caller memory.
+                        process stages (customer, problem, open ticket, troubleshooting).
+                        Caller memory has no section of its own -- it is dissolved into
+                        stage 1, because recognising a caller is how identification
+                        starts, not a measure standing beside it.
      Note "end to end" is the 2,995 calls AiMY saw through; "full resolution" is the
      1,438 it fully resolved. One name, one number.
      Other modals may name a scenario or outcome, but only beside a metric they own
@@ -1123,6 +1136,9 @@ button.aimy-float-icon{cursor:pointer}
         </div>
         <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Connected</span><span class="reason-count">921</span><span class="reason-pct">94%</span></div>
         <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Not connected</span><span class="reason-count">63</span><span class="reason-pct">6%</span></div>
+        <div class="modal-section-title" style="margin-top:16px">Handoff quality</div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Routed to the correct team</span><span class="reason-count">866</span><span class="reason-pct">94%</span></div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Routed to the wrong team</span><span class="reason-count">55</span><span class="reason-pct">6%</span></div>
       </div>
 
       <!-- Process stages, in the order AiMY runs them. All four divide the 2,995
@@ -1149,11 +1165,21 @@ button.aimy-float-icon{cursor:pointer}
               <div class="ident-track"><div class="ident-fill" style="width:92.3%"></div></div>
               <div class="ident-meta"><span><strong>2,764</strong> identified</span><span><strong>231</strong> not identified</span></div>
             </div>
+            <div class="modal-section-title" style="margin-top:16px">Customer identified</div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Recognised from memory</span><span class="reason-count">1,712</span><span class="reason-pct">62%</span></div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Identified fresh on the call</span><span class="reason-count">1,052</span><span class="reason-pct">38%</span></div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Correct name captured</span><span class="reason-count">2,594</span><span class="reason-pct">94%</span></div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Accurate record data captured</span><span class="reason-count">2,431</span><span class="reason-pct">88%</span></div>
             <div class="modal-section-title" style="margin-top:16px">Customer not identified</div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">No match on the calling number</span><span class="reason-count">98</span><span class="reason-pct">42%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller declined to confirm identity</span><span class="reason-count">62</span><span class="reason-pct">27%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple accounts matched</span><span class="reason-count">44</span><span class="reason-pct">19%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Name captured but not verifiable</span><span class="reason-count">27</span><span class="reason-pct">12%</span></div>
+            <div class="modal-section-title" style="margin-top:16px">Recalled from memory</div>
+            <div class="bk-row"><span class="bk-label">Name recalled</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:87.0%"></div></div><span class="bk-val">1,489</span><span class="bk-pct">87%</span></div>
+            <div class="bk-row"><span class="bk-label">Office confirmed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:70.3%"></div></div><span class="bk-val">1,204</span><span class="bk-pct">70%</span></div>
+            <div class="bk-row"><span class="bk-label">Title applied</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:22.5%"></div></div><span class="bk-val">386</span><span class="bk-pct">23%</span></div>
+            <div class="ident-note" style="margin-top:10px">Of the <strong>1,712</strong> callers <span class="brand-name">AiMY</span> already knew. Coverage, not a score — there is nothing to recall for a caller it is meeting for the first time.</div>
           </div>
           <div>
             <div class="ident-block">
@@ -1161,6 +1187,8 @@ button.aimy-float-icon{cursor:pointer}
               <div class="ident-track"><div class="ident-fill" style="width:87.2%"></div></div>
               <div class="ident-meta"><span><strong>2,612</strong> identified</span><span><strong>383</strong> not identified</span></div>
             </div>
+            <div class="modal-section-title" style="margin-top:16px">Problem identified</div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Issue captured before transfer</span><span class="reason-count">2,336</span><span class="reason-pct">89%</span></div>
             <div class="modal-section-title" style="margin-top:16px">Problem not identified</div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Description too vague to classify</span><span class="reason-count">147</span><span class="reason-pct">38%</span></div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Multiple unrelated issues in one call</span><span class="reason-count">111</span><span class="reason-pct">29%</span></div>
@@ -1207,17 +1235,16 @@ button.aimy-float-icon{cursor:pointer}
               <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Direct transfer</span><span class="reason-count">412</span><span class="reason-pct">26%</span></div>
               <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Knowledge gap</span><span class="reason-count">273</span><span class="reason-pct">18%</span></div>
             </div>
+            <div class="modal-section-title" style="margin-top:16px">Escalation quality</div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Escalation reason usable</span><span class="reason-count">1,318</span><span class="reason-pct">85%</span></div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Knowledge gap</span><span class="reason-count">273</span><span class="reason-pct">18%</span></div>
           </div>
-          <div class="ident-note"><span class="ident-step">5</span>Resolution and handoff is the last stage — it is the Outcomes section at the top of this modal.</div>
+          <div>
+            <div class="ident-note"><span class="ident-step">5</span>Resolution and handoff is the last stage — it is the Outcomes section at the top of this modal.</div>
+            <div class="modal-section-title" style="margin-top:16px">Resolution quality</div>
+            <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Resolution confirmed with the caller</span><span class="reason-count">1,301</span><span class="reason-pct">90%</span></div>
+          </div>
         </div>
-      </div>
-
-      <div class="modal-section"><div class="modal-section-title">Caller memory</div>
-          <div class="bk-row"><span class="bk-label">Known caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:57.2%"></div></div><span class="bk-val">1,712</span><span class="bk-pct">57.2%</span></div>
-          <div class="bk-row"><span class="bk-label">Name recalled</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:49.7%"></div></div><span class="bk-val">1,489</span><span class="bk-pct">49.7%</span></div>
-          <div class="bk-row"><span class="bk-label">Office confirmed</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:40.2%"></div></div><span class="bk-val">1,204</span><span class="bk-pct">40.2%</span></div>
-          <div class="bk-row"><span class="bk-label">Title applied</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:12.9%"></div></div><span class="bk-val">386</span><span class="bk-pct">12.9%</span></div>
-          <div class="bk-row"><span class="bk-label">New caller</span><div class="bk-bar-wrap"><div class="bk-bar" style="width:42.8%;background:var(--d600)"></div></div><span class="bk-val">1,283</span><span class="bk-pct">42.8%</span></div>
       </div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Troubleshooting resolves just under half of what it takes on — the other 1,557 calls go to a person.</strong> Most of that is scope rather than failure: 872 escalations were L1 or L2 work AiMY was never meant to do, and 412 were callers asking for a person mid call. The 273 knowledge gaps are the ones to act on, because AiMY named the problem correctly and had no procedure for it. Closing those alone would take 48.0% resolved to 57.1%.</div></div>
