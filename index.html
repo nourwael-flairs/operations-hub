@@ -864,7 +864,7 @@ button.aimy-float-icon{cursor:pointer}
             <div class="stat-label">Calls Handled</div>
             <div class="stat-value">3,840</div>
             <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 12V4M4 8l4-4 4 4"/></svg>+8% <span class="stat-delta-label">vs prev period</span></div>
-            <div class="stat-sub">128 per day · 3,636 analysed</div>
+            <div class="stat-sub">128 per day · 70.3% success</div>
           </div>
           <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h2.1c.4 0 .7.27.74.67l.61 4.4a.75.75 0 0 1-.43.83l-1.2.6c-.54.27-.73.92-.45 1.47.91 1.74 2.42 3.24 4.17 4.16.55.28 1.2.09 1.47-.45l.6-1.2a.75.75 0 0 1 .83-.43l4.4.61c.4.04.67.37.67.74V15.5A1.5 1.5 0 0 1 15.5 17C8.6 17 3 11.4 3 4.5z"/></svg></div>
         </div>
@@ -894,19 +894,19 @@ button.aimy-float-icon{cursor:pointer}
       <div class="stat-card" data-modal="performanceModal">
         <div class="stat-card-inner">
           <div>
-            <div class="stat-label"><span class="brand-name">AiMY</span> Performance</div>
-            <div class="stat-value skel">69.0<span class="stat-unit">% success</span></div>
-            <div class="stat-delta up"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg>2,510 <span class="stat-delta-label">of 3,636 analysed calls</span></div>
-            <div class="stat-sub">3,636 of 3,840 calls analysed · 1,438 full resolution · 1,072 handed over cleanly</div>
+            <div class="stat-label">Performance Analysis</div>
+            <div class="stat-value skel">3,636<span class="stat-unit">analysed</span></div>
+            <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>94.7% <span class="stat-delta-label">of 3,840 calls handled</span></div>
+            <div class="stat-sub">92.3% identified · 98.2% data captured</div>
           </div>
           <div class="stat-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2.5l6 2.5v5c0 3.4-2.4 6.5-6 7.5-3.6-1-6-4.1-6-7.5V5z"/><path d="M7.5 10l1.8 1.8L13 8"/></svg></div>
         </div>
         <div class="state-block state-empty">
           <span class="sb-title">No analysed calls</span>
-          <span class="sb-text">Outcomes are only measured once a call has been analysed.</span>
+          <span class="sb-text">Call quality is only measured once a call has been analysed.</span>
         </div>
         <div class="state-block state-error">
-          <span class="sb-title">Performance data unavailable</span>
+          <span class="sb-title">Analysis unavailable</span>
           <span class="sb-text">The voice analysis service did not respond.</span>
         </div>
       </div>
@@ -921,29 +921,31 @@ button.aimy-float-icon{cursor:pointer}
 </main>
 
 <!-- ===== DETAIL MODALS =====
-     One owner per count. Two taxonomies, two denominators, two owners:
-       callsModal       owns the call population — what happened to each of the 3,840 calls
-                        (end to end / human requested up front / timed out / not analysed).
-                        "Up front" is load-bearing there: a caller who asks for a person
-                        mid call is inside the 2,995 end to end, not in that 499.
-       performanceModal owns the seven outcome categories over the 3,636 analysed calls
-                        (full resolution / human requested / clean handoff / L2 scope /
-                        timed out / out of scope / data gap), plus handoffs, the four
-                        process stages (customer, problem, open ticket, troubleshooting).
-                        Human requested is all 911 who asked, split by when they asked
-                        (499 before AiMY engaged, 412 mid call) — one category, because
-                        splitting it across two made the mid-call half unfindable.
-                        The success rate divides the same 3,636 as every other count
-                        here; nothing is set aside from that base.
-                        Caller memory has no section of its own -- it is dissolved into
-                        stage 1, because recognising a caller is how identification
-                        starts, not a measure standing beside it.
-     Note "end to end" is the 2,995 calls AiMY saw through; "full resolution" is the
-     1,438 it fully resolved. One name, one number.
-     Other modals may name a scenario or outcome, but only beside a metric they own
-     themselves (minutesModal: minutes and call length, ticketsModal: tickets)
-     — never as a tabulated count.
-     Stating a total as a denominator, or naming one in prose, is fine.
+     One owner per count, and one population per card. That second rule is the
+     load-bearing one:
+
+       callsModal       everything knowable from the call record. Complete the
+                        moment a call ends, so it never moves. Divides all 3,840:
+                        the six outcome categories (full resolution / human
+                        requested / clean handoff / L2 scope / timed out / out of
+                        scope), the success rate built from them, and handoff
+                        volume and wait.
+
+       performanceModal everything that needs the call analysed first. Partial and
+                        still filling in, so the whole card carries one note saying
+                        so. Divides the analysed populations: 2,995 for the four
+                        process stages, 3,636 for data capture, 1,470 for routing
+                        quality.
+
+     Never put a metric on the wrong card. An analysis-derived count over a
+     record-derived base counts every not-yet-analysed call as a failure -- a
+     call is a clean handoff the moment it ends, but it has no data-capture
+     verdict until it is analysed, and the two must not share a denominator.
+     Caller memory has no section of its own -- it is dissolved into stage 1,
+     because recognising a caller is how identification starts, not a measure
+     standing beside it.
+     Stating another card's total as a denominator, or naming one in prose, is
+     fine; tabulating another card's counts is not.
 -->
 
 
@@ -977,27 +979,114 @@ button.aimy-float-icon{cursor:pointer}
     <div class="modal-header"><div class="modal-title-group"><span class="modal-title">Calls Handled</span></div><button class="modal-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
     <div class="modal-body">
       <div class="modal-section">
-        <div class="modal-grid-3">
+        <div class="modal-grid-4">
           <div class="m-stat"><div class="m-stat-value">3,840</div><div class="m-stat-label">total calls</div><div class="m-stat-delta up">+8% vs prev period</div></div>
           <div class="m-stat"><div class="m-stat-value">128</div><div class="m-stat-label">per day</div></div>
+          <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">70.3%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">2,698 of 3,840</div></div>
           <div class="m-stat"><div class="m-stat-value">1,205</div><div class="m-stat-label">tickets raised</div></div>
         </div>
       </div>
 
-      <div class="modal-section"><div class="modal-section-title">Where calls went</div>
+      <!-- Every count in this section is known the moment a call ends -- no call
+           has to be analysed first -- so these are final for a closed period and
+           they divide all 3,840. Success = 1,545 full resolution + 710 clean
+           handoff + the 443 human requested who asked mid call = 2,698. -->
+      <div class="modal-section"><div class="modal-section-title">Outcomes <span class="mst-base">of all 3,840 calls</span></div>
         <div class="dist-bar" style="margin-bottom:14px">
-          <span class="dist-seg is-aimy" style="flex:78"></span>
-          <span class="dist-seg is-transfer" style="flex:13"></span>
-          <span class="dist-seg is-timeout" style="flex:3.7"></span>
-          <span class="dist-seg is-pending" style="flex:5.3"></span>
+          <span class="dist-seg" style="flex:40.2;background:var(--ok)"></span>
+          <span class="dist-seg" style="flex:25.5;background:var(--d400)"></span>
+          <span class="dist-seg" style="flex:18.5;background:var(--teal)"></span>
+          <span class="dist-seg" style="flex:8.4;background:#8aabff"></span>
+          <span class="dist-seg" style="flex:4;background:var(--warn)"></span>
+          <span class="dist-seg" style="flex:3.4;background:var(--d600)"></span>
         </div>
-        <div class="dist-legend">
-          <div class="dist-row"><span class="dist-glyph is-aimy" aria-hidden="true">AI</span><span class="dist-name"><span class="brand-name">AiMY</span> end to end</span><span class="dist-count">2,995</span><span class="dist-pct">78.0%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-transfer" aria-hidden="true">&#8594;</span><span class="dist-name">Human requested up front</span><span class="dist-count">499</span><span class="dist-pct">13.0%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-timeout" aria-hidden="true">&#9201;</span><span class="dist-name">Timed out</span><span class="dist-count">142</span><span class="dist-pct">3.7%</span></div>
-          <div class="dist-row"><span class="dist-glyph is-pending" aria-hidden="true">&#8943;</span><span class="dist-name">Not analysed</span><span class="dist-count">204</span><span class="dist-pct">5.3%</span></div>
+
+        <div class="outcome-row">
+          <span class="outcome-glyph pos" aria-hidden="true">&#10003;</span>
+          <span class="outcome-name">Full resolution</span>
+          <span class="outcome-count">1,545</span>
+          <span class="outcome-pct">40.2%</span>
+          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
         </div>
-        <div class="ident-note" style="margin-top:12px">Up front means before <span class="brand-name">AiMY</span> engaged with the problem. A caller who asks for a person part way through a call is inside the 2,995 it took end to end, not here.</div>
+
+        <button class="outcome-row" type="button" id="toggleHumanRequested" aria-expanded="false" aria-controls="humanRequestedPanel">
+          <span class="outcome-glyph neutral" aria-hidden="true">&#8594;</span>
+          <span class="outcome-name">Human requested</span>
+          <span class="outcome-count">980</span>
+          <span class="outcome-pct">25.5%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="humanRequestedPanel" hidden>
+          <div class="panel-caption">Why they asked</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked before <span class="brand-name">AiMY</span> engaged</span><span class="reason-count">537</span><span class="reason-pct">55%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for an agent or department</span><span class="reason-count">167</span><span class="reason-pct">17%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for a supervisor</span><span class="reason-count">107</span><span class="reason-pct">11%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Declined automation</span><span class="reason-count">102</span><span class="reason-pct">10%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Other</span><span class="reason-count">67</span><span class="reason-pct">7%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleCleanHandoff" aria-expanded="false" aria-controls="cleanHandoffPanel">
+          <span class="outcome-glyph part" aria-hidden="true">&#9686;</span>
+          <span class="outcome-name">Clean handoff</span>
+          <span class="outcome-count">710</span>
+          <span class="outcome-pct">18.5%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="cleanHandoffPanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">Handed over after troubleshooting</span><span class="reason-count">224</span><span class="reason-pct">32%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">L1 scope</span><span class="reason-count">486</span><span class="reason-pct">68%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleL2Scope" aria-expanded="false" aria-controls="l2ScopePanel">
+          <span class="outcome-glyph info" aria-hidden="true">L2</span>
+          <span class="outcome-name">L2 scope</span>
+          <span class="outcome-count">323</span>
+          <span class="outcome-pct">8.4%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="l2ScopePanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Diagnosis captured</span><span class="reason-count">323</span><span class="reason-pct">100%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Specialist queue assigned</span><span class="reason-count">323</span><span class="reason-pct">100%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Evidence attached</span><span class="reason-count">295</span><span class="reason-pct">91%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Picked up by L2</span><span class="reason-count">260</span><span class="reason-pct">80%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleTimedOut" aria-expanded="false" aria-controls="timedOutPanel">
+          <span class="outcome-glyph warn" aria-hidden="true">&#9201;</span>
+          <span class="outcome-name">Timed out</span>
+          <span class="outcome-count">153</span>
+          <span class="outcome-pct">4.0%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="timedOutPanel" hidden>
+          <div class="panel-caption">Top reasons</div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">57</span><span class="reason-pct">37%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">44</span><span class="reason-pct">29%</span></div>
+        </div>
+
+        <button class="outcome-row" type="button" id="toggleOutOfScope" aria-expanded="false" aria-controls="outOfScopePanel">
+          <span class="outcome-glyph info" aria-hidden="true">&#8599;</span>
+          <span class="outcome-name">Out of scope</span>
+          <span class="outcome-count">129</span>
+          <span class="outcome-pct">3.4%</span>
+          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+        </button>
+        <div class="outcome-panel" id="outOfScopePanel" hidden>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Outside known catalogue</span><span class="reason-count">73</span><span class="reason-pct">57%</span></div>
+          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No system access</span><span class="reason-count">56</span><span class="reason-pct">43%</span></div>
+        </div>
+        <div class="ident-note" style="margin-top:12px">Up front means before <span class="brand-name">AiMY</span> engaged with the problem. Those 537 do not count toward the success rate; the 443 who asked once the call was under way do, because the customer and the problem were already identified when the agent picked up.</div>
+      </div>
+
+      <!-- Handoff volume and wait sit here because both are known from the call
+           record. Whether a handoff went to the right team is a review judgement,
+           so it is on the Performance Analysis card instead. -->
+      <div class="modal-section"><div class="modal-section-title">Handoffs <span class="mst-base">of all 3,840 calls</span></div>
+        <div class="modal-grid-2" style="margin-bottom:14px">
+          <div class="m-stat"><div class="m-stat-value">1,690</div><div class="m-stat-label">handoffs</div><div class="m-stat-delta neutral">44.0% of calls handled</div></div>
+          <div class="m-stat"><div class="m-stat-value">38s</div><div class="m-stat-label">avg wait to connect</div></div>
+        </div>
+        <div class="ident-note" style="margin-top:10px">Every call handed straight to a person: the 710 clean handoffs plus the 980 who asked for one. Whether each went to the right team is on the Performance Analysis card.</div>
       </div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>The +8% rise is sustained, not a spike.</strong> Every week of the month came in above the equivalent week last period, with the largest gain on Fridays (+13%).</div></div>
@@ -1040,147 +1129,28 @@ button.aimy-float-icon{cursor:pointer}
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title-group">
-        <span class="modal-title"><span class="brand-name">AiMY</span> Performance</span>
+        <span class="modal-title">Performance Analysis</span>
       </div>
-      <button class="modal-close" aria-label="Close AiMY Performance"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+      <button class="modal-close" aria-label="Close Performance Analysis"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
     </div>
     <div class="modal-body">
-      <!-- Analysed leads the grid on purpose: nothing below it is measured over
-           anything else. A call only gets an outcome once it has been analysed, so
-           3,636 -- not the 3,840 handled -- is what every count in this modal divides,
-           the success rate included. Nothing is set aside from that base.
-           Success = 1,438 full resolution + 660 clean handoff + the 412 human
-           requested who asked part way through = 2,510, which is 69.0% of 3,636. -->
+      <!-- Everything on this card needs a call to have been analysed first, so
+           it all divides the same analysed population and it all fills in together.
+           Nothing knowable from the call record alone lives here -- that is the
+           Calls Handled card, which is complete the moment a call ends. -->
       <div class="modal-section"><div class="modal-grid-4">
         <div class="m-stat"><div class="m-stat-value">3,636</div><div class="m-stat-label">calls analysed</div><div class="m-stat-delta neutral">of 3,840 handled</div></div>
-        <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">69.0%</div><div class="m-stat-label">success rate</div><div class="m-stat-delta up">2,510 of 3,636 analysed</div></div>
-        <div class="m-stat"><div class="m-stat-value">1,438</div><div class="m-stat-label">calls full resolution</div><div class="m-stat-delta neutral">39.5% of analysed</div></div>
-        <div class="m-stat"><div class="m-stat-value">1,072</div><div class="m-stat-label">calls handed over cleanly</div><div class="m-stat-delta neutral">660 clean handoff + 412 mid call</div></div>
+        <div class="m-stat"><div class="m-stat-value" style="color:var(--ok)">92.3%</div><div class="m-stat-label">customer identified</div><div class="m-stat-delta up">2,764 of 2,995</div></div>
+        <div class="m-stat"><div class="m-stat-value">87.2%</div><div class="m-stat-label">problem identified</div><div class="m-stat-delta neutral">2,612 of 2,995</div></div>
+        <div class="m-stat"><div class="m-stat-value">48.0%</div><div class="m-stat-label">resolved by troubleshooting</div><div class="m-stat-delta neutral">1,438 of 2,995</div></div>
       </div>
-      <!-- Pending analysis is a timing gap, not a data gap: these counts are still
-           moving for a period that has already closed. Say so rather than let the
-           3,636 read as final. -->
-      <div class="ident-note" style="margin-top:12px">Analysed calls only. The other <strong>204</strong> of the 3,840 handled are still waiting on analysis and carry nothing on this screen yet — no outcome, no process stage, no share of the success rate. They join these numbers as their analysis completes, so the counts here can still move for a period that has already closed.</div>
-      </div>
-
-      <div class="modal-section"><div class="modal-section-title">Outcomes <span class="mst-base">of 3,636 analysed calls</span></div>
-
-        <div class="outcome-row">
-          <span class="outcome-glyph pos" aria-hidden="true">&#10003;</span>
-          <span class="outcome-name">Full resolution</span>
-          <span class="outcome-count">1,438</span>
-          <span class="outcome-pct">39.5%</span>
-          <span class="outcome-chevron-placeholder" aria-hidden="true"></span>
-        </div>
-
-        <!-- Every caller who asked for a person is in this one category, whenever
-             they asked. One flat list of reasons over the 911: asking before AiMY
-             engaged is the whole story for those 499 -- there is nothing further to
-             say about a caller who never let it start -- so it is a row of its own,
-             and the four rows under it are the 412 who asked once the call was under
-             way (155 + 100 + 95 + 62 = 412). That 412 is what counts toward the
-             success rate; the 499 do not. Stated once, under the header tiles. -->
-        <button class="outcome-row" type="button" id="toggleHumanRequested" aria-expanded="false" aria-controls="humanRequestedPanel">
-          <span class="outcome-glyph neutral" aria-hidden="true">&#8594;</span>
-          <span class="outcome-name">Human requested</span>
-          <span class="outcome-count">911</span>
-          <span class="outcome-pct">25.1%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="humanRequestedPanel" hidden>
-          <div class="panel-caption">Why they asked</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked before <span class="brand-name">AiMY</span> engaged</span><span class="reason-count">499</span><span class="reason-pct">55%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for an agent or department</span><span class="reason-count">155</span><span class="reason-pct">17%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Asked for a supervisor</span><span class="reason-count">100</span><span class="reason-pct">11%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d400)"></div><span class="reason-label">Declined automation</span><span class="reason-count">95</span><span class="reason-pct">10%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Other</span><span class="reason-count">62</span><span class="reason-pct">7%</span></div>
-        </div>
-
-        <button class="outcome-row" type="button" id="toggleCleanHandoff" aria-expanded="false" aria-controls="cleanHandoffPanel">
-          <span class="outcome-glyph part" aria-hidden="true">&#9686;</span>
-          <span class="outcome-name">Clean handoff</span>
-          <span class="outcome-count">660</span>
-          <span class="outcome-pct">18.2%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="cleanHandoffPanel" hidden>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">Handed over after troubleshooting</span><span class="reason-count">208</span><span class="reason-pct">32%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--teal)"></div><span class="reason-label">L1 scope</span><span class="reason-count">452</span><span class="reason-pct">68%</span></div>
-        </div>
-
-        <button class="outcome-row" type="button" id="toggleL2Scope" aria-expanded="false" aria-controls="l2ScopePanel">
-          <span class="outcome-glyph info" aria-hidden="true">L2</span>
-          <span class="outcome-name">L2 scope</span>
-          <span class="outcome-count">300</span>
-          <span class="outcome-pct">8.3%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="l2ScopePanel" hidden>
-          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Diagnosis captured</span><span class="reason-count">300</span><span class="reason-pct">100%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Specialist queue assigned</span><span class="reason-count">300</span><span class="reason-pct">100%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:#8aabff"></div><span class="reason-label">Evidence attached</span><span class="reason-count">274</span><span class="reason-pct">91%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Picked up by L2</span><span class="reason-count">241</span><span class="reason-pct">80%</span></div>
-        </div>
-
-        <button class="outcome-row" type="button" id="toggleTimedOut" aria-expanded="false" aria-controls="timedOutPanel">
-          <span class="outcome-glyph warn" aria-hidden="true">&#9201;</span>
-          <span class="outcome-name">Timed out</span>
-          <span class="outcome-count">142</span>
-          <span class="outcome-pct">3.9%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="timedOutPanel" hidden>
-          <div class="panel-caption">Top reasons</div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No speech detected</span><span class="reason-count">53</span><span class="reason-pct">37%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Caller silent after greeting</span><span class="reason-count">41</span><span class="reason-pct">29%</span></div>
-        </div>
-
-        <button class="outcome-row" type="button" id="toggleOutOfScope" aria-expanded="false" aria-controls="outOfScopePanel">
-          <span class="outcome-glyph info" aria-hidden="true">&#8599;</span>
-          <span class="outcome-name">Out of scope</span>
-          <span class="outcome-count">120</span>
-          <span class="outcome-pct">3.3%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="outOfScopePanel" hidden>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Outside known catalogue</span><span class="reason-count">68</span><span class="reason-pct">57%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">No system access</span><span class="reason-count">52</span><span class="reason-pct">43%</span></div>
-        </div>
-
-        <button class="outcome-row" type="button" id="toggleDataGap" aria-expanded="false" aria-controls="dataGapPanel">
-          <span class="outcome-glyph neg" aria-hidden="true">&#10005;</span>
-          <span class="outcome-name">Data gap</span>
-          <span class="outcome-count">65</span>
-          <span class="outcome-pct">1.8%</span>
-          <svg class="outcome-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
-        </button>
-        <div class="outcome-panel" id="dataGapPanel" hidden>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Detail missing</span><span class="reason-count">39</span><span class="reason-pct">60%</span></div>
-          <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple issues</span><span class="reason-count">26</span><span class="reason-pct">40%</span></div>
-        </div>
-      </div>
-
-      <!-- A handoff is every call handed straight to a person: 660 clean handoff
-           + 412 human requested mid call + 499 human requested before AiMY engaged
-           = 1,571, which is 40.9% of the 3,840 handled. (L2 scope is not here --
-           that is a specialist queue, not a live transfer.) Connected/not connected
-           divides that 1,571; routing divides the 1,470 that actually connected,
-           because a call that never reached an agent cannot have been routed to
-           the wrong one. -->
-      <div class="modal-section"><div class="modal-section-title">Handoffs <span class="mst-base">of the 3,840 calls handled</span></div>
-        <div class="modal-grid-2" style="margin-bottom:14px">
-          <div class="m-stat"><div class="m-stat-value">1,571</div><div class="m-stat-label">handoffs</div><div class="m-stat-delta neutral">40.9% of calls handled</div></div>
-          <div class="m-stat"><div class="m-stat-value">38s</div><div class="m-stat-label">avg wait to connect</div></div>
-        </div>
-        <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Connected</span><span class="reason-count">1,470</span><span class="reason-pct">94%</span></div>
-        <div class="reason-row"><div class="reason-dot" style="background:var(--warn)"></div><span class="reason-label">Not connected</span><span class="reason-count">101</span><span class="reason-pct">6%</span></div>
-        <div class="modal-section-title" style="margin-top:16px">Handoff quality <span class="mst-base">of the 1,470 that connected</span></div>
-        <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Routed to the correct team</span><span class="reason-count">1,382</span><span class="reason-pct">94%</span></div>
-        <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Routed to the wrong team</span><span class="reason-count">88</span><span class="reason-pct">6%</span></div>
+      <div class="ident-note" style="margin-top:12px">Analysed calls only. <strong>3,636</strong> of the 3,840 calls handled have been analysed; the other 204 are still waiting and carry nothing on this screen yet. They join these numbers as their analysis completes, so everything here can still move for a period that has already closed. Volume, outcomes and handoffs do not wait on analysis — those are on the Calls Handled card and are final.</div>
       </div>
 
       <!-- Process stages, in the order AiMY runs them. All four divide the 2,995
-           calls AiMY took end to end — they are not a surviving-population funnel.
+           ANALYSED calls AiMY took end to end — they are not a surviving-population
+           funnel. Every count below is on that analysed population, so it will not
+           match the outcome counts on the Calls Handled card, which cover all 3,840.
            Troubleshooting has two ways out, and every count below is an outcome
            category from the section above or a stated split of one:
              resolved on the call         1,438  full resolution
@@ -1195,7 +1165,7 @@ button.aimy-float-icon{cursor:pointer}
                                                  troubleshooting, plus the 65 data gap
            1,438 + 1,557 = 2,995, and 872 + 412 + 273 = 1,557. Stage 5, resolution
            and handoff, is the Outcomes section above — pointed at, not restated. -->
-      <div class="modal-section"><div class="modal-section-title">AiMY process <span class="mst-base">of the 2,995 calls AiMY took end to end</span></div>
+      <div class="modal-section"><div class="modal-section-title">AiMY process <span class="mst-base">of the 2,995 analysed calls AiMY took end to end</span></div>
         <div class="ident-stack">
           <div>
             <div class="ident-block">
@@ -1275,7 +1245,15 @@ button.aimy-float-icon{cursor:pointer}
             </div>
             <div class="modal-section-title" style="margin-top:16px">Escalation quality</div>
             <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Escalation reason usable</span><span class="reason-count">1,318</span><span class="reason-pct">85%</span></div>
-            <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Knowledge gap</span><span class="reason-count">273</span><span class="reason-pct">18%</span></div>
+            <!-- Pass/fail on the same 2,995 as the stages above, not on the 1,557
+                 escalated: the question is whether AiMY had a procedure for the
+                 problem at all, which every end-to-end call can be judged on. -->
+            <div class="ident-block" style="margin-top:16px">
+              <div class="ident-head"><span class="ident-name">Procedure available</span><span class="ident-value">90.9%</span></div>
+              <div class="ident-track"><div class="ident-fill" style="width:90.9%"></div></div>
+              <div class="ident-meta"><span><strong>2,722</strong> had a procedure</span><span><strong>273</strong> knowledge gap</span></div>
+            </div>
+            <div class="ident-note" style="margin-top:10px">A knowledge gap is the addressable failure on this card: <span class="brand-name">AiMY</span> named the problem correctly and had no procedure for it. Closing all 273 would take troubleshooting from 48.0% resolved to 57.1%.</div>
           </div>
           <div>
             <div class="ident-note"><span class="ident-step">5</span>Resolution and handoff is the last stage — it is the Outcomes section at the top of this modal.</div>
@@ -1283,6 +1261,30 @@ button.aimy-float-icon{cursor:pointer}
             <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Resolution confirmed with the caller</span><span class="reason-count">1,301</span><span class="reason-pct">90%</span></div>
           </div>
         </div>
+      </div>
+
+      <!-- Data capture is a property of a call, not an outcome of one: a call can
+           be a clean handoff and still have a gap in what was captured. It divides
+           the 3,636 analysed, not the 2,995 end to end, so it gets its own section
+           rather than a step number in the process above. -->
+      <div class="modal-section"><div class="modal-section-title">Data captured <span class="mst-base">of 3,636 analysed calls</span></div>
+        <div class="ident-block">
+          <div class="ident-head"><span class="ident-name">Complete data captured</span><span class="ident-value">98.2%</span></div>
+          <div class="ident-track"><div class="ident-fill" style="width:98.2%"></div></div>
+          <div class="ident-meta"><span><strong>3,571</strong> complete</span><span><strong>65</strong> with a gap</span></div>
+        </div>
+        <div class="modal-section-title" style="margin-top:16px">Where the gap was</div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Detail missing</span><span class="reason-count">39</span><span class="reason-pct">60%</span></div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--d600)"></div><span class="reason-label">Multiple issues</span><span class="reason-count">26</span><span class="reason-pct">40%</span></div>
+      </div>
+
+      <!-- Only the routing judgement stays here: whether a handoff went to the
+           right team is a review call. How many handoffs there were, and how long
+           they waited, are on the Calls Handled card. -->
+      <div class="modal-section"><div class="modal-section-title">Handoff quality <span class="mst-base">of the 1,470 handoffs analysed</span></div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--ok)"></div><span class="reason-label">Routed to the correct team</span><span class="reason-count">1,382</span><span class="reason-pct">94%</span></div>
+        <div class="reason-row"><div class="reason-dot" style="background:var(--err)"></div><span class="reason-label">Routed to the wrong team</span><span class="reason-count">88</span><span class="reason-pct">6%</span></div>
+        <div class="ident-note" style="margin-top:10px">Handoff volume and wait to connect are on the Calls Handled card — they are known the moment a call ends.</div>
       </div>
 
       <div class="insight-banner"><div class="insight-aimark"><svg class="insight-logo-icon" viewBox="0 0 152 148" aria-hidden="true"><use href="#aimy-mark"/></svg></div><div class="insight-text"><strong>Troubleshooting resolves just under half of what it takes on — the other 1,557 calls go to a person.</strong> Most of that is scope rather than failure: 872 escalations were L1 or L2 work AiMY was never meant to do, and 412 were callers asking for a person mid call. The 273 knowledge gaps are the ones to act on, because AiMY named the problem correctly and had no procedure for it. Closing those alone would take 48.0% resolved to 57.1%.</div></div>
@@ -1994,16 +1996,20 @@ window.setCardState=setCardState;
 //
 // The denominators matter and are not interchangeable — the page is strict
 // about this and so are the answers:
-//   · 3,840  every call
-//   · 3,636  analysed calls — what the seven outcome categories divide, and
-//            the success-rate base too: nothing is set aside from it
-//   · 2,510  the successful ones — 1,438 full resolution + 660 clean handoff
-//            + the 412 human requested who asked mid call = 69.0% of 3,636
-//   · 2,995  calls AiMY took end to end (not the same as full resolution)
-//
-// All four process stages — customer, problem, open ticket, troubleshooting —
-// divide that same 2,995. They read top to bottom but they are not a surviving
-// population funnel, so do not re-base a later stage on an earlier one.
+// Two populations, and they are never mixed in one answer:
+//   KNOWN FROM THE CALL RECORD — complete the moment a call ends, never moves.
+//     · 3,840  every call — what the six outcome categories divide
+//     · 2,698  the successful ones — 1,545 full resolution + 710 clean handoff
+//              + the 443 human requested who asked mid call = 70.3% of 3,840
+//     · 1,690  handoffs — 710 clean handoff + 980 human requested
+//   NEEDS THE CALL ANALYSED — partial, and still filling in.
+//     · 3,636  analysed calls — the base for data capture
+//     · 2,995  analysed calls AiMY took end to end — the base for all four
+//              process stages, which are not a surviving-population funnel, so do
+//              not re-base a later stage on an earlier one
+//     · 1,470  analysed handoffs that connected — the base for routing quality
+// Never divide an analysis-derived count by a record-derived base: every call
+// that has not been analysed yet would land silently on the failing side.
 const PERIOD_DAYS=30, DAYS_LEFT=22;
 
 function numFrom(text){
@@ -2020,9 +2026,9 @@ function rows(items){
 }
 function note(t){return '<div class="answer-note">'+t+'</div>'}
 
-const CALL_ROUTES=[['AiMY end to end','2,995 · 78.0%'],['Human requested up front','499 · 13.0%'],['Timed out','142 · 3.7%'],['Not analysed','204 · 5.3%']];
+const SUCCESS_RATE=70.3;
 const LENGTHS=[['Under 2 min','742 · 19.3%'],['2–5 min','1,858 · 48.4%'],['Over 5 min','1,240 · 32.3%']];
-const OUTCOMES=[['Full resolution','1,438 · 39.5%'],['Human requested','911 · 25.1%'],['Clean handoff','660 · 18.2%'],['L2 scope','300 · 8.3%'],['Timed out','142 · 3.9%'],['Out of scope','120 · 3.3%'],['Data gap','65 · 1.8%']];
+const OUTCOMES=[['Full resolution','1,545 · 40.2%'],['Human requested','980 · 25.5%'],['Clean handoff','710 · 18.5%'],['L2 scope','323 · 8.4%'],['Timed out','153 · 4.0%'],['Out of scope','129 · 3.4%']];
 
 function ansMinutes(){
   const used=USED_MINUTES, quota=BASE_QUOTA, left=quota-used;
@@ -2039,8 +2045,8 @@ function ansCalls(){
   const calls=cardValue('callsModal');
   return '<b>'+fmt(calls)+'</b> calls this period, <b>+8%</b> on the previous one — about <b>128</b> a day.'
     +'<br><br>The rise is sustained rather than a spike: every week came in above the equivalent week last period, with the largest gain on Fridays (+13%).'
-    +rows(CALL_ROUTES)
-    +note('“End to end” is the 2,995 AiMY saw through. That is a different question from how many it fully resolved — ask about the success rate for that.');
+    +rows(OUTCOMES)
+    +note('Every one of those is known the moment a call ends, so they are final for a closed period. How well AiMY ran the call — identification, data capture, routing — needs the call analysed first, and only 3,636 have been.');
 }
 function ansLength(){
   const mins=cardValue('minutesModal');
@@ -2055,27 +2061,26 @@ function ansTickets(){
     +note('The 27 failures keep their call context and can be re-sent. The 224 updates that landed on tickets which already existed are 224 duplicate cases TeamSupport did not have to merge later.');
 }
 function ansPerformance(){
-  const pct=cardValue('performanceModal');
-  return '<b>'+pct.toFixed(1)+'%</b> success — <b>2,510</b> of the <b>3,636</b> analysed calls. That is full resolution (1,438), clean handoff (660), and the 412 callers who asked for a person mid call.'
-    +'<br><br>Of the 3,840 calls handled, <b>3,636</b> were analysed — an outcome only exists for a call that was — and the rate is over all of them, with nothing set aside. The <b>499</b> who asked for a person <b>before AiMY engaged</b> stay in the base and count against it; the <b>412</b> who asked part way through count for it, because the customer and the problem were already identified when the agent picked up.'
+  return '<b>'+SUCCESS_RATE.toFixed(1)+'%</b> success — <b>2,698</b> of all <b>3,840</b> calls. That is full resolution (1,545), clean handoff (710), and the 443 callers who asked for a person mid call.'
+    +'<br><br>Nothing is set aside and nothing is pending: an outcome is known the moment a call ends, so this rate is final for a closed period. The <b>537</b> who asked for a person <b>before AiMY engaged</b> count against it; the <b>443</b> who asked part way through count for it, because the customer and the problem were already identified when the agent picked up.'
     +rows(OUTCOMES)
-    +note('All seven categories are over the same 3,636 and add up to it exactly — and the three that make up success (1,438 + 660 + 412) add up to the 2,510.');
+    +note('All six categories divide the same 3,840 and add up to it exactly — and the three that make up success (1,545 + 710 + 443) add up to the 2,698.');
 }
 function ansGaps(){
-  return '<b>1,126</b> of the 3,636 analysed calls did not end in success. Five things account for all of them, and they are not the same kind of problem.'
-    +rows([['Human requested before AiMY engaged','499 · 13.7%'],['L2 scope','300 · 8.3%'],['Timed out','142 · 3.9%'],['Out of scope','120 · 3.3%'],['Data gap','65 · 1.8%']])
-    +'<br>The largest single one is not AiMY failing at anything — 499 callers asked for a person before it had a turn. After that, scope is <b>420</b> calls combined and L2 is most of it, working as intended: all 300 had a diagnosis captured and a specialist queue assigned, 274 carried evidence and 241 were picked up.'
-    +note('The genuinely addressable ones are out of scope (68 outside the known catalogue, 52 no system access) and the 142 timeouts, over half of which are silence — 53 no speech detected, 41 silent after the greeting.');
+  return '<b>1,142</b> of the 3,840 calls did not end in success. Four things account for all of them, and they are not the same kind of problem.'
+    +rows([['Human requested before AiMY engaged','537 · 14.0%'],['L2 scope','323 · 8.4%'],['Timed out','153 · 4.0%'],['Out of scope','129 · 3.4%']])
+    +'<br>The largest single one is not AiMY failing at anything — 537 callers asked for a person before it had a turn. After that, scope is <b>452</b> calls combined and L2 is most of it, working as intended: all 323 had a diagnosis captured and a specialist queue assigned, 295 carried evidence and 260 were picked up.'
+    +note('The genuinely addressable ones are out of scope (73 outside the known catalogue, 56 no system access) and the 153 timeouts, over half of which are silence — 57 no speech detected, 44 silent after the greeting. Data capture is not in this list: a gap there is a quality problem on a call that still had an outcome, and it sits on the Performance Analysis card.');
 }
 function ansHandoffs(){
-  return '<b>1,571</b> handoffs, <b>40.9%</b> of the 3,840 calls handled, averaging <b>38s</b> to connect — 660 clean handoffs, 412 callers who asked for a person mid call, and 499 who asked before AiMY engaged.'
-    +rows([['Connected','1,470 · 94%'],['Not connected','101 · 6%'],['Asked before AiMY engaged','499 · 55%'],['Asked for an agent or department','155 · 17%'],['Asked for a supervisor','100 · 11%'],['Declined automation','95 · 10%']])
-    +note('A handoff is not a failure — 1,072 of them count toward the success rate, the ones where AiMY had identified the problem before handing over. The 101 that did not connect are the ones to chase. The reasons are over the 911 who asked for a person, not over all 1,571.');
+  return '<b>1,690</b> handoffs, <b>44.0%</b> of the 3,840 calls handled, averaging <b>38s</b> to connect — 710 clean handoffs plus the 980 who asked for a person.'
+    +rows([['Asked before AiMY engaged','537 · 55%'],['Asked for an agent or department','167 · 17%'],['Asked for a supervisor','107 · 11%'],['Declined automation','102 · 10%']])
+    +note('A handoff is not a failure — 1,153 of them count toward the success rate, the ones where AiMY had identified the problem before handing over. Whether each went to the right team needs the call analysed, so that sits on the Performance Analysis card: 94% of the 1,470 analysed so far.');
 }
 function ansIdentification(){
   return 'Customer identified on <b>92.3%</b> of calls — <b>2,764</b> of the 2,995 AiMY took end to end, with <b>231</b> unidentified. The problem was identified on <b>87.2%</b>.'
     +rows([['No match on the calling number','98 · 42%'],['Caller declined to confirm','62 · 27%']])
-    +note('Identification gates what AiMY can act on, so the 98 with no number match are the cheapest of these to fix. Those are the first two of five process stages — ask about troubleshooting for what happens next.');
+    +note('Identification gates what AiMY can act on, so the 98 with no number match are the cheapest of these to fix. It is measured on analysed calls only — 3,636 of 3,840 so far — so it is still filling in for this period.');
 }
 // Troubleshooting resolves the call or escalates it — there is no third way out,
 // and escalating is not a failure. Every count is an outcome category or a stated
@@ -2092,8 +2097,8 @@ function ansTroubleshooting(){
 }
 function ansOverview(){
   return 'The shape of the month, from the cards above:'
-    +rows([['Calls handled',fmt(cardValue('callsModal'))+' · +8%'],['Minutes handled',fmt(cardValue('minutesModal'))+' · +12%'],['Success rate',cardValue('performanceModal').toFixed(1)+'%'],['Ticket activity',fmt(cardValue('ticketsModal'))],['Plan minutes left',fmt(BASE_QUOTA-USED_MINUTES)+' of '+fmt(BASE_QUOTA)]])
-    +note('Ask me about the balance, call volume, call length, tickets, outcomes, what AiMY did not finish, handoffs, or identification.');
+    +rows([['Calls handled',fmt(cardValue('callsModal'))+' · +8%'],['Minutes handled',fmt(cardValue('minutesModal'))+' · +12%'],['Success rate',SUCCESS_RATE.toFixed(1)+'%'],['Ticket activity',fmt(cardValue('ticketsModal'))],['Calls analysed',fmt(cardValue('performanceModal'))+' of 3,840'],['Plan minutes left',fmt(BASE_QUOTA-USED_MINUTES)+' of '+fmt(BASE_QUOTA)]])
+    +note('Volume, outcomes and handoffs cover all 3,840 calls. Identification, data capture and routing quality cover the 3,636 analysed so far. Ask me about any of them.');
 }
 
 // Keyword scoring, best match wins. Deliberately dumb — the point is that the
