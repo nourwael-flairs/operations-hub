@@ -76,7 +76,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .page-label{font-size:13px;font-weight:500;color:var(--d400);letter-spacing:.01em}
 .topbar-right{display:flex;align-items:center;gap:10px}
 .period-pills{display:flex;align-items:center;gap:2px;background:var(--d800);border:1px solid var(--card-border);border-radius:8px;padding:3px}
-.period-pill{padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;color:var(--d500);cursor:pointer;border:none;background:transparent;font-family:'Urbanist',sans-serif;transition:color var(--tf),background var(--tf);letter-spacing:.01em}
+.period-pill{padding:5px 12px;border-radius:5px;font-size:12px;font-weight:600;color:var(--d400);cursor:pointer;border:none;background:transparent;font-family:'Urbanist',sans-serif;transition:color var(--tf),background var(--tf);letter-spacing:.01em}
 .period-pill:hover{color:var(--d100)}
 .period-pill.active{background:var(--d700);color:var(--d50)}
 .date-chip{display:flex;align-items:center;gap:6px;background:var(--d800);border:1px solid var(--card-border);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:var(--d300);cursor:pointer;transition:border-color var(--tf)}
@@ -94,7 +94,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 /* .minutes-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai)} */
 .minutes-card::after{content:'';position:absolute;top:-60px;left:-40px;width:280px;height:280px;background:radial-gradient(ellipse,rgba(0,102,255,0.07) 0%,transparent 70%);pointer-events:none}
 .minutes-header{display:flex;align-items:center;justify-content:space-between}
-.minutes-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500)}
+.minutes-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--d300)}
 .minutes-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:20px;background:var(--qa-accent-dim);color:var(--qa-accent);border:1px solid rgba(var(--qa-accent-rgb),.25)}
 .ring-section{display:flex;align-items:center;gap:22px}
 .ring-wrap{position:relative;flex-shrink:0;width:104px;height:104px}
@@ -103,11 +103,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .ring-fill{fill:none;stroke-width:9;stroke-linecap:round;stroke:url(#ringGrad2);stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1)}
 .ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
 .ring-pct{font-size:24px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
-.ring-pct-label{font-size:10px;font-weight:600;color:var(--d500);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.ring-pct-label{font-size:10px;font-weight:700;color:var(--d400);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
 .ring-stats{flex:1;display:flex;flex-direction:column;gap:12px}
 .ring-stat{display:flex;flex-direction:column;gap:2px}
 .ring-stat-value{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1}
-.ring-stat-sub{font-size:11px;font-weight:500;color:var(--d500)}
+.ring-stat-sub{font-size:11px;font-weight:500;color:var(--d300)}
 .ring-stat-value-row{display:flex;align-items:baseline;justify-content:space-between;width:100%}
 .addon-pill{font-size:15px;font-weight:700;color:var(--teal);background:rgba(111,223,226,0.13);border:1px solid rgba(111,223,226,0.35);border-radius:6px;padding:3px 9px;letter-spacing:-.01em;display:none;white-space:nowrap;line-height:1}
 .plan-upgrade-notice{display:none;align-items:flex-start;gap:10px;background:rgba(0,102,255,.07);border:1px solid rgba(97,173,241,.18);border-radius:10px;padding:11px 13px}
@@ -120,11 +120,11 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .ring-divider{height:1px;background:var(--card-border)}
 .progress-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:9px}
 .progress-meta-left{font-size:12px;font-weight:500;color:var(--d300)}
-.progress-meta-right{font-size:11px;color:var(--d500)}
+.progress-meta-right{font-size:11.5px;font-weight:500;color:var(--d400)}
 .progress-track{height:5px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .progress-fill{height:100%;border-radius:99px;background:var(--ai);width:100%;transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.16,1,.3,1)}
 .progress-milestones{display:flex;justify-content:space-between;margin-top:7px}
-.milestone{font-size:10px;color:var(--d600);font-weight:500}
+.milestone{font-size:10px;color:var(--d400);font-weight:600}
 .milestone.hit{color:var(--teal)}
 .add-credits-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,rgba(0,102,255,.15) 0%,rgba(111,223,226,.08) 100%);border:1px solid rgba(0,102,255,.28);border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700;color:var(--teal);cursor:pointer;font-family:'Urbanist',sans-serif;letter-spacing:.01em;transition:background var(--tf),border-color var(--tf),color var(--tf);width:100%}
 .add-credits-btn:hover{background:linear-gradient(135deg,rgba(0,102,255,.25) 0%,rgba(111,223,226,.15) 100%);border-color:rgba(0,102,255,.5);color:var(--d50)}
@@ -133,7 +133,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:22px;cursor:pointer;transition:border-color var(--tb),transform var(--tf);position:relative;overflow:hidden}
 .stat-card:hover{border-color:var(--card-border-hover);transform:translateY(-1px)}
 .stat-card-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.stat-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:10px}
+.stat-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--d300);margin-bottom:10px}
 /* The brand is always "AiMY" — exempt it from the uppercase label treatment. */
 .brand-name{text-transform:none}
 .stat-value{font-size:34px;font-weight:800;letter-spacing:-.045em;color:var(--d50);line-height:1}
@@ -141,10 +141,10 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .stat-delta{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;margin-top:10px}
 .stat-delta.up{color:var(--ok)}
 .stat-delta.down{color:var(--err)}
-.stat-delta.neutral{color:var(--d500)}
+.stat-delta.neutral{color:var(--d400)}
 .stat-delta svg{width:13px;height:13px;flex-shrink:0}
-.stat-delta-label{font-weight:400;color:var(--d500)}
-.stat-sub{font-size:11px;color:var(--d500);font-weight:500;margin-top:6px;line-height:1.4}
+.stat-delta-label{font-weight:500;color:var(--d400)}
+.stat-sub{font-size:11.5px;color:var(--d300);font-weight:500;margin-top:6px;line-height:1.45}
 .stat-icon{width:38px;height:38px;border-radius:10px;background:var(--d750);border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;color:var(--d400);flex-shrink:0}
 .stat-icon svg{width:18px;height:18px}
 
@@ -165,9 +165,9 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .dist-glyph.is-timeout{background:var(--warn-bg);color:var(--warn);border-color:rgba(247,144,9,.25);font-size:12px}
 .dist-glyph.is-pending{background:var(--d800);color:var(--d400);border:1px dashed var(--d600);font-size:12px}
 .dist-glyph.is-ok{background:var(--ok-bg);color:var(--ok);border-color:rgba(23,178,106,.25);font-size:12px}
-.dist-name{font-size:13px;color:var(--d300);min-width:0}
-.dist-count{font-size:13px;font-weight:700;color:var(--d100);text-align:right}
-.dist-pct{font-size:11px;color:var(--d500);min-width:46px;text-align:right}
+.dist-name{font-size:13px;font-weight:600;color:var(--d100);min-width:0}
+.dist-count{font-size:13.5px;font-weight:800;color:var(--d50);text-align:right}
+.dist-pct{font-size:11.5px;font-weight:600;color:var(--d400);min-width:46px;text-align:right}
 
 /* ── Tile states: loading / empty / error ── */
 @keyframes opsShimmer{0%{background-position:-340px 0}100%{background-position:340px 0}}
@@ -176,7 +176,7 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .is-loading .stat-delta{opacity:.35}
 .state-block{display:none;flex-direction:column;align-items:flex-start;gap:6px}
 .state-block .sb-title{font-size:13px;font-weight:700;color:var(--d100)}
-.state-block .sb-text{font-size:12px;color:var(--d500);line-height:1.5;max-width:44ch}
+.state-block .sb-text{font-size:12px;color:var(--d300);line-height:1.55;max-width:44ch}
 .is-empty .stat-card-inner,.is-error .stat-card-inner{display:none}
 .is-empty .state-empty,.is-error .state-error{display:flex}
 
@@ -184,16 +184,16 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 .ident-block{margin-bottom:18px}
 .ident-block:last-child{margin-bottom:0}
 .ident-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
-.ident-name{font-size:13px;color:var(--d300)}
+.ident-name{font-size:13px;font-weight:600;color:var(--d100)}
 .ident-value{font-size:16px;font-weight:800;color:var(--d50);letter-spacing:-.03em}
 .ident-track{height:8px;border-radius:99px;background:var(--d750);overflow:hidden}
 .ident-fill{height:100%;border-radius:99px;background:var(--ai);transform-origin:left}
-.ident-meta{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-size:11px;color:var(--d500)}
-.ident-meta strong{color:var(--d300);font-weight:700}
+.ident-meta{display:flex;justify-content:space-between;gap:10px;margin-top:7px;font-size:11.5px;font-weight:500;color:var(--d300)}
+.ident-meta strong{color:var(--d50);font-weight:800}
 /* Step number on each process stage — the section reads as an ordered funnel. */
 .ident-step{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-right:8px;border-radius:5px;background:var(--d750);color:var(--d400);font-size:9px;font-weight:800;vertical-align:1px}
 /* A stage note, or the pointer to the stage another section owns. */
-.ident-note{font-size:11px;color:var(--d500);line-height:1.5}
+.ident-note{font-size:12px;font-weight:500;color:var(--d300);line-height:1.55}
 
 /* ── Assistance outcome rows (performance modal) ── */
 .outcome-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto 18px;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--card-border)}
@@ -208,19 +208,19 @@ body{font-family:'Urbanist',sans-serif;background:var(--body-bg);color:var(--d50
 /* Identification reads as one column — two side by side was too dense. */
 .ident-stack{display:flex;flex-direction:column;gap:22px}
 /* caption inside a drill-down panel, e.g. "Top reasons" */
-.panel-caption{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:6px}
+.panel-caption{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d300);margin-bottom:6px}
 .outcome-glyph.neg{background:var(--err-bg);color:var(--err);font-size:12px}
-.outcome-name{font-size:13px;color:var(--d300);min-width:0}
-.outcome-tag{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--d500);margin-top:2px}
-.outcome-count{font-size:13px;font-weight:700;color:var(--d100);text-align:right}
-.outcome-pct{font-size:11px;color:var(--d500);min-width:46px;text-align:right}
+.outcome-name{font-size:13px;font-weight:600;color:var(--d100);min-width:0}
+.outcome-tag{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--d400);margin-top:2px}
+.outcome-count{font-size:13.5px;font-weight:800;color:var(--d50);text-align:right}
+.outcome-pct{font-size:11.5px;font-weight:600;color:var(--d400);min-width:46px;text-align:right}
 /* Expandable outcome row */
 /* line-height:inherit — buttons default to `normal`, which shortens the row */
 button.outcome-row{width:100%;border:0;border-bottom:1px solid var(--card-border);background:transparent;font-family:'Urbanist',sans-serif;font-size:inherit;line-height:inherit;text-align:left;cursor:pointer;transition:background var(--tf)}
 button.outcome-row:hover{background:rgba(255,255,255,.028)}
 button.outcome-row:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:6px}
 .outcome-chevron-placeholder{width:14px;height:14px}
-.outcome-chevron{width:14px;height:14px;color:var(--d500);transition:transform var(--tb)}
+.outcome-chevron{width:14px;height:14px;color:var(--d400);transition:transform var(--tb)}
 button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180deg);color:var(--teal)}
 .outcome-panel{padding:12px 14px 4px;border-bottom:1px solid var(--card-border);background:rgba(13,17,23,.28);border-radius:0 0 10px 10px}
 .outcome-panel .modal-section-title{margin-bottom:8px}
@@ -304,7 +304,8 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 }
 .followup-type-meta{
   font-size:9px;
-  color:var(--d500);
+  font-weight:500;
+  color:var(--d400);
   margin-top:2px;
 }
 .followup-type-value{
@@ -317,7 +318,7 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
   display:block;
   font-size:9px;
   font-weight:500;
-  color:var(--d500);
+  color:var(--d400);
   margin-top:1px;
 }
 .followup-type-track{
@@ -357,7 +358,7 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 }
 .followup-insight-note-text{
   font-size:9px;
-  color:var(--d500);
+  color:var(--d400);
   line-height:1.5;
 }
 .followup-insight-note-text strong{
@@ -418,7 +419,7 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 /* .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai);border-radius:20px 20px 0 0} */
 .modal-header{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 24px 0;gap:16px}
 .modal-title-group{display:flex;flex-direction:column;gap:4px}
-.modal-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--d500)}
+.modal-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--d300)}
 .modal-title{font-size:20px;font-weight:800;letter-spacing:-.025em;color:var(--d50);line-height:1.2}
 .modal-close{width:34px;height:34px;border-radius:8px;background:var(--d800);border:1px solid var(--card-border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--d400);flex-shrink:0;transition:background var(--tf),color var(--tf)}
 .modal-close:hover{background:var(--d750);color:var(--d50)}
@@ -426,40 +427,40 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 .modal-body{padding:20px 24px 24px}
 .modal-section{margin-bottom:22px}
 .modal-section:last-child{margin-bottom:0}
-.modal-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--d500);margin-bottom:14px}
+.modal-section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--d300);margin-bottom:14px}
 /* Denominator suffix on a section title -- says what the counts below divide. */
-.mst-base{font-weight:500;text-transform:none;letter-spacing:0;color:var(--d500)}
+.mst-base{font-size:11px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--d400)}
 .modal-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .modal-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .modal-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .m-stat{background:var(--d800);border:1px solid var(--card-border);border-radius:12px;padding:14px 16px}
 .m-stat-value{font-size:24px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1;margin-bottom:4px}
-.m-stat-label{font-size:11px;color:var(--d500);font-weight:500}
+.m-stat-label{font-size:11.5px;color:var(--d300);font-weight:600}
 .m-stat-delta{font-size:11px;font-weight:700;margin-top:5px}
 .m-stat-delta.up{color:var(--ok)}
 .m-stat-delta.down{color:var(--err)}
-.m-stat-delta.neutral{color:var(--d500)}
+.m-stat-delta.neutral{color:var(--d400)}
 .m-stat-delta.info{color:var(--teal)}
 .bk-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--card-border)}
 .bk-row:last-child{border-bottom:none}
 /* label takes what it needs; the bar yields, so labels stop wrapping in 2-col grids */
-.bk-label{flex:1 1 auto;min-width:132px;font-size:13px;color:var(--d300)}
+.bk-label{flex:1 1 auto;min-width:132px;font-size:13px;font-weight:500;color:var(--d300)}
 .bk-bar-wrap{flex:0 1 96px;min-width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
 .bk-bar{height:100%;border-radius:99px;background:var(--ai)}
 .bk-val{font-size:13px;font-weight:700;color:var(--d100);min-width:52px;text-align:right}
-.bk-pct{font-size:11px;color:var(--d500);min-width:36px;text-align:right}
+.bk-pct{font-size:11.5px;font-weight:600;color:var(--d400);min-width:36px;text-align:right}
 /* AiMY summary block — shared treatment, matches sales.html */
 .insight-banner{display:flex;align-items:flex-start;gap:12px;background:rgba(var(--qa-accent-rgb),.07);border:1px solid rgba(var(--qa-accent-rgb),.2);border-radius:10px;padding:13px 15px;margin-top:20px}
 .insight-aimark{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,rgba(111,223,226,.24),rgba(51,105,255,.13));border:1px solid rgba(111,223,226,.62);box-shadow:0 0 0 3px rgba(111,223,226,.06),0 8px 20px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .insight-logo-icon{width:18px;height:18px;display:block;object-fit:contain}
-.insight-text{font-size:12px;color:var(--d400);line-height:1.55}
+.insight-text{font-size:12.5px;font-weight:500;color:var(--d300);line-height:1.55}
 .insight-text strong{color:var(--teal);font-weight:700}
 .reason-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--card-border)}
 .reason-row:last-child{border-bottom:none}
 .reason-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.reason-label{flex:1;font-size:13px;color:var(--d300)}
+.reason-label{flex:1;font-size:13px;font-weight:500;color:var(--d300)}
 .reason-count{font-size:13px;font-weight:700;color:var(--d100)}
-.reason-pct{font-size:11px;color:var(--d500);min-width:36px;text-align:right}
+.reason-pct{font-size:11.5px;font-weight:600;color:var(--d400);min-width:36px;text-align:right}
 /* Only surviving notice: the AIMY-852 TeamSupport discrepancy in ticketsModal. */
 /* sits as a direct child of .modal-body, so it carries .modal-section's 22px rhythm itself */
 .alert-strip{border-radius:10px;padding:12px 15px;border:1px solid;margin:16px 0 22px;background:var(--warn-bg);border-color:rgba(247,144,9,.25)}
@@ -471,10 +472,10 @@ button.outcome-row[aria-expanded="true"] .outcome-chevron{transform:rotate(180de
 .credits-modal{max-width:580px}
 .credits-form{display:flex;flex-direction:column;gap:18px}
 .form-field{display:flex;flex-direction:column;gap:7px}
-.form-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
+.form-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d300)}
 .form-input{background:var(--d800);border:1px solid var(--card-border);border-radius:9px;padding:11px 14px;font-size:15px;font-weight:700;color:var(--d50);font-family:'Urbanist',sans-serif;letter-spacing:-.01em;transition:border-color var(--tf);width:100%}
 .form-input:focus{border-color:var(--brand);outline:none}
-.form-input::placeholder{color:var(--d600);font-weight:500}
+.form-input::placeholder{color:var(--d400);font-weight:500}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;appearance:none;margin:0}
 input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:36px}
 .number-input-wrap{position:relative;display:flex;align-items:center;border-radius:9px;border:1px solid var(--card-border);overflow:hidden;transition:border-color var(--tf)}
@@ -483,7 +484,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .number-input-wrap .form-input:focus{border-color:transparent}
 .number-spin-btns{position:absolute;right:0;top:0;bottom:0;display:flex;flex-direction:column;width:32px;border-left:1px solid var(--card-border);transition:border-color var(--tf)}
 .number-input-wrap:focus-within .number-spin-btns{border-left-color:var(--brand)}
-.number-spin-btn{flex:1;display:flex;align-items:center;justify-content:center;background:var(--d800);border:none;color:var(--d500);cursor:pointer;font-family:'Urbanist',sans-serif;transition:background var(--tf),color var(--tf);padding:0;line-height:1}
+.number-spin-btn{flex:1;display:flex;align-items:center;justify-content:center;background:var(--d800);border:none;color:var(--d300);cursor:pointer;font-family:'Urbanist',sans-serif;transition:background var(--tf),color var(--tf);padding:0;line-height:1}
 .number-spin-btn:first-child{border-bottom:1px solid var(--card-border)}
 .number-spin-btn:hover{background:var(--d700);color:var(--brand)}
 .number-spin-btn svg{width:10px;height:10px;pointer-events:none}
@@ -493,7 +494,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .preset-btn.selected{background:var(--brand-dim);border-color:var(--brand);color:var(--d50)}
 .credits-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .cs-item{display:flex;flex-direction:column;gap:3px}
-.cs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500);white-space:nowrap}
+.cs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d300);white-space:nowrap}
 .cs-value{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--d50);white-space:nowrap}
 .cs-value.accent{color:var(--teal)}
 
@@ -519,7 +520,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .go-badge.addon{background:rgba(111,223,226,.1);color:var(--teal);border:1px solid rgba(111,223,226,.2)}
 .go-badge.plan{background:rgba(0,102,255,.1);color:#61adf1;border:1px solid rgba(0,102,255,.2)}
 .go-badge svg{width:10px;height:10px}
-.go-arrow{width:20px;height:20px;color:var(--d600);flex-shrink:0;align-self:center;transition:color var(--tf),transform var(--tf)}
+.go-arrow{width:20px;height:20px;color:var(--d400);flex-shrink:0;align-self:center;transition:color var(--tf),transform var(--tf)}
 .gateway-option:hover .go-arrow{color:var(--d300);transform:translateX(2px)}
 .gateway-context{background:rgba(0,102,255,.06);border:1px solid rgba(97,173,241,.14);border-radius:10px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
 .gateway-context-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
@@ -531,7 +532,7 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .plan-modal{max-width:580px}
 .plan-form{display:flex;flex-direction:column;gap:18px}
 .plan-current-strip{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d500)}
+.pcs-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--d300)}
 .pcs-value{font-size:17px;font-weight:800;letter-spacing:-.03em;color:var(--d50)}
 .pcs-divider{width:1px;height:30px;background:var(--card-border)}
 .plan-tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -540,11 +541,11 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .plan-tier.selected{background:rgba(0,102,255,.09);border-color:rgba(0,102,255,.4)}
 /* .plan-tier.selected::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ai)} */
 .pt-increment{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--d50);line-height:1;margin-bottom:2px}
-.pt-unit{font-size:10px;font-weight:600;color:var(--d500);margin-bottom:10px}
-.pt-total{font-size:11px;font-weight:500;color:var(--d600)}
+.pt-unit{font-size:10px;font-weight:600;color:var(--d400);margin-bottom:10px}
+.pt-total{font-size:11px;font-weight:500;color:var(--d400)}
 .plan-custom-row{display:flex;align-items:center;gap:10px}
 .plan-custom-row .form-input{flex:1}.plan-custom-row .number-input-wrap{flex:1}
-.plan-custom-label{font-size:11px;color:var(--d500);white-space:nowrap}
+.plan-custom-label{font-size:11px;font-weight:500;color:var(--d400);white-space:nowrap}
 .plan-summary{background:var(--d800);border:1px solid var(--card-border);border-radius:11px;padding:16px;display:flex;flex-direction:column;gap:11px}
 .ps-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .ps-label{color:var(--d400)}
@@ -571,10 +572,10 @@ input[type=number]{-moz-appearance:textfield;appearance:textfield;padding-right:
 .confirm-row-val{font-weight:700;color:var(--d100)}
 .confirm-row-val.accent{color:var(--teal)}
 .confirm-divider{height:1px;background:var(--card-border);margin:0}
-.confirm-note{font-size:12px;color:var(--d500);line-height:1.55;text-align:center;padding:0 8px}
+.confirm-note{font-size:12px;color:var(--d300);line-height:1.55;text-align:center;padding:0 8px}
 .footer-note{margin-top:36px;padding-top:20px;border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between}
-.footer-left{font-size:11px;color:var(--d600)}
-.footer-right{font-size:11px;color:var(--d600);display:flex;align-items:center;gap:7px}
+.footer-left{font-size:11px;font-weight:500;color:var(--d400)}
+.footer-right{font-size:11px;font-weight:500;color:var(--d400);display:flex;align-items:center;gap:7px}
 .footer-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
 /* `height` governs horizontal scrollbars the way `width` governs vertical ones.
    Without it they fall back to the 15px default and don't match. */
@@ -616,8 +617,8 @@ button.aimy-float-icon{cursor:pointer}
 .float-badge{position:absolute;top:-3px;right:-3px;min-width:16px;height:16px;border-radius:var(--r-pill);background:var(--err);border:1.5px solid var(--body-bg);font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;padding:0 3px;letter-spacing:.02em}
 .float-badge[hidden]{display:none}
 .aimy-float-input{flex:1;background:none;border:none;outline:none!important;font-family:var(--font-sans);font-size:13.5px;font-weight:500;color:var(--d50);caret-color:var(--accent);line-height:1.4;padding:0 4px}
-.aimy-float-input::placeholder{color:var(--d500);font-weight:400}
-.aimy-float-hint{font-size:11px;font-weight:500;color:var(--d500);letter-spacing:.01em;white-space:nowrap;flex-shrink:0;padding-right:6px;pointer-events:none}
+.aimy-float-input::placeholder{color:var(--d400);font-weight:400}
+.aimy-float-hint{font-size:11px;font-weight:500;color:var(--d400);letter-spacing:.01em;white-space:nowrap;flex-shrink:0;padding-right:6px;pointer-events:none}
 .aimy-float-send{width:36px;height:36px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform var(--t-fast),box-shadow var(--t-fast);box-shadow:0 2px 10px rgba(var(--accent-rgb),.4)}
 .aimy-float-send:hover{box-shadow:0 4px 18px rgba(var(--accent-rgb),.55);transform:translateY(-1px)}
 .aimy-float-send:active{transform:scale(.97)}
@@ -673,7 +674,7 @@ button.aimy-float-icon{cursor:pointer}
 .overlay-input-bar{display:flex;align-items:center;gap:10px;background:#1e2428;border:1px solid rgba(255,255,255,.1);border-radius:40px;padding:8px;transition:border-color var(--t-base),box-shadow var(--t-base)}
 .overlay-input-bar:focus-within{border-color:rgba(var(--accent-rgb),.45);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12)}
 .overlay-input{flex:1;background:none;border:none;outline:none;resize:none;overflow:hidden;font-family:var(--font-sans);font-size:13.5px;font-weight:500;color:var(--d50);caret-color:var(--accent);line-height:1.5;padding:0 4px;max-height:120px}
-.overlay-input::placeholder{color:var(--d500);font-weight:400}
+.overlay-input::placeholder{color:var(--d400);font-weight:400}
 .overlay-send{width:36px;height:36px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform var(--t-fast),box-shadow var(--t-fast);box-shadow:0 2px 10px rgba(var(--accent-rgb),.4)}
 .overlay-send:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(var(--accent-rgb),.55)}
 .overlay-send:active{transform:scale(.97)}
@@ -819,7 +820,7 @@ button.aimy-float-icon{cursor:pointer}
           <div class="ring-divider"></div>
           <div class="ring-stat">
             <div class="ring-stat-value-row">
-              <div class="ring-stat-value" style="color:var(--d500)">4,000</div>
+              <div class="ring-stat-value" style="color:var(--d400)">4,000</div>
               <span class="addon-pill" id="addonPill"></span>
             </div>
             <div class="ring-stat-sub">plan minutes</div>
@@ -895,7 +896,7 @@ button.aimy-float-icon{cursor:pointer}
         <div class="stat-card-inner">
           <div>
             <div class="stat-label">Performance Analysis</div>
-            <div class="stat-value skel">3,636<span class="stat-unit">analysed</span></div>
+            <div class="stat-value skel">3,636<span class="stat-unit" style="margin-left:7px">analysed</span></div>
             <div class="stat-delta neutral"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8h11"/></svg>94.7% <span class="stat-delta-label">of 3,840 calls handled</span></div>
             <div class="stat-sub">92.3% identified · 98.2% data captured</div>
           </div>
@@ -1427,7 +1428,7 @@ button.aimy-float-icon{cursor:pointer}
             </div>
             <span class="plan-custom-label">min / mo</span>
           </div>
-          <div id="planCustomHint" style="font-size:11px;color:var(--d600);margin-top:5px;min-height:16px"></div>
+          <div id="planCustomHint" style="font-size:11px;color:var(--d400);margin-top:5px;min-height:16px"></div>
         </div>
 
         <!-- Summary -->
